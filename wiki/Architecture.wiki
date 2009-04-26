@@ -1,0 +1,13 @@
+#summary Describes the overall architecture and how clients interact with the stack.
+
+= Introduction =
+
+The *BT Stack* has to support multiple clients. The *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
+
+A minimal *HCI daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the HCI daemon over Unix sockets. If possible, we want to save resources by running the HCI daemon in a single thread.
+
+Current architecture:
+Application -> BT library -> Unix Socket -> HCI daemon -> HCI transport support (H4, H5, USB) -> Bluetooth module.
+
+
+Development/Debugging: libUSB allows to use USB BT modules during development.
