@@ -13,3 +13,15 @@ Application -> BT library -> Unix Socket -> HCI daemon -> HCI transport support 
 Development/Debugging: libUSB allows to use USB BT modules during development.
 
 Intro/Overview for single thread unix socket server: http://www.lowtek.com/sockets/select.html
+
+Design decision: how much state is kept in HCI daemon, how much in the Bluetooth library? A minimal HCI daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
+
+
+Shared state:
+ * List of Baseband connections
+ * Bluetooth state: off/initializing/on/terminating
+ * Configuration: page scan timeout, discoverable, etc..
+
+BT HCI Transport API:
+ * send_hci_packet()
+ * register_hci_packet_receive_callback( .. )
