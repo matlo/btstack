@@ -25,3 +25,6 @@ Shared state:
 BT HCI Transport API:
  * send_hci_packet()
  * register_hci_packet_receive_callback( .. )
+
+BT Control API: In addition to the pure HCI implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel funtion.
+ 
