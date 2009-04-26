@@ -11,3 +11,5 @@ Application -> BT library -> Unix Socket -> HCI daemon -> HCI transport support 
 
 
 Development/Debugging: libUSB allows to use USB BT modules during development.
+
+Intro/Overview for single thread unix socket server: http://www.lowtek.com/sockets/select.html
