@@ -4,27 +4,32 @@
 
 The *BT Stack* has to support multiple clients. The *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
 
-A minimal *HCI daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the HCI daemon over Unix sockets. If possible, we want to save resources by running the HCI daemon in a single thread.
+== HCI Daemon ==
+A minimal *HCI daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the HCI daemon over Unix sockets. If possible, we want to save resources by running the HCI daemon in a single thread. Intro/Overview for single thread unix socket server: http://www.lowtek.com/sockets/select.html
 
-Current architecture:
+== Current architecture ==
 Application -> BT library -> Unix Socket -> HCI daemon -> HCI transport support (H4, H5, USB) -> Bluetooth module.
 
+== Development/Debugging ==
+libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. However, it is not ported to Mac or Windows yet. As USB on non-linux systems will be only relevant for debugging, this might be implemented in an inefficient manner nevertheless.
 
-Development/Debugging: libUSB allows to use USB BT modules during development.
-
-Intro/Overview for single thread unix socket server: http://www.lowtek.com/sockets/select.html
-
-Design decision: how much state is kept in HCI daemon, how much in the Bluetooth library? A minimal HCI daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
+== Future design decisions ==
+How much state is kept in HCI daemon, how much in the Bluetooth library? A minimal HCI daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
 
 
-Shared state:
- * List of Baseband connections
- * Bluetooth state: off/initializing/on/terminating
- * Configuration: page scan timeout, discoverable, etc..
+== Shared state in HCI daemon ==
+  * List of Baseband connections, their state sniffing/hold/park..
+  * Bluetooth state: off/initializing/on/terminating
+  * Configuration: page scan timeout, discoverable, etc..
 
-BT HCI Transport API:
- * send_hci_packet()
- * register_hci_packet_receive_callback( .. )
+== BT HCI Transport API ==
+  * send_hci_packet()
+  * register_hci_packet_receive_callback( .. )
+  * reset()
+  * open/close()
+  * getFileDescriptor() -- only used for select( .. ) call
+  * handleData()
 
-BT Control API: In addition to the pure HCI implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel funtion.
+== BT Control API ==
+In addition to the pure HCI implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
  
