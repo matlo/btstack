@@ -2,12 +2,10 @@
 
 = Introduction =
 
-The *BT Stack* has to support multiple clients. The *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
+The *BT Stack* has to support multiple clients. This is because the *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
 
 == HCI Daemon ==
-A minimal *HCI daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the HCI daemon over Unix sockets. If possible, we want to save resources by running the HCI daemon in a single thread. Intro/Overview for single thread unix socket server: http://www.lowtek.com/sockets/select.html
-
-The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
+A minimal *HCI daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the HCI daemon over Unix sockets. If possible, we want to save resources by running the HCI daemon in a single thread. An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html
 
 == Current architecture ==
 Application -> BT library -> Unix Socket -> HCI daemon -> HCI transport support (H4, H5, USB) -> Bluetooth module.
@@ -28,20 +26,21 @@ How much state is kept in HCI daemon, how much in the Bluetooth library? A minim
 The HCI Transport API allows the HCI daemon to use different transport implementations.
  
 {{{
-typedef {
-    // API
+typedef struct {
     int    (*open)(void *transport_config);
-    int    (*close);
+    int    (*close)();
     int    (*send_cmd_packet)(void *packet, int size);
     int    (*send_acl_packet)(void *packet, int size);
-    void   (*register_event_packet_handler)((*handler)(void *packet, int size));
-    void   (*register_acl_packet_handler)  ((*handler)(void *packet, int size));
+    void   (*register_event_packet_handler)(void (*handler)(void *packet, int size));
+    void   (*register_acl_packet_handler)  (void (*handler)(void *packet, int size));
     int    (*get_fd)();      // <-- only used for select(..) call
     int    (*handle_data)(); // -- to be called when select( .. ) returns for the fd
-    char * (*get_transport_name)();
+    const char * (*get_transport_name)();
 } hci_transport_t;
 }}}
 
 == BT Control API ==
 In addition to the pure HCI implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
  
+== Modular Design ==
+The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
