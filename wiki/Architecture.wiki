@@ -48,5 +48,14 @@ In addition to the pure HCI implementation, there is a need for functions such a
 The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
 
 == References ==
-  * Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
+  * Official Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
   * CSR provides a wealth of documents on HCI and their hardware after registering a free account at http://www.csrsupport.com
+  * The GPL Linux Bluetooth Stack: http://www.bluez.org/
+    * The implementation for CSR lists some of the magical properties set by the Apple BlueTool init scripts, I did not find in the CSR documentation.
+  * The lightweight Bluetooth Stack (lwBT). Another embedded BT stack, intended for use with the lightweight IP stack (lwIP): http://www.sm.luth.se/~conny/lwbt/
+  * The ETH BTnut BT Stack: http://www.btnode.ethz.ch
+    * Documentation on the HCI implementation: http://www.btnode.ethz.ch/static_docs/btnut/bt-stack.pdf
+    * HCI API: http://www.btnode.ethz.ch/static_docs/doxygen/btnut/bt__hci__api_8h.html
+    * HCI Commands: http://www.btnode.ethz.ch/static_docs/doxygen/btnut/bt__hci__cmds_8h.html
+/group__btnode__resources.html#btnode_bt-stack
+  * libUSB: http://libusb.wiki.sourceforge.net/
