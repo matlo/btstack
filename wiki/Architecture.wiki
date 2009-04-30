@@ -46,3 +46,7 @@ In addition to the pure HCI implementation, there is a need for functions such a
  
 == Modular Design ==
 The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
+
+== References ==
+  * Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
+  * CSR provides a wealth of documents on HCI and their hardware after registering a free account at http://www.csrsupport.com
