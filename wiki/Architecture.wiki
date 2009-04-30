@@ -11,7 +11,9 @@ A minimal *HCI daemon* is necessary to handle the multiplexing of multiple appli
 Application -> BT library -> Unix Socket -> HCI daemon -> HCI transport support (H4, H5, USB) -> Bluetooth module.
 
 == Development/Debugging ==
-libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. However, it is not ported to Mac or Windows yet. As USB on non-linux systems will be only relevant for debugging, this might be implemented in an inefficient manner nevertheless.
+libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. This fits the single thread unix socket server.
+ 
+However, it is not ported to Mac or Windows yet. As USB on non-linux systems will be only relevant for debugging, a separate thread can use the older libUSB-1.0 and signal the main loop when data is ready from USB.
 
 == Future design decisions ==
 How much state is kept in HCI daemon, how much in the Bluetooth library? A minimal HCI daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
