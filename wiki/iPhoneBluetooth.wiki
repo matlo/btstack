@@ -6,7 +6,7 @@ So far, the OS on the iPhone and the iPod Touch only supports the use of Bluetoo
 
 = Hardware Details =
 
-Both generation of the iPhone (2G and 3G versions) use Bluetooth chipsets from Cambridge Silicon Radio (CSR), one of the leading Bluetooth vendors. CSR provides a wealth of documentation in their [http://csrsupport.com technical support area] (free login required). The first generation iPhone contains a !BlueCore ?, the second generation (current 3G models) contains a !BlueCore ? chipset. (Tell me if you know which one, I'll look it up soon..). The iPod Touch second generation contains a Broadcom chipset, a company not famous for providing developer information.
+Both generation of the iPhone (2G and 3G versions) use Bluetooth chipsets from Cambridge Silicon Radio (CSR), one of the leading Bluetooth vendors. CSR provides a wealth of documentation in their [http://csrsupport.com technical support area] (free login required). The first generation iPhone contains a !BlueCore 4, the second generation (current 3G models) contains a !BlueCore 6 chipset. The iPod Touch second generation contains a Broadcom chipset, a company not famous for providing developer information.
 
 = Software Details =
 
