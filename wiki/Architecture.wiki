@@ -37,7 +37,7 @@ typedef struct {
     void   (*register_event_packet_handler)(void (*handler)(void *packet, int size));
     void   (*register_acl_packet_handler)  (void (*handler)(void *packet, int size));
     int    (*get_fd)();      // <-- only used for select(..) call
-    int    (*handle_data)(); // -- to be called when select( .. ) returns for the fd
+    int    (*handle_data)(); // <-- to be called when select( .. ) returns for the fd
     const char * (*get_transport_name)();
 } hci_transport_t;
 }}}
@@ -67,11 +67,12 @@ The HCI daemon should know which connections are open. A linked list will be fin
 The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
 
 == L2CAP State Machine ==
-L2CAP could be implemented in the client library or as part of the HCI daemon. An implementation on the client side facilitates flow control and management of connections. Also the HCI daemon can be small and efficient. Is the memory for the code of shared libraries only used once ? (The memory for actual connections is fine). How could this adapt to a small embedded system? How is the dispaching done?
+L2CAP could be implemented in the client library or as part of the HCI daemon. An implementation on the client side facilitates flow control and management of connections. Also the HCI daemon can be small and efficient. Is the memory for the code of shared libraries only used once ? (The memory for actual connections is fine). How could this adapt to a small embedded system? How is the dispatching done?
 
 == References ==
   * Official Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
   * CSR provides a wealth of documents on HCI and their hardware after registering a free account at http://www.csrsupport.com
+  * Nice [http://www.inf.ethz.ch/personal/kasten/research/bathtub/bluetooth/ L2CAP Summary]
   * BlueZ - The GPL Linux Bluetooth Stack: http://www.bluez.org/
     * The implementation for CSR lists some of the magical properties set by the Apple BlueTool init scripts, I could not find in the CSR documentation.
   * The lightweight Bluetooth Stack (lwBT). Another embedded BT stack, intended for use with the lightweight IP stack (lwIP): http://www.sm.luth.se/~conny/lwbt/
