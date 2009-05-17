@@ -1,0 +1,58 @@
+#summary This page describes the L2CAP Implementation for BTstack.
+
+= Introduction =
+
+L2CAP is primarily concerned with:
+  # Protocol multiplexing
+  # Segmentation and reassembly operations
+We do not intend to support per-channel flow control or retransmissions. Therefore we will only implement L2CAP Basic Mode. The L2CAP State machine will follow the overall goal of non-blocking operations.
+
+= Details =
+
+== l2cap_listener_t (a.k.a Socket) ==
+  * PSM
+  * MTU
+  * Connection Indication Callback
+
+== l2cap_channel_t ==
+  * State {...}
+  * Event callback
+  * Data  callback
+  * Remote address / connection handle
+  * MTU: incoming, outgoing
+  * FlushTimeout: incoming, outgoing
+
+== Client API ==
+{{{
+  l2cap_create_connection(remote address, remote psm, event_cb, data_cb);
+  l2cap_disconnect(l2cap_channel_t *channel, reason);
+  l2cap_register_psm(psm, mtu, connect_cb(remote address, remote cid);
+  l2cap_accept_connection(remote address,remote cid);
+  l2cap_decline_connection(remote address, remote cid, reason);
+  l2cap_unregister_psm(l2cap_listen_t *listener);
+}}}
+
+== Usage ==
+For listening services, l2cap_register_psm(..) is called. On incoming l2cap connection request, the connect_cb will be called. The application is free to accept or decline the request.
+
+== L2CAP State Machine ==
+Most part of the L2CAP State Machine will be implemented as part of the BT daemon. However, on the client side, a subset of state information is required, too.
+
+
+== ACL Flow Control ==
+Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented on the BT daemon instead of the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
+
+
+== ACL Buffers at BT Daemon ==
+  * For each baseband connection:
+    * 2 ACL buffers for incoming DH5 packets
+    * 2 L2CAP packet buffers of size max MTU(x) (x is set of all L2CAP connections on this baseband connection). One L2CAP buffer is needed for assmbly of incoming ACL packets, the second for receiving client complete client packets
+
+== Buffers in BT Client ==
+
+
+== References ==
+  * Official Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
+  * Nice [http://www.inf.ethz.ch/personal/kasten/research/bathtub/bluetooth/ L2CAP Summary]
+  * The lightweight Bluetooth Stack (lwBT). Another embedded BT stack, intended for use with the lightweight IP stack (lwIP): http://www.sm.luth.se/~conny/lwbt/
+  * The ETH BTnut BT Stack: http://www.btnode.ethz.ch
