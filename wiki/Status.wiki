@@ -1,0 +1,26 @@
+#summary Status of the BTstack implementation
+
+The BTstack is in early development phase and mostly suited for people interesting in learning their way around in the Bluetooth Stack. However, the example main.c can create an authenticated L2CAP connection and receive data packets.
+
+= Bluetooth Layers =
+
+== HCI Transport ==
+
+=== H4 ===
+ * The original H4 protocol for UARTs is fully implemented and working.
+=== BCSP/H5 ===
+ * The more advanced CSR BSCP and the "Three Wire UART" transport protocol are not supported.
+
+== HCI ==
+ * A minimal HCI layer is implemented. Instead of implementing each HCI command separately, a table-driven approach allows to add HCI commands by only specifying the command packet format.
+
+== L2CAP ==
+ * Testing code for L2CAP is working - a connection can be established - but it is not yet made into a reusable L2CAP layer. More specifically, neither packet segmentation, packet reassembly, multiple connections or flow control are implemented. 
+
+= Other =
+
+== BT Control ==
+=== iPhone ===
+ * The current iPhone control component is able to switch the Bluetooth chipset in the iPhone on/off and properly initialize in to HCI H4 Transport mode with configurable baud rates from 57600-921600.
+ * Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple.
+ * There is a problem with restarting BT after it was turned on.
