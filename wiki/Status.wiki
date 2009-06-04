@@ -23,4 +23,4 @@ The BTstack is in early development phase and mostly suited for people interesti
 === iPhone ===
  * The current iPhone control component is able to switch the Bluetooth chipset in the iPhone on/off and properly initialize in to HCI H4 Transport mode with configurable baud rates from 57600-921600.
  * Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple.
- * There is a problem with restarting BT after it was turned on.
+ * Repeated power on/off work without issues, so the BTdaemon can keep running with the BT turned off completely while the iPhone is in sleep mode.
