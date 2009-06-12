@@ -5,13 +5,22 @@
 The *BT Stack* has to support multiple clients. This is because the *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
 
 == Bluetooth Daemon ==
-A minimal *BT daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BT daemon over Unix sockets. If possible, we want to save resources by running the daemon in a single thread. An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html
+A minimal *BT daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BT daemon over Unix sockets. The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run run loop, all file descriptors can be tracked in parallel. 
+An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html  For now, each active component (socket server, socket connections, bluetooth module) have to provide a data_source_t structure:
+
+{{{
+typedef struct data_source {
+    struct data_source *next;                           // <-- used internally by RunLoop
+    int  fd;                                            // <-- file descriptors to watch or 0
+    int  (*process)(struct data_source *ds, int ready); // <-- do processing, @return: more to do
+} data_source_t;
+}}}
 
 == Current architecture ==
 Application -> BT library (RFCOMM/L2CAP/SDP) -> Unix Socket -> BT daemon (RFCOMM/L2CAP/SDP) -> HCI transport support (H4, H5, USB) -> Bluetooth module
 
 == Development/Debugging ==
-*BT daemon* will be able to write HCI dumps in the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark. Wireshark is available on all platforms. Optionally, Apple's Packet Logger format can be supported for easier debugging on OS X.
+*BT daemon* is able to write HCI dumps both in the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X.
 
 libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. This fits the single thread unix socket server.
  
@@ -31,18 +40,17 @@ How much state is kept in HCI daemon, how much in the Bluetooth library? A minim
 The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
 
 == HCI Transport API ==
-The HCI Transport API allows the HCI daemon to use different transport implementations.
+The HCI Transport API allows the HCI daemon to use different transport implementations. The hci_tranport_t control structure contains a data_source_t structure used for the single-thread implementation.
  
 {{{
 typedef struct {
+    data_source_t ds;
     int    (*open)(void *transport_config);
     int    (*close)();
-    int    (*send_cmd_packet)(void *packet, int size);
-    int    (*send_acl_packet)(void *packet, int size);
-    void   (*register_event_packet_handler)(void (*handler)(void *packet, int size));
-    void   (*register_acl_packet_handler)  (void (*handler)(void *packet, int size));
-    int    (*get_fd)();      // <-- only used for select(..) call
-    int    (*handle_data)(); // <-- to be called when select( .. ) returns for the fd
+    int    (*send_cmd_packet)(uint8_t *packet, int size);
+    int    (*send_acl_packet)(uint8_t *packet, int size);
+    void   (*register_event_packet_handler)(void (*handler)(uint8_t *packet, int size));
+    void   (*register_acl_packet_handler)  (void (*handler)(uint8_t *packet, int size));
     const char * (*get_transport_name)();
 } hci_transport_t;
 }}}
