@@ -4,6 +4,9 @@
 
 The *BT Stack* has to support multiple clients. This is because the *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
 
+== Current architecture ==
+Application -> BT library (RFCOMM/L2CAP/SDP) -> Unix Socket -> BT daemon (RFCOMM/L2CAP/SDP) -> HCI transport support (H4, H5, USB) -> Bluetooth module
+
 == Bluetooth Daemon ==
 A minimal *BT daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BT daemon over Unix sockets. The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run run loop, all file descriptors can be tracked in parallel. 
 An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html  For now, each active component (socket server, socket connections, bluetooth module) have to provide a data_source_t structure:
@@ -16,8 +19,11 @@ typedef struct data_source {
 } data_source_t;
 }}}
 
-== Current architecture ==
-Application -> BT library (RFCOMM/L2CAP/SDP) -> Unix Socket -> BT daemon (RFCOMM/L2CAP/SDP) -> HCI transport support (H4, H5, USB) -> Bluetooth module
+== Flowcontrol for Socket Servers ==
+As the socket servers can receive messages from the clients at any time, a command or an ACL packet might be sent while we cannot directly pass it on to the BT module. In this case, we have to _block_ this socket until a command or an ACL packet can be sent. If the socket server just skips reading data, it will be called immediately again, as the incoming socket is ready. To be excluded from the RunLoop, we can either set the file descriptor to ZERO, or, can remove the data_source from the RunLoop. Setting the filedescriptor to ZERO can be supported by our own POSIX RunLoop, but this is not compatible with the CoreFoundation API (it's unclear yet, weather CoreFoundation is used at all, or, if the BT daemon is implemented in POSIX). In any case, to be activated again, the socket server has to be notified when new event packets are received. If a new event is received, the socket server can check again, if it can pass the incoming data packet on to the BT module.
+
+Because of this, it is necessary that multiple event callbacks can be registered with the BT daemon. Using a callback context structure will simplify the callback registration. Maybe we can implement a "generic" callback handler as we need several ones.
+
 
 == Development/Debugging ==
 *BT daemon* is able to write HCI dumps both in the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X.
