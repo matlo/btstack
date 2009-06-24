@@ -82,7 +82,7 @@ The HCI daemon should know which connections are open. A linked list will be fin
 
 
 == References ==
-  * Official Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
+  * Official Bluetooth specification: http://www.bluetooth.com/Bluetooth/Technology/Building/Specifications/Default.htm
   * CSR provides a wealth of documents on HCI and their hardware after registering a free account at http://www.csrsupport.com
   * BlueZ - The GPL Linux Bluetooth Stack: http://www.bluez.org/
     * The implementation for CSR lists some of the magical properties set by the Apple BlueTool init scripts, I could not find in the CSR documentation.
