@@ -7,21 +7,21 @@ As serial Bluetooth modules are a not commonly used, using a USB Bluetooth Dongl
 
 = Caveats =
  * Linux: root access rights are required to have libUSB connect to a Bluetooth modue. Running BTdaemon as root is not optimal, but probably ok for most people toying with BTstack.
-* OS X: The OS sizes the BT module when plugged in. To use it with libUSB, a "VendorSpecific" kernel extension has to be created and installed. The kernel extension basically only consists of a plist (XML) file that specifies the used BT dongle. [http://www.opensource.apple.com/source/IOUSBFamily/IOUSBFamily-343.4.3/Examples/VendorSpecific%20Driver/ VendorSpecific Driver example code].
+ * OS X: The OS sizes the BT module when plugged in. To use it with libUSB, a "Vendor Specific" kernel extension has to be created and installed. The kernel extension basically only consists of a plist (XML) file that specifies the used BT dongle. [http://www.opensource.apple.com/source/IOUSBFamily/IOUSBFamily-343.4.3/Examples/VendorSpecific%20Driver/ VendorSpecific Driver example code].
 
 = Default Endpoints =
-* 0x00: Control Transfer: HCI Commands
-* 0x81: Interrupt Transfer: HCI Events
-* 0x02: Bulk Transfer: ACL packet to BT dongle
-* 0x82: Bulk Transfer: ACL packets from BT dongle
+ * 0x00: Control Transfer: HCI Commands
+ * 0x81: Interrupt Transfer: HCI Events
+ * 0x02: Bulk Transfer: ACL packet to BT dongle
+ * 0x82: Bulk Transfer: ACL packets from BT dongle
 
 = Status =
-* Finding a BT module (either by product & vendor ID or by device class) works on Linux and Mac.
-* Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux, crashes on Mac. Although, they are not mandated by the  BT specification, most products follow the BT specification recommendation
-* Sending and receiving HCI Reset command works on Linux and Mac.
+ * Finding a BT module (either by product & vendor ID or by device class) works on Linux and Mac.
+ * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux, crashes on Mac. Although, they are not mandated by the  BT specification, most products follow the BT specification recommendation
+ * Sending and receiving HCI Reset command works on Linux and Mac.
 
 = TODO =
-* Adapt test code in src/hci_transport_usb.c to hci_transport.h API
-* Integrate libUSB event handling into BTstack run loop
-* Test HID L2CAP example with USB dongle
+ * Adapt test code in src/hci_transport_usb.c to hci_transport.h API
+ * Integrate libUSB event handling into BTstack run loop
+ * Test HID L2CAP example with USB dongle
  
