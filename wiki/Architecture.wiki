@@ -20,7 +20,7 @@ typedef struct data_source {
 }}}
 
 == Flowcontrol for Socket Servers ==
-As the socket servers can receive messages from the clients at any time, a command or an ACL packet might be sent while we cannot directly pass it on to the BT module. In this case, we have to _block_ this socket until a command or an ACL packet can be sent. If the socket server just skips reading data, it will be called immediately again, as the incoming socket is ready. To be excluded from the RunLoop, we can either set the file descriptor to ZERO, or, can remove the data_source from the RunLoop. In any case, to be activated again, the socket server has to be notified when new event packets are received. If a new event is received, the socket server can check again, if it can pass the incoming data packet on to the BT module.
+As the socket servers can receive messages from the clients at any time, a command or an ACL packet might be sent while we cannot directly pass it on to the BT module. In this case, we have to _block_ this socket until a command or an ACL packet can be sent. If the socket server just skips reading data, it will be called immediately again, as the incoming socket is ready. To be excluded from the RunLoop, the data_source has to be removed from the RunLoop. In any case, to be activated again, the socket server has to be notified when new event packets are received. If a new event is received, the socket server can check again, if it can pass the incoming data packet on to the BT module.
 
 Because of this, it is necessary that multiple event callbacks can be registered with the BT daemon. Using a callback context structure will simplify the callback registration. Maybe we can implement a "generic" callback handler as we need several ones.
 
@@ -30,7 +30,7 @@ Because of this, it is necessary that multiple event callbacks can be registered
 == Development/Debugging ==
 In addition to support for Bluetooth modules connected by a serial connection (H4/H5), libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. This perfectly fits the single thread unix socket server described above. It is supported on Mac and Linux.
  
-However, it is not ported to Windows yet. For debugging purposes on Windows, a separate thread could use the older libUSB-1.0 and signal the main loop when data is ready from USB.
+However, it is not ported to Windows yet. For debugging purposes on Windows, a separate thread could use the older libUSB-0.1 and signal the main loop when data is ready to read from USB.
 
 == Design decisions ==
 How much state is kept in HCI daemon, how much in the Bluetooth library? A minimal BT daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
