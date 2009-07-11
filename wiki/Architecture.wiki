@@ -50,7 +50,6 @@ The HCI Transport API allows the HCI daemon to use different transport implement
  
 {{{
 typedef struct {
-    data_source_t ds;
     int    (*open)(void *transport_config);
     int    (*close)();
     int    (*send_cmd_packet)(uint8_t *packet, int size);
