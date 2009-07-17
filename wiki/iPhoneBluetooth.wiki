@@ -2,11 +2,19 @@
 
 = Introduction =
 
-So far, the OS on the iPhone and the iPod touch only supports the use of Bluetooth headsets. However, this is not a limitation of the used Bluetooth chipset, but of an incomplete Bluetooth stack. According to Apple's presentation in Mar '09, the upcoming OS 3.0 will provide more Bluetooth functionality. At least the standard OBEX protocol for the exchange of business cards, calendar items, notes, and pictures will be supported, even with other mobile phones. But that's about it. OS 3.0 will further support iPhone-to-iPhone connections intended for local gaming and connection to devices "Made for iPhone" over a closed and proprietary protocol. It is highly unlikely that it will support basic Bluetooth protocols like L2CAP or RFCOMM. 
+The 2.x OS on the iPhone and the iPod touch did only support Bluetooth headsets. However, this is not a limitation of the used Bluetooth chipset, but of an incomplete Bluetooth stack. The current OS 3.0 provides support for headsets (mono/stereo), networking via the PAN/BNEP protocol and support for "Made for iPhone" devices which require a proprietary Bluetooth protocol. Still, not even basic OBEX support is included (available with any low-price mobile phone), and no API is available to connect to arbitrary Bluetooth devices.
+
+= Peer-to-Peer Gaming =
+Apple's Game Networking API in 3.0 allows to connect nearby iPhones via Bluetooth and to use normal IP networking (TCP, UDP, Bonjour..). The main goal of this is to simplify the pairing procedure which does not involve PINs. It makes use of the Extended Inquiry procedure of Bluetooth 2.1 and higher. The extended inquiry response (EIR) contains a list of SDP service records of which one is a "vendor-specific" extension. If a device provides such a EIR, the iPhone will connect to the foreign device and query its SDP for more details. More analysis is needed to provide peer-to-peer gaming for non-Apple devices.
+
+= Bluetooth Tethering =
+... to come.
 
 = Hardware Details =
 
-Both generation of the iPhone (2G and 3G versions) use Bluetooth chipsets from Cambridge Silicon Radio (CSR), one of the leading Bluetooth vendors. CSR provides a wealth of documentation in their [http://csrsupport.com technical support area] (free login required). The first generation iPhone contains a !BlueCore 4, the second generation (current 3G models) contains a !BlueCore 6 chipset. The iPod touch second generation contains a Broadcom chipset, a company not famous for providing developer information.
+Both generation of the iPhone (2G and 3G versions) use Bluetooth chipsets from Cambridge Silicon Radio (CSR), one of the leading Bluetooth vendors. CSR provides a wealth of documentation in their [http://csrsupport.com technical support area] (free login required). The first generation iPhone contains a !BlueCore 4, the second generation (current 3G models) contains a !BlueCore 6 chipset. The iPod touch second generation contains a Broadcom chipset, a company not famous for providing developer information. 
+
+The Bluetooth modules are connected via an UART integrated in the ARM CPU. It is accessibly as /dev/tty.bluetooth. There are 2 virtual devices: /dev/btwake and /dev/btreset which probably are used to simply wake or reset the Bluetooth module via POSIX API instead of using some obscure internal library.
 
 = Software Details =
 
