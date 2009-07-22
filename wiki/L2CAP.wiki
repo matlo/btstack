@@ -24,16 +24,22 @@ We do not intend to support per-channel flow control or retransmissions. Therefo
 
 == Client API ==
 {{{
+  // outgoing connections
   l2cap_create_connection(remote address, remote psm, event_cb, data_cb);
   l2cap_disconnect(l2cap_channel_t *channel, reason);
+
+  // incoming connections
   l2cap_register_psm(psm, mtu, connect_cb(remote address, remote cid);
   l2cap_accept_connection(remote address,remote cid);
   l2cap_decline_connection(remote address, remote cid, reason);
   l2cap_unregister_psm(l2cap_listen_t *listener);
+
+  // transfer
+  l2cap_send(l2cap_channel_t *channel, uint8_t *data, uint16_t len);
 }}}
 
 == Usage ==
-For listening services, l2cap_register_psm(..) is called. On incoming l2cap connection request, the connect_cb will be called. The application is free to accept or decline the request.
+For listening services, l2cap_register_psm(..) is called. On incoming l2cap connection request, the connect_cb will be called. The application is free to accept or decline the request. Incoming data will be delivered via the data_cb.
 
 == L2CAP State Machine ==
 Most part of the L2CAP State Machine will be implemented as part of the BT daemon. However, on the client side, a subset of state information is required, too.
