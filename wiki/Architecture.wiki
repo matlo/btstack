@@ -5,27 +5,27 @@
 The *BT Stack* has to support multiple clients. This is because the *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
 
 == Current architecture ==
-Application -> BT library (RFCOMM/L2CAP/SDP) -> Unix Socket -> BT daemon (RFCOMM/L2CAP/SDP) -> HCI transport support (H4, H5, USB) -> Bluetooth module
+Application -> BT library (RFCOMM/SDP/L2CAP/HCI) -> Socket (TCP, Unix Domain) -> BTdaemon (RFCOMM/SDP/L2CAP/HCI) -> HCI transport support (H4, H5, USB) -> Bluetooth module
 
 == Bluetooth Daemon ==
-A minimal *BT daemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BT daemon over Unix sockets. The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run loop, all file descriptors can be tracked in parallel. 
+A minimal *BTdaemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BTdaemon over TCP or Unix sockets. The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run loop, all file descriptors can be tracked in parallel. 
 An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html  For now, each active component (socket server, socket connections, bluetooth module) have to provide a data_source_t structure:
 
 {{{
 typedef struct data_source {
     linked_item_t item;                                 // <-- used internally by RunLoop
     int  fd;                                            // <-- file descriptors to watch or 0
-    int  (*process)(struct data_source *ds, int ready); // <-- do processing, @return: more to do
+    int  (*process)(struct data_source *ds);            // <-- do processing
 } data_source_t;
 }}}
 
 == Flowcontrol for Socket Servers ==
-As the socket servers can receive messages from the clients at any time, a command or an ACL packet might be sent while we cannot directly pass it on to the BT module. In this case, we have to _block_ this socket until a command or an ACL packet can be sent. If the socket server just skips reading data, it will be called immediately again, as the incoming socket is ready. To be excluded from the RunLoop, the data_source has to be removed from the RunLoop. In any case, to be activated again, the socket server has to be notified when new event packets are received. If a new event is received, the socket server can check again, if it can pass the incoming data packet on to the BT module.
+As the socket servers can receive messages from the clients at any time, a command or an ACL packet might be sent while we cannot directly pass it on to the BT module. In this case, we have to _block_ this socket until the packet can be sent. If the socket server would skip reading data, it would be called again immediately, as the incoming socket is still ready. The data_source of the socket has to be excluded from the RunLoop, which can be achieved by removing the data_source from the RunLoop. In any case, to be activated again, the socket server has to be notified when new event packets are received. If a new event is received, the socket server can check again, if it can pass the incoming data packet on to the BT module.
 
-Because of this, it is necessary that multiple event callbacks can be registered with the BT daemon. Using a callback context structure will simplify the callback registration. Maybe we can implement a "generic" callback handler as we need several ones.
+Because of this, it is necessary that multiple event callbacks can be registered with the BTdaemon. Using a callback context structure could simplify the callback registration. Maybe we could implement a "generic" callback handler as we need several ones.
 
 == HCI Logging ==
-*BT daemon* is able to write HCI dumps both in the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X.
+*BTdaemon* is able to write HCI dumps in several formats. In supports both the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X. Also, it can just dump HCI packets to stdout.
 
 == Development/Debugging ==
 In addition to support for Bluetooth modules connected by a serial connection (H4/H5), libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. This perfectly fits the single thread unix socket server described above. It is supported on Mac and Linux.
@@ -60,7 +60,7 @@ typedef struct {
 } hci_transport_t;
 }}}
 
-Note: packet sizes are not needed for HCI packets (ACL, Command, Event) as they contain length information. Could remove those from the function paramters.
+Note: packet sizes are not needed for HCI packets (ACL, Command, Event) as they contain length information. Could remove these from the function parameters.
 
 == BT Control API ==
 In addition to the pure BT stack implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
