@@ -15,18 +15,28 @@ We do not intend to support per-channel flow control or retransmissions. Therefo
   * Connection Indication Callback
 
 == l2cap_channel_t ==
-  * State {...}
-  * Event callback
-  * Data  callback
-  * Remote address / connection handle
-  * MTU: incoming, outgoing
-  * FlushTimeout: incoming, outgoing
+{{{
+typedef struct {
+    L2CAP_STATE state;
+    uint8_t   sig_id;
+    uint16_t  local_cid;
+    bd_addr_t address;
+    uint16_t  psm;
+    hci_con_handle_t handle;
+    void (*event_callback)(uint8_t *packet, uint16_t size);
+    void (*data_callback)(uint8_t *packet, uint16_t size);
+    // uint16_t mtu_incoming;
+    // uint16_t mtu_outgoing;
+    // uint16_t flush_timeout_incoming;
+    // uint16_t flush_timeout_outgoing;
+} l2cap_channel_t;
+}}}
 
 == Client API ==
 {{{
   // outgoing connections
-  l2cap_create_connection(remote address, remote psm, event_cb, data_cb);
-  l2cap_disconnect(l2cap_channel_t *channel, reason);
+  l2cap_channel_t * l2cap_create_channel(bd_addr_t bd_addr, uint16_t psm, void (*event_cb)(uint8_t *packet, uint16_t size), void (*data_cb)(uint8_t *packet, uint16_t size));
+  void l2cap_disconnect(l2cap_channel_t *channel, uint8_t reason);
 
   // incoming connections
   l2cap_register_psm(psm, mtu, connect_cb(remote address, remote cid);
