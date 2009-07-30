@@ -1,4 +1,5 @@
 #summary This page describes the L2CAP Implementation for BTstack.
+#labels L
 
 = Introduction =
 
@@ -17,12 +18,16 @@ We do not intend to support per-channel flow control or retransmissions. Therefo
 == l2cap_channel_t ==
 {{{
 typedef struct {
+
+    linked_item_t item;
+
     L2CAP_STATE state;
-    uint8_t   sig_id;
-    uint16_t  local_cid;
     bd_addr_t address;
-    uint16_t  psm;
     hci_con_handle_t handle;
+    uint16_t  psm;
+    uint8_t   sig_id;  // last sent
+    uint16_t  local_cid;
+    uint16_t  dest_cid;
     void (*event_callback)(uint8_t *packet, uint16_t size);
     void (*data_callback)(uint8_t *packet, uint16_t size);
     // uint16_t mtu_incoming;
@@ -52,9 +57,25 @@ typedef struct {
 For listening services, l2cap_register_psm(..) is called. On incoming l2cap connection request, the connect_cb will be called. The application is free to accept or decline the request. Incoming data will be delivered via the data_cb.
 
 == L2CAP State Machine ==
-Most part of the L2CAP State Machine will be implemented as part of the BT daemon. However, on the client side, a subset of state information is required, too.
+Most part of the L2CAP State Machines will be implemented as part of the BTdaemon. For each connection (channel), a separate state machine is required. On the client side, a subset of state information is required, too.
 
+=== Dispatching L2CAP Signaling Commands to Channels State Machines ===
+To process incoming L2CAP Signaling Commands, they need to be dispatched to the responsible Channel state machine. The following lists the different commands and how they are dispatched:
+# command reject: id
+# connection request: PSM - not a particular channel
+# connection response: id
+# configuration request: dest_cid == src_cid
+# configuration response: id
+# disconnect request: dest_cid == src_cid
+# disconnection response: id
 
+# echo request: Stack        - not a particular channel
+# echo response: id          - not a particular channel
+# information request: Stack - not a particular channel
+# information response: id   - not a particular channel
+
+Commands 0x08-0x0b are not channel related, also 0x02 is used to setup a new channel. We only have to react to {0x01-0x07}\{0x02}. For command codes with odd number, we match by the signal identifier sent earlier by the channel - the channel_t struct stores the last sent signal identifier. Otherwise, we match by the destination channel ID.
+ 
 == ACL Flow Control ==
 Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented on the BT daemon instead of the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
 
