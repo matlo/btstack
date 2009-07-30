@@ -61,18 +61,17 @@ Most part of the L2CAP State Machines will be implemented as part of the BTdaemo
 
 === Dispatching L2CAP Signaling Commands to Channels State Machines ===
 To process incoming L2CAP Signaling Commands, they need to be dispatched to the responsible Channel state machine. The following lists the different commands and how they are dispatched:
-# command reject: id
-# connection request: PSM - not a particular channel
-# connection response: id
-# configuration request: dest_cid == src_cid
-# configuration response: id
-# disconnect request: dest_cid == src_cid
-# disconnection response: id
-
-# echo request: Stack        - not a particular channel
-# echo response: id          - not a particular channel
-# information request: Stack - not a particular channel
-# information response: id   - not a particular channel
+  # command reject: id
+  # connection request: PSM - not a particular channel
+  # connection response: id
+  # configuration request: dest_cid == src_cid
+  # configuration response: id
+  # disconnect request: dest_cid == src_cid
+  # disconnection response: id
+  # echo request: Stack        - not a particular channel
+  # echo response: id          - not a particular channel
+  # information request: Stack - not a particular channel
+  # information response: id   - not a particular channel
 
 Commands 0x08-0x0b are not channel related, also 0x02 is used to setup a new channel. We only have to react to {0x01-0x07}\{0x02}. For command codes with odd number, we match by the signal identifier sent earlier by the channel - the channel_t struct stores the last sent signal identifier. Otherwise, we match by the destination channel ID.
  
