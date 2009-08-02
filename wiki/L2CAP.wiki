@@ -6,55 +6,36 @@
 L2CAP is primarily concerned with:
   # Protocol multiplexing
   # Segmentation and reassembly operations
+
 We do not intend to support per-channel flow control or retransmissions. Therefore we will only implement L2CAP Basic Mode. The L2CAP State machine will follow the overall goal of non-blocking operations.
 
-= Details =
-
-== l2cap_listener_t (a.k.a Socket) ==
-  * PSM
-  * MTU
-  * Connection Indication Callback
-
-== l2cap_channel_t ==
-{{{
-typedef struct {
-
-    linked_item_t item;
-
-    L2CAP_STATE state;
-    bd_addr_t address;
-    hci_con_handle_t handle;
-    uint16_t  psm;
-    uint8_t   sig_id;  // last sent
-    uint16_t  local_cid;
-    uint16_t  dest_cid;
-    void (*event_callback)(uint8_t *packet, uint16_t size);
-    void (*data_callback)(uint8_t *packet, uint16_t size);
-    // uint16_t mtu_incoming;
-    // uint16_t mtu_outgoing;
-    // uint16_t flush_timeout_incoming;
-    // uint16_t flush_timeout_outgoing;
-} l2cap_channel_t;
-}}}
-
 == Client API ==
-{{{
-  // outgoing connections
-  l2cap_channel_t * l2cap_create_channel(bd_addr_t bd_addr, uint16_t psm, void (*event_cb)(uint8_t *packet, uint16_t size), void (*data_cb)(uint8_t *packet, uint16_t size));
-  void l2cap_disconnect(l2cap_channel_t *channel, uint8_t reason);
+All L2CAP commands are forwarded to the BTdaemon with the bt_send_cmd. Maybe explicit function calls will be provided at a later time - using a code generator. 
 
-  // incoming connections
-  l2cap_register_psm(psm, mtu, connect_cb(remote address, remote cid);
-  l2cap_accept_connection(remote address,remote cid);
-  l2cap_decline_connection(remote address, remote cid, reason);
-  l2cap_unregister_psm(l2cap_listen_t *listener);
+=== Outgoing Connections ===
+To open an L2CAP connection use the l2cap_create_channel command:
+{{{
+  // create channel
+  l2cap_create_channel( bd_addr, PSM);
 
   // transfer
-  l2cap_send(l2cap_channel_t *channel, uint8_t *data, uint16_t len);
+  l2cap_send(uint16_t source_cid, uint8_t *data, uint16_t len);
 }}}
 
-== Usage ==
-For listening services, l2cap_register_psm(..) is called. On incoming l2cap connection request, the connect_cb will be called. The application is free to accept or decline the request. Incoming data will be delivered via the data_cb.
+On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the source_cid. No event is generated yet. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
+
+=== Incoming Connections ===
+Incoming Connections are not implemented yet. They will be implemented like this: To register an L2CAP PSM, send the l2cap_register_psm(..) command. On incoming L2CAP connection request, an event will be received by the event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
+
+{{{
+  l2cap_register_psm(uint16_t psm, uint16_t incoming_mtu);
+  l2cap_accept_connection(bd_addr_t  remote_address, uint16_t dest_cid);
+  l2cap_decline_connection(bd_addr_t remote address, utin16_t dest_cid, uint8_t reason);
+  l2cap_unregister_psm(uint16_t psm);
+
+}}}
+
+= Details =
 
 == L2CAP State Machine ==
 Most part of the L2CAP State Machines will be implemented as part of the BTdaemon. For each connection (channel), a separate state machine is required. On the client side, a subset of state information is required, too.
@@ -74,17 +55,39 @@ To process incoming L2CAP Signaling Commands, they need to be dispatched to the 
   # information response: id   - not a particular channel
 
 Commands 0x08-0x0b are not channel related, also 0x02 is used to setup a new channel. We only have to react to {0x01-0x07}\{0x02}. For command codes with odd number, we match by the signal identifier sent earlier by the channel - the channel_t struct stores the last sent signal identifier. Otherwise, we match by the destination channel ID.
+
+=== l2cap_listener_t (a.k.a Socket) ===
+  * PSM
+  * MTU
+  * Connection Indication Callback
+
+=== l2cap_channel_t ===
+{{{
+typedef struct {
+
+    linked_item_t item;
+
+    L2CAP_STATE state;
+    bd_addr_t address;
+    hci_con_handle_t handle;
+    uint16_t  psm;
+    uint8_t   sig_id;  // last sent
+    uint16_t  local_cid;
+    uint16_t  dest_cid;
+    // uint16_t mtu_incoming;
+    // uint16_t mtu_outgoing;
+    // uint16_t flush_timeout_incoming;
+    // uint16_t flush_timeout_outgoing;
+} l2cap_channel_t;
+}}}
  
 == ACL Flow Control ==
 Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented on the BT daemon instead of the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
-
 
 == ACL Buffers at BT Daemon ==
   * For each baseband connection:
     * 2 ACL buffers for incoming DH5 packets
     * 2 L2CAP packet buffers of size max MTU(x) (x is set of all L2CAP connections on this baseband connection). One L2CAP buffer is needed for assmbly of incoming ACL packets, the second for receiving client complete client packets
-
-== Buffers in BT Client ==
 
 
 == References ==
