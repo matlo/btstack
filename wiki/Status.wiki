@@ -15,7 +15,10 @@ The BTstack is in early development phase and mostly suited for people interesti
  * A minimal HCI layer is implemented. Instead of implementing each HCI command separately, a table-driven approach allows to add HCI commands by only specifying the command packet format.
 
 == L2CAP ==
- * Testing code for L2CAP is working - a connection can be established - but it is not yet made into a reusable L2CAP layer. More specifically, neither packet segmentation, packet reassembly, multiple connections or flow control are implemented. 
+ * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. More work has to done: incoming connections, MTU negotiation, packet segmentation, packet reassembly and flow control are not implemented. 
+
+== RFCOMM ==
+ * Not started. L2CAP supports enough to allow implementation of the RFCOMM protocol.
 
 = Other =
 
@@ -27,7 +30,10 @@ The BTstack is in early development phase and mostly suited for people interesti
  * Successfully tested on iPhone 3G with OS 2.2.1 and 3.0
 
 == Logging/Debugging ==
- * hci_dump.c supports both logging in Apple's PacketLogger format as well as in the Linux BlueZ format.
+ * hci_dump.c supports multiple formats:
+    * Apple's PacketLogger
+    * Linux BlueZ format
+    * Direct packet hexdump to stdout.
 
 == Run Loop ==
-A basic run loop handler allows to add multiple data sources that are represented as POSIX file descriptors. The H4 HCI transport is run loop compatible. A rudimentary TCP socket server is available.
+A basic run loop handler allows to add multiple data sources that are represented as POSIX file descriptors. The H4 HCI transport is run loop compatible. A TCP socket server is available.
