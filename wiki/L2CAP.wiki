@@ -1,5 +1,4 @@
 #summary This page describes the L2CAP Implementation for BTstack.
-#labels L
 
 = Introduction =
 
@@ -22,10 +21,10 @@ To open an L2CAP connection use the l2cap_create_channel command:
   l2cap_send(uint16_t source_cid, uint8_t *data, uint16_t len);
 }}}
 
-On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the source_cid. No event is generated yet. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
+On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the source_cid. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
 
 === Incoming Connections ===
-Incoming Connections are not implemented yet. They will be implemented like this: To register an L2CAP PSM, send the l2cap_register_psm(..) command. On incoming L2CAP connection request, an event will be received by the event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
+Incoming Connections are not implemented yet. They will be implemented like this: To register an L2CAP PSM, send the l2cap_register_psm(..) command. On incoming L2CAP connection request, an event will be received by the application event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
 
 {{{
   l2cap_register_psm(uint16_t psm, uint16_t incoming_mtu);
@@ -91,7 +90,7 @@ Similar to the HCI Command Flow Control, the flow of ACL packets has to be contr
 
 
 == References ==
-  * Official Bluetooth specification: It used to be available from Bluetooth.org, but I heard you cannot get them for free anymore.
+  * Official Bluetooth specification, see [Architecture]
   * Nice [http://www.inf.ethz.ch/personal/kasten/research/bathtub/bluetooth/ L2CAP Summary]
   * The lightweight Bluetooth Stack (lwBT). Another embedded BT stack, intended for use with the lightweight IP stack (lwIP): http://www.sm.luth.se/~conny/lwbt/
   * The ETH BTnut BT Stack: http://www.btnode.ethz.ch
