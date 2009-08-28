@@ -1,0 +1,26 @@
+#summary Overview on RFCOMM with the BTstack
+
+= Introduction =
+
+Most people that contacted me have expressed interest in the use of RFCOMM. The RFCOMM protocol provides emulation of serial ports over the L2CAP protocol. The protocol is based on the ETSI standard TS 07.10, a standard in the Telecom industry.
+
+RFCOMM is commonly used:
+   * for Bluetooth GPS Receivers
+   * to provide Bluetooth to legacy devices which used RS232 before. E.g., laser BarCode scanners, mobile/foldable Bluetooth keyboards, wireless interface for hobby embedded system and robotic projects
+   * as a basis for other protocols like OBEX and PPP
+
+= Why RFCOMM should not be used for new projects/devices =
+
+Most communication devices work on a packet basis, i.e., they communicate by passing messages back and forth. A GPS receiver periodically sends position packets, a BarCode scanner will send individual BarCode IDs. 
+
+For these use cases, RFCOMM is a rather cumbersome protocol given that all communication in Bluetooth is inherently packet based. L2CAP provides the perfect abstraction for sending packets between parties. RFCOMM now is used to emulate a serial cable where bytes can be sent individually. For the mentioned applications, this means that the application unnecessarily has to detect packet frame again, although the underlying communication already is packet based.
+
+That said, you cannot change the gadget you own, so we need RFCOMM support in the BTstack... :)
+
+= Specs =
+  * [http://www.bluetooth.com/NR/rdonlyres/9C6DB2A4-A7D9-47A6-81B3-5F03981AE9C4/986/SPP_SPEC_V11.pdf The SPP Profile]
+   * [http://www.bluetooth.com/NR/rdonlyres/4C1E59CA-7E67-4126-8FE8-107C84A7B72C/916/rfcomm.pdf The RFCOMM Protocol]
+   * [https://www.fer.hr/_download/repository/ts_101369v060300p.pdf TS 07.10 aka TS 101 369]
+
+= Details =
+RFCOMM is not implemented for BTstack yet. 
