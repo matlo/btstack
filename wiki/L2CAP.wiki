@@ -15,7 +15,7 @@ All L2CAP commands are forwarded to the BTdaemon with the bt_send_cmd. Maybe exp
 To open an L2CAP connection use the l2cap_create_channel command:
 {{{
   // create channel
-  l2cap_create_channel( bd_addr, PSM);
+  bt_send_cmd(&l2cap_create_channel, bd_addr, uint16 psm);
 
   // transfer
   l2cap_send(uint16_t source_cid, uint8_t *data, uint16_t len);
@@ -81,12 +81,12 @@ typedef struct {
 }}}
  
 == ACL Flow Control ==
-Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented on the BT daemon instead of the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
+Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented in the BTdaemon than in the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
 
 == ACL Buffers at BT Daemon ==
   * For each baseband connection:
-    * 2 ACL buffers for incoming DH5 packets
-    * 2 L2CAP packet buffers of size max MTU(x) (x is set of all L2CAP connections on this baseband connection). One L2CAP buffer is needed for assmbly of incoming ACL packets, the second for receiving client complete client packets
+    * 2 ACL buffers for incoming packets. 1 x client, 1 x Bluetooth chipset.
+    * 2 L2CAP packet buffers of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). One L2CAP buffer is needed for assembly of received ACL packets, the second for receiving complete client packets.
 
 
 == References ==
