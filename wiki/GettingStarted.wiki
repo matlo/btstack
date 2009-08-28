@@ -1,0 +1,58 @@
+#summary How to get a grip on the BTstack
+
+= Introduction =
+Although in an early stage, the BTstack can already used to create connections to other devices using the L2CAP protocol. This allows for example to receive keypress events from an Bluetooth keyboard or movement data from a WiiMote.
+
+On this page, we provide a quick walk-through to run example/test.c on an iPhone or iPod touch 2G and connect to a WiiMote, while displaying acceleration and button reports.
+
+= Requirements =
+  * the autotools
+  * a toolchain for the iPhone. This introduction assumes the use of the XCode iPhone SDK on Mac OS X.
+  * a subversion client
+  * a jailbroken iPhone or iPod touch 2G with the ldid code-signing tool installed.
+
+= Steps =
+
+  # get the BTstack project from the Google code:
+    svn checkout https://btstack.googlecode.com/svn/trunk/ btstack
+  # cd into the btstack folder 
+    cd btstack
+  # run the bootstrap helper
+    ./bootstrap
+  # configure BTstack for the iPhone
+    ./configure --target=iphone
+  # in example/test.c, find the line with the hard-coded value for the MAC address of the WiiMote and enter yours. Mine has the addres 00:19:1d:90:44:68
+  # build it
+    make
+  # copy the BTdaemon and the example test to your iPhone. Replace 192.168.3.102 with the IP address of your device
+    scp src/BTdaemon example/test mobile@192.168.3.102:.
+  # ssh into your device
+    ssh mobile@192.168.3.102
+  # sign the binaries with ldid
+    ldid -S BTdaemon
+    ldid -S test
+  # make sure Bluetooth is turned OFF in the Settings.app
+  # run the BTdaemon
+    ./BTdaemon
+  # ssh into your device again
+    ssh mobile@192.168.3.102
+  # run the test
+    ./test
+  # check the output in both sesssions. If everything works, the app will prompt you to make your WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
+
+Important: My WLAN often breaks down when using Bluetooth. When logged in via SSH this looks like the app would not work or hang, when in reality the WLAN is just not working properly. Check the WLAN icon in the status bar. After the introduction of Internet tethering, I highly recommend to connect the iPhone via USB and use this connection for SSH. When using USB Tethering, my machine receives the IP address 192.168.20.3, and the iPhone can be accessed at 192.168.20.1.
+
+
+= Details =
+
+In main, the BTstack is opened and packet handlers are registered before the BTstack is asked to boot with the btstack_set_power_mode command. All commands to control the BTstack are send asynchronously with the bt_send_cmd. Finally the run_loop is executed. From there on, the rest of the test app runs as a finite state machine which processes events received from the BTstack. The test app is a good example for how finite state machines should NOT be written and error handling is barely performed. :)
+
+Anyway, the different steps of the program are visible in the event handler. First, it reacts to the successful startup of the BTstack and set the local Bluetooth name. Then, pairing is enabled/disabled with the hci_write_authentication_enable HCI command. Now, the BTstack is asked to open an L2CAP channel to the hard-coded WiiMote at PSM 0x13 (HID Interrupt) where reports from the HID device are received. Upon successful opening of PSM channel 0x13, a second channel for PSM 0x11 (HID Control) is opened. This channel is necessary to enable the reporting of acceleration readings. Finally, we ready to receive HID status reports. See the HID docu for more details on this.
+
+As this event handler shows, everything is event-triggered. After sending a command to the BTdaemon, which in turn sends it to the Bluetooth chipset, we wait for the corresponding event to continue with our application. Instead of writing this single even handler, it is much better to follow the concept of finite state machines. Based on our current state, an event such as HCI events, triggers the next action and the transition to another state. For more on finite state machine, I highly recommend the book by Miro Samek.
+
+
+= References =
+  * [http://www.bluetooth.com/NR/rdonlyres/0BE438ED-DC1B-41D1-AAC0-1AAA956097A2/980/HID_SPEC_V10.pdf Human Interface Devices profile]
+  * [http://wiibrew.org/wiki/Wiimote Great WiiMote documenation]
+  * [http://www.amazon.com/Practical-UML-Statecharts-Second-Event-Driven/dp/0750687061/ref=sr_1_1?ie=UTF8&s=books&qid=1251484320&sr=8-1 Practical UML Statecharts by Miro Samek]
