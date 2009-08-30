@@ -28,7 +28,7 @@ On the iPhone and the iPod touch, the Bluetooth functionality is provided by BTs
 
 = BTstack on the iPhone / iPod touch =
 
-== Support for the integrated Bluetooth chipsets
+== Support for the integrated Bluetooth chipsets ==
 So far, BTstack only support the [HCI_UART_Transport H4 transport mode]. Support for the [HCI_UART_Transport H5] or the [HCI_UART_Transport CSR BCSP protocol] might be implemented later. In order to use the CSR module in H4 mode, the script provided by Apple is parsed and modified on-the-fly before it is fed into !BlueTool. Baud rates from 57600-921600 can be used. Higher baud rates are not supported by the standard IOCTL call.
 
 == launchd integration ==
