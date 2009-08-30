@@ -1,7 +1,7 @@
 #summary HCI USB Transport using libUSB
 
 = Introduction =
-As serial Bluetooth modules are a not commonly used, using a USB Bluetooth Dongle helps developing the upper layers of the stack. For BTstack, we have started to use [http://libusb.wiki.sourceforge.net/Libusb1.0 libUSB-1.0]. It is available for Linux and OS X and provides an asynchronous API that facilitates integration in the BTdaemon single-threaded run-loop (see [Architecture]).
+As serial Bluetooth modules are a not commonly used, using a USB Bluetooth Dongle helps developing the upper layers of the stack. For BTstack, we have started to use [http://libusb.wiki.sourceforge.net/Libusb1.0 libUSB-1.0]. It is available for Linux and OS X and provides an asynchronous API that facilitates integration in the BTdaemon single-threaded run-loop (see [Architecture]). However, it is not ported to Windows yet. For debugging purposes on Windows, a separate thread could use the older libUSB-0.1 and signal the main loop when data is ready to read from USB. 
 
 = Details =
 
