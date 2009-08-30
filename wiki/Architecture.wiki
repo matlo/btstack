@@ -28,9 +28,7 @@ Because of this, it is necessary that multiple event callbacks can be registered
 *BTdaemon* is able to write HCI dumps in several formats. In supports both the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X. Also, it can just dump HCI packets to stdout.
 
 == Development/Debugging ==
-In addition to support for Bluetooth modules connected by a serial connection (H4/H5), libUSB allows to use USB BT modules during development. The newer libusb-1.0 supports asynchronous operations by way of exposing an internal file descriptor. This perfectly fits the single thread unix socket server described above. It is supported on Mac and Linux.
- 
-However, it is not ported to Windows yet. For debugging purposes on Windows, a separate thread could use the older libUSB-0.1 and signal the main loop when data is ready to read from USB.
+In addition to support for Bluetooth modules connected by a serial connection (H4/H5), libUSB allows to use USB BT modules during development. More on the [HCI_USB_Transport HCI USB Transport page]. 
 
 == Design decisions ==
 How much state is kept in HCI daemon, how much in the Bluetooth library? A minimal BT daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
