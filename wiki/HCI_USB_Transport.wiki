@@ -1,7 +1,9 @@
 #summary HCI USB Transport using libUSB
 
 = Introduction =
-As serial Bluetooth modules are a not commonly used, using a USB Bluetooth Dongle helps developing the upper layers of the stack. For BTstack, we have started to use [http://libusb.wiki.sourceforge.net/Libusb1.0 libUSB-1.0]. It is available for Linux and OS X and provides an asynchronous API that facilitates integration in the BTdaemon single-threaded run-loop (see [Architecture]). However, it is not ported to Windows yet. For debugging purposes on Windows, a separate thread could use the older libUSB-0.1 and signal the main loop when data is ready to read from USB. 
+As serial Bluetooth modules are a not commonly used, using a USB Bluetooth Dongle helps developing the upper layers of the stack. For BTstack, we have started to use [http://libusb.wiki.sourceforge.net/Libusb1.0 libUSB-1.0]. It is available for Linux and OS X and provides an asynchronous API that facilitates integration in the BTdaemon single-threaded run-loop (see [Architecture]).
+
+However, it is not ported to Windows yet. For debugging purposes on Windows, a separate thread could use the older libUSB-0.1 and signal the main loop when data is ready to read from USB. According to Michael Murphy, there is recent discussion on the libusb-win32-dev mailing list about porting libusb-1.0 to Windows. Daniel Drake, the maintainer of the code, has pointed out that the POSIX fd polling used heavily in libusb-1.00 but absent in Windows, is not immutable code, and that he is receptive to the use of Windows-native alternatives, if it means the library can be ported.
 
 = Details =
 
@@ -17,7 +19,7 @@ As serial Bluetooth modules are a not commonly used, using a USB Bluetooth Dongl
 
 = Status =
  * Finding a BT module (either by product & vendor ID or by device class) works on Linux and Mac.
- * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux, crashes on Mac. Although, they are not mandated by the  BT specification, most products follow the BT specification recommendation
+ * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux, crashes on Mac - I've seen an update which claims to fix a related crash. Although, they are not mandated by the  BT specification, most products follow the BT specification recommendation so we can just use the defaults for now.
  * Sending and receiving HCI Reset command works on Linux and Mac.
 
 = TODO =
