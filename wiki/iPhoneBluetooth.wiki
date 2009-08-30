@@ -32,13 +32,13 @@ On the iPhone and the iPod touch, the Bluetooth functionality is provided by BTs
 So far, BTstack only support the [HCI_UART_Transport H4 transport mode]. Support for the [HCI_UART_Transport H5] or the [HCI_UART_Transport CSR BCSP protocol] might be implemented later. In order to use the CSR module in H4 mode, the script provided by Apple is parsed and modified on-the-fly before it is fed into !BlueTool. Baud rates from 57600-921600 can be used. Higher baud rates are not supported by the standard IOCTL call.
 
 == BTstack iPhone integration ==
-For a resource-limited device as the iPhone, the BTstack resp. the BTdaemon should only run, when Bluetooth functionality is needed/used by a client application. For Mac OS X, Apple recommends the use of Unix Domain sockets for IPC and to use launchd on demand in [http://developer.apple.com/mac/library/technotes/tn2005/tn2083.html Technical Note TN2083
-Daemons and Agents]. Right now, I'm struggling a bit to accept the incoming client connections in BTdaemon from launchd, but this should be possible. Let's watch the [http://video.google.com/videoplay?docid=1781045834610400422 Google Tech Talk on launchd by its creator Dave Zarzycki].
+For a resource-limited device as the iPhone, the BTstack resp. the BTdaemon should only run, when Bluetooth functionality is needed/used by a client application. For Mac OS X, Apple recommends the use of Unix Domain sockets for IPC in general and to use launchd to start background daemons such as the BTdaemon on demand in their  [http://developer.apple.com/mac/library/technotes/tn2005/tn2083.html Technical Note TN2083
+Daemons and Agents]. A nice introduction is also given in the [http://video.google.com/videoplay?docid=1781045834610400422 Google Tech Talk on launchd by its creator Dave Zarzycki].
 
 == Bluetooth Icon in Springboard Status ==
-Problem: A background daemon cannot set an icon in the status bar (AFAIK).
-Approach: A MobileSubstrate extension can hook into the SpringBoard and do it from there.
+  * Problem: A background daemon cannot set an icon in the status bar (AFAIK).
+  * Approach: A MobileSubstrate extension can hook into the SpringBoard and do it from there. It could also be used to pop-up messages to the user, like "connection to device X lost"
 
 == Apple's Bluetooth Stack ==
-Problem: Only one Bluetooth Stack can run at the same time.
-Approach: Several tools allow to toggle Bluetooth on/off. In a first version, it's enough to detect a running BTserver and inform the user. After the user turns off the original Bluetooth stack, a BTstack-based app can be started again. Later we could add the option to display a warning and disable the original stack automatically.
+  * Problem: Only one Bluetooth Stack can run at the same time.
+  * Approach: Several tools allow to toggle Bluetooth on/off. In a first version, it's enough to detect a running BTserver and inform the user. After the user turns off the original Bluetooth stack, a BTstack-based app can be started again. Later we could add the option to display a warning and disable the original stack automatically.
