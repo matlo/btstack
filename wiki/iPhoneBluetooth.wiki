@@ -31,9 +31,9 @@ On the iPhone and the iPod touch, the Bluetooth functionality is provided by BTs
 == Support for the integrated Bluetooth chipsets
 So far, BTstack only support the [HCI_UART_Transport H4 transport mode]. Support for the [HCI_UART_Transport H5] or the [HCI_UART_Transport CSR BCSP protocol] might be implemented later. In order to use the CSR module in H4 mode, the script provided by Apple is parsed and modified on-the-fly before it is fed into !BlueTool. Baud rates from 57600-921600 can be used. Higher baud rates are not supported by the standard IOCTL call.
 
-== BTstack iPhone integration ==
+== launchd integration ==
 For a resource-limited device as the iPhone, the BTstack resp. the BTdaemon should only run, when Bluetooth functionality is needed/used by a client application. For Mac OS X, Apple recommends the use of Unix Domain sockets for IPC in general and to use launchd to start background daemons such as the BTdaemon on demand in their  [http://developer.apple.com/mac/library/technotes/tn2005/tn2083.html Technical Note TN2083
-Daemons and Agents]. A nice introduction is also given in the [http://video.google.com/videoplay?docid=1781045834610400422 Google Tech Talk on launchd by its creator Dave Zarzycki].
+Daemons and Agents]. A nice introduction is also given in the [http://video.google.com/videoplay?docid=1781045834610400422 Google Tech Talk on launchd by its creator Dave Zarzycki]. BTstack can be compiled with launchd support.
 
 == Bluetooth Icon in Springboard Status ==
   * Problem: A background daemon cannot set an icon in the status bar (AFAIK).
