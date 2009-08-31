@@ -18,10 +18,13 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     svn checkout https://btstack.googlecode.com/svn/trunk/ btstack
   # cd into the btstack folder 
     cd btstack
+  # If you have pkg-config from MacPorts
+    in bootstrap.sh: change aclocal to aclocal -I /opt/local/share/aclocal
   # run the bootstrap helper
-    ./bootstrap
+    ./bootstrap.sh
   # configure BTstack for the iPhone
     ./configure --target=iphone
+  # If you get an error with mentions "PKG_CHECK_MODULES" than aclocal did not pick up pkg-config installation. Try to fix and run configure again.
   # in example/test.c, find the line with the hard-coded value for the MAC address of the WiiMote and enter yours. Mine has the addres 00:19:1d:90:44:68
   # build it
     make
