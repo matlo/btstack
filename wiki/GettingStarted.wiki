@@ -14,34 +14,34 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
 
 = Steps =
 
-  # get the BTstack project from the Google code:
-    svn checkout https://btstack.googlecode.com/svn/trunk/ btstack
+  # get the BTstack project from the Google code SVN:
+    {{{svn checkout https://btstack.googlecode.com/svn/trunk/ btstack}}}
   # cd into the btstack folder 
-    cd btstack
+    {{{cd btstack}}}
   # If you have pkg-config from MacPorts
     in bootstrap.sh: change aclocal to aclocal -I /opt/local/share/aclocal
   # run the bootstrap helper
-    ./bootstrap.sh
+    {{{./bootstrap.sh}}}
   # configure BTstack for the iPhone
-    ./configure --target=iphone
-  # If you get an error with mentions "PKG_CHECK_MODULES" than aclocal did not pick up pkg-config installation. Try to fix and run configure again.
+    {{{./configure --target=iphone}}}
+  # If you get an error with mentions "PKG_CHECK_MODULES" than aclocal did not pick up pkg-config installation. Try to fix it and run configure again.
   # in example/test.c, find the line with the hard-coded value for the MAC address of the WiiMote and enter yours. Mine has the addres 00:19:1d:90:44:68
   # build it
-    make
+    {{{make}}}
   # copy the BTdaemon and the example test to your iPhone. Replace 192.168.3.102 with the IP address of your device
-    scp src/BTdaemon example/test mobile@192.168.3.102:.
+    {{{scp src/BTdaemon example/test mobile@192.168.3.102:.}}}
   # ssh into your device
-    ssh mobile@192.168.3.102
+    {{{ssh mobile@192.168.3.102}}}
   # sign the binaries with ldid
-    ldid -S BTdaemon
-    ldid -S test
+    {{{ldid -S BTdaemon
+    ldid -S test}}}
   # make sure Bluetooth is turned OFF in the Settings.app
   # run the BTdaemon
-    ./BTdaemon
+    {{{./BTdaemon}}}
   # ssh into your device again
-    ssh mobile@192.168.3.102
+    {{{ssh mobile@192.168.3.102
   # run the test
-    ./test
+    {{{./test}}}
   # check the output in both sesssions. If everything works, the app will prompt you to make your WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
 
 Important: My WLAN often breaks down when using Bluetooth. When logged in via SSH this looks like the app would not work or hang, when in reality the WLAN is just not working properly. Check the WLAN icon in the status bar. After the introduction of Internet tethering, I highly recommend to connect the iPhone via USB and use this connection for SSH. When using USB Tethering, my machine receives the IP address 192.168.20.3, and the iPhone can be accessed at 192.168.20.1.
