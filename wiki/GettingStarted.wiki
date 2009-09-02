@@ -33,13 +33,15 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
   # sign the binaries with ldid
-    {{{ldid -S BTdaemon
-    ldid -S test}}}
+{{{
+ ldid -S BTdaemon
+ ldid -S test
+}}}
   # make sure Bluetooth is turned OFF in the Settings.app
   # run the BTdaemon
     {{{./BTdaemon}}}
   # ssh into your device again
-    {{{ssh mobile@192.168.3.102
+    {{{ssh mobile@192.168.3.102}}}
   # run the test
     {{{./test}}}
   # check the output in both sesssions. If everything works, the app will prompt you to make your WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
@@ -52,6 +54,7 @@ Important: My WLAN often breaks down when using Bluetooth. When logged in via SS
 In main, the BTstack is opened and packet handlers are registered before the BTstack is asked to boot with the btstack_set_power_mode command. All commands to control the BTstack are send asynchronously with the bt_send_cmd. Finally the run_loop is executed. From there on, the rest of the test app runs as a finite state machine which processes events received from the BTstack. The test app is a good example for how finite state machines should NOT be written and error handling is barely performed. :)
 
 Anyway, the different steps of the program are visible in the event handler. First, it reacts to the successful startup of the BTstack and set the local Bluetooth name. Then, pairing is enabled/disabled with the hci_write_authentication_enable HCI command. Now, the BTstack is asked to open an L2CAP channel to the hard-coded WiiMote at PSM 0x13 (HID Interrupt) where reports from the HID device are received. Upon successful opening of PSM channel 0x13, a second channel for PSM 0x11 (HID Control) is opened. This channel is necessary to enable the reporting of acceleration readings. Finally, we ready to receive HID status reports. See the HID docu for more details on this.
+
 
 As this event handler shows, everything is event-triggered. After sending a command to the BTdaemon, which in turn sends it to the Bluetooth chipset, we wait for the corresponding event to continue with our application. Instead of writing this single even handler, it is much better to follow the concept of finite state machines. Based on our current state, an event such as HCI events, triggers the next action and the transition to another state. For more on finite state machine, I highly recommend the book by Miro Samek.
 
