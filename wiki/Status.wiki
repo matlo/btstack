@@ -1,6 +1,6 @@
 #summary Status of the BTstack implementation
 
-The BTstack is in early development phase and mostly suited for people interesting in learning their way around in the Bluetooth Stack. However, the example main.c can create an authenticated L2CAP connection and receive data packets.
+The BTstack is in early development phase and mostly suited for people interesting in learning their way around in the Bluetooth Stack. However, the example test.c can create an L2CAP connection to a WiiMote and receive acceleration data.
 
 = Bluetooth Layers =
 
@@ -8,6 +8,7 @@ The BTstack is in early development phase and mostly suited for people interesti
 
 === H4 ===
  * The original H4 protocol for UARTs is fully implemented and working.
+
 === BCSP/H5 ===
  * The more advanced CSR BSCP and the "Three Wire UART" transport protocol are not supported.
 
@@ -25,8 +26,10 @@ The BTstack is in early development phase and mostly suited for people interesti
 == BT Control ==
 === iPhone and iPod touch ===
  * The iPhone control component is able to switch the Bluetooth chipset on/off and properly initialize them in HCI H4 Transport mode with baud rates from 57600-921600 on all iPhone and iPod touch devices with build-in Bluetooth.
- * Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple. The problem is not with the Bluetooth chipset. The ioctl call to set the speed of the serial port just returns "invalid parameter" for higher baud rates.
+ * Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple. The problem is not with the Bluetooth chipset. The termios call to set the speed of the serial port returns "invalid parameter" for higher baud rates.
  * Repeated power on/off work without issues, so the BTdaemon can keep running with the BT turned off completely while the iPhone is in sleep mode.
+ * A new SpringBoardAccess extension allows the BTdaemon to show a BTstack icon similiar to Apple's Bluetooth icon.
+ * BTdaemon can be automatically started Launchd. This makes it more robust and allows for an automatic power-off, when no application is using Bluetooth.
  * Successfully tested on iPhone 3G with OS 2.2.1 and 3.0, iPod touch 2G with 2.2.1 and 3.0, and iPhone 3GS with 3.0.1.
 
 == Logging/Debugging ==
@@ -36,4 +39,4 @@ The BTstack is in early development phase and mostly suited for people interesti
     * Direct packet hexdump to stdout.
 
 == Run Loop ==
-A basic run loop handler allows to add multiple data sources that are represented as POSIX file descriptors. The H4 HCI transport is run loop compatible. A TCP socket server is available.
+A basic run loop handler allows to add multiple data sources that are represented as POSIX file descriptors. The H4 HCI transport is run loop compatible. A Unix domain socket server is used for the communicaion between a client and the BTdaemon.
