@@ -36,9 +36,7 @@ For a resource-limited device as the iPhone, the BTstack resp. the BTdaemon shou
 Daemons and Agents]. A nice introduction is also given in the [http://video.google.com/videoplay?docid=1781045834610400422 Google Tech Talk on launchd by its creator Dave Zarzycki]. BTstack can be compiled with launchd support.
 
 == Bluetooth Icon in Springboard Status ==
-  * Problem: A background daemon cannot set an icon in the status bar (AFAIK).
-  * Approach: A MobileSubstrate extension can hook into the SpringBoard and do it from there. It could also be used to pop-up messages to the user, like "connection to device X lost"
+A background daemon cannot set an icon in the status bar (AFAIK). The new SpringBoardAccess MobileSubstrate extension hooks into the SpringBoard and allows to control the icons from anywhere. It might also be used to pop-up a message like "connection lost"
 
 == Apple's Bluetooth Stack ==
-  * Problem: Only one Bluetooth Stack can run at the same time.
-  * Approach: Several tools allow to toggle Bluetooth on/off. In a first version, it's enough to detect a running BTserver and inform the user. After the user turns off the original Bluetooth stack, a BTstack-based app can be started again. Later we could add the option to display a warning and disable the original stack automatically.
+Only one Bluetooth Stack can run at the same time. When BTdaemon is asked to enable Bluetooth, it tries to access the Bluetooth resource. If it cannot access the Bluetooth module, an error is reported back to the client, which in turn can infrom the user.  After the user turns off the original Bluetooth stack, a BTstack-based app can be started again. Later, we could add the option to display a warning and disable the original stack automatically.
