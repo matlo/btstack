@@ -65,3 +65,6 @@ As this event handler shows, everything is event-triggered. After sending a comm
   * [http://www.bluetooth.com/NR/rdonlyres/0BE438ED-DC1B-41D1-AAC0-1AAA956097A2/980/HID_SPEC_V10.pdf Human Interface Devices profile]
   * [http://wiibrew.org/wiki/Wiimote Great WiiMote documenation]
   * [http://www.amazon.com/Practical-UML-Statecharts-Second-Event-Driven/dp/0750687061/ref=sr_1_1?ie=UTF8&s=books&qid=1251484320&sr=8-1 Practical UML Statecharts by Miro Samek]
+
+= Help =
+If you really want to try the example app on your iPhone, but didn't get it to work although you've followed the instructions here, or, if you'd like to use Bluetooth in your own pplication (whatever OS/HW), please join the [http://groups.google.com/group/btstack-dev BTstack Developer Forum].
