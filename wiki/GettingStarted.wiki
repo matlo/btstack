@@ -31,7 +31,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
   # build it
     {{{make}}}
   # copy the BTdaemon, the client client library and the example test to your iPhone. Replace 192.168.3.102 with the IP address of your device
-    {{{scp src/BTdaemon example/test src/libBTstack.dylib mobile@192.168.3.102:.}}}
+    {{{scp src/BTdaemon src/libBTstack.dylib example/test mobile@192.168.3.102:.}}}
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
   # sign the binaries with ldid
