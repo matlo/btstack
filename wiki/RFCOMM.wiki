@@ -28,3 +28,6 @@ An another argument for the use of RFCOMM can be made based on the RFCOMM suppor
   * [http://www.bluetooth.com/NR/rdonlyres/9C6DB2A4-A7D9-47A6-81B3-5F03981AE9C4/986/SPP_SPEC_V11.pdf The SPP Profile]
   * [http://www.bluetooth.com/NR/rdonlyres/4C1E59CA-7E67-4126-8FE8-107C84A7B72C/916/rfcomm.pdf The RFCOMM Protocol]
   * [https://www.fer.hr/_download/repository/ts_101369v060300p.pdf TS 07.10 aka TS 101 369]
+
+= Example Logs =
+[http://btstack.googlecode.com/svn/files/ZeemoteRFCOMM.pklg Apple PacketLogger log connecting to a ZeeMote JS1]
