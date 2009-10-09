@@ -19,7 +19,7 @@ The BTstack is in early development phase and mostly suited for people interesti
  * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. More work has to done: incoming connections, MTU negotiation, packet segmentation, packet reassembly and flow control are not implemented. 
 
 == RFCOMM ==
- * Not started. L2CAP supports enough to allow implementation of the RFCOMM protocol.
+ * Quite some interest, development has started. See [RFCOMM] The existing L2CAP implementation is sufficient.
 
 = Other =
 
@@ -28,7 +28,7 @@ The BTstack is in early development phase and mostly suited for people interesti
  * The iPhone control component is able to switch the Bluetooth chipset on/off and properly initialize them in HCI H4 Transport mode with baud rates from 57600-921600 on all iPhone and iPod touch devices with build-in Bluetooth.
  * Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple. The problem is not with the Bluetooth chipset. The termios call to set the speed of the serial port returns "invalid parameter" for higher baud rates.
  * Repeated power on/off work without issues, so the BTdaemon can keep running with the BT turned off completely while the iPhone is in sleep mode.
- * A new SpringBoardAccess extension allows the BTdaemon to show a BTstack icon similiar to Apple's Bluetooth icon.
+ * A new SpringBoardAccess extension allows the BTdaemon to show a BTstack icon similiar to Apple's Bluetooth icon. 
  * BTdaemon can be automatically started Launchd. This makes it more robust and allows for an automatic power-off, when no application is using Bluetooth.
  * Successfully tested on iPhone 3G with OS 2.2.1 and 3.0, iPod touch 2G with 2.2.1 and 3.0, and iPhone 3GS with 3.0.1.
 
@@ -38,5 +38,5 @@ The BTstack is in early development phase and mostly suited for people interesti
     * Linux BlueZ format
     * Direct packet hexdump to stdout.
 
-== Run Loop ==
-A basic run loop handler allows to add multiple data sources that are represented as POSIX file descriptors. The H4 HCI transport is run loop compatible. A Unix domain socket server is used for the communicaion between a client and the BTdaemon.
+== Integration with existing Run Loop ==
+The BTstack and its client library can work with different run loops. BTdaemon uses its own basic select()-based run loop that supports POSIX file descriptors and timers.The client library can used with the POSIX run loop as well as with a Cocoa CFRunLoop wrapper inside of an Cocao(Touch) UI application.
