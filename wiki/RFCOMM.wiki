@@ -31,3 +31,8 @@ An another argument for the use of RFCOMM can be made based on the RFCOMM suppor
 
 = Example Logs =
 [http://btstack.googlecode.com/svn/files/ZeemoteRFCOMM.pklg Apple PacketLogger log connecting to a ZeeMote JS1]
+
+= RFCOMM Initialization =
+The interesting RFCOMM messages from the log above:
+
+http://btstack.googlecode.com/svn/files/RFCOMM-Initialization.png
