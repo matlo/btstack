@@ -11,7 +11,7 @@ RFCOMM is commonly used:
 
 
 = Details =
-RFCOMM is not implemented for BTstack yet. 
+RFCOMM is not implemented for BTstack yet. A first duct tape RFCOMM test is able to receive data from simple RFCOMM devices, e.g. the Zeemote JS1, or probably a BT GPS, too.
 
 
 = Why RFCOMM is no good idea for new projects =
