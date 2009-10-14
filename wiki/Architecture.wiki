@@ -2,7 +2,8 @@
 
 = Introduction =
 
-The *BT Stack* has to support multiple clients. This is because the *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. 
+The *BT Stack* has to support multiple clients. The *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. This means that the *BT Stack* needs to incorporate a mechanism for multiplexing requests from different clients. 
+
 
 == Current architecture ==
 Application -> BT library (RFCOMM/SDP/L2CAP/HCI) -> Socket (TCP, Unix Domain) -> BTdaemon (RFCOMM/SDP/L2CAP/HCI) -> HCI transport support (H4, H5, USB) -> Bluetooth module
