@@ -19,19 +19,19 @@ typedef struct data_source {
 } data_source_t;
 }}}
 
-== Flowcontrol for Socket Servers ==
+
+=== Flowcontrol for Socket Servers ===
 As the socket servers can receive messages from the clients at any time, a command or an ACL packet might be sent while we cannot directly pass it on to the BT module. In this case, we have to _block_ this socket until the packet can be sent. If the socket server would skip reading data, it would be called again immediately, as the incoming socket is still ready. The data_source of the socket has to be excluded from the RunLoop, which can be achieved by removing the data_source from the RunLoop. In any case, to be activated again, the socket server has to be notified when new event packets are received. If a new event is received, the socket server can check again, if it can pass the incoming data packet on to the BT module.
 
 Because of this, it is necessary that multiple event callbacks can be registered with the BTdaemon. Using a callback context structure could simplify the callback registration. Maybe we could implement a "generic" callback handler as we need several ones.
 
-== HCI Logging ==
-*BTdaemon* is able to write HCI dumps in several formats. In supports both the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X. Also, it can just dump HCI packets to stdout.
+=== Timer ===
+There are two options for timer support in a single-threaded daemon. The first is using an explicit list of timeouts together with context information, the second detects timeouts on the fly and can determine the time until the next check.
+  # If timeouts are kept in an ordered list, the HCI daemon can use the time until the next timeout as timeout in the select() call and process them. A linked list will be fine with an absolute time, a callback and an optional arg. As the HCI daemon will run in a single thread, removing timer events will be free of race conditions. This approach is compatible to the NSRunLoop used on the iPhone.
+  # By examining all baseband links and L2CAP connections, all potential timeouts can be identified and/or the time of the next timeout be calculated. On the positive side, when examining the current state, all context information for a reaction to the timeout is directly available. With the timer list approach, this information would have to be extracted and stored as part of the timer nodes.
 
-== Development/Debugging ==
-In addition to support for Bluetooth modules connected by a serial connection (H4/H5), libUSB allows to use USB BT modules during development. More on the [HCI_USB_Transport HCI USB Transport page]. 
+We go with the first option as it is simpler to implement. We use the time functions in <sys/time.h> which provides a gettimeofday and the struct timeval.
 
-== Design decisions ==
-How much state is kept in HCI daemon, how much in the Bluetooth library? A minimal BT daemon needs to keep state that is shared between all clients. It also has to manage the single Bluetooth resource, e.g., Bluetooth should stay on as long as at least on client is connected.
 
 == Shared state in BT daemon ==
   * List of Baseband connections, their state sniffing/hold/park..
@@ -40,10 +40,15 @@ How much state is kept in HCI daemon, how much in the Bluetooth library? A minim
   * List of L2CAP channels in listening mode (a.k.a server)
   * List of active L2CAP channels
 
+
+=== Baseband Connection Management ===
+The HCI daemon should know which connections are open. A linked list will be fine. Necessary functions: look up by BD_ADDR, module connection handle and application connection handle. Most changes are updated by processing events (Connection Complete, Connection Request, Disconnection Complete, Authentication Complete, Role Change, Number of Completet Packets, Connection Packet Type Changed) 
+
+
 == Modular Design ==
 The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
 
-== HCI Transport API ==
+=== HCI Transport API ===
 The HCI Transport API allows the HCI daemon to use different transport implementations. The hci_tranport_t control structure contains a data_source_t structure used for the single-thread implementation.
  
 {{{
@@ -60,24 +65,25 @@ typedef struct {
 
 Note: packet sizes are not needed for HCI packets (ACL, Command, Event) as they contain length information. Could remove these from the function parameters.
 
-== BT Control API ==
+=== BT Control API ===
 In addition to the pure BT stack implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
-
-== Timer ==
-There are two options for timer support in a single-threaded daemon. The first is using an explicit list of timeouts together with context information, the second detects timeouts on the fly and can determine the time until the next check.
-  # If timeouts are kept in an ordered list, the HCI daemon can use the time until the next timeout as timeout in the select() call and process them. A linked list will be fine with an absolute time, a callback and an optional arg. As the HCI daemon will run in a single thread, removing timer events will be free of race conditions. This approach is compatible to the NSRunLoop used on the iPhone.
-  # By examining all baseband links and L2CAP connections, all potential timeouts can be identified and/or the time of the next timeout be calculated. On the positive side, when examining the current state, all context information for a reaction to the timeout is directly available. With the timer list approach, this information would have to be extracted and stored as part of the timer nodes.
-
-We go with the first option as it is simpler to implement. We use the time functions in <sys/time.h> which provides a gettimeofday and the struct timeval.
-
-== Opaque BT Connection Handles ==
-The Bluetooth module might immediately reuse a baseband connection handle after it is closed. In BTnut, we mapped the handle ids generated by the BT module to a 16 bit application connection handle. By this, use of obsolete baseband handles by the application could be detected and ignored.
 
 == HCI Command Flow Control ==
 Each command complete and command status event returns the amount of HCI commands the host is allowed to send to the BT module. A simple approach to this is to not generate command packets while, we cannot send them. This can be achieved by not reading from the clients and by only updating the internal state based on HCI events until packets are ready. (See the unfortunate code in BTnut bt_hci.c - scary!)
 
-== Baseband Connection Management ==
-The HCI daemon should know which connections are open. A linked list will be fine. Necessary functions: look up by BD_ADDR, module connection handle and application connection handle. Most changes are updated by processing events (Connection Complete, Connection Request, Disconnection Complete, Authentication Complete, Role Change, Number of Completet Packets, Connection Packet Type Changed) 
+== Goodies ==
+
+=== HCI Logging ===
+*BTdaemon* is able to write HCI dumps in several formats. In supports both the bluez-hcidump format which can be read by the hcidump tool, the GNOME Bluetooth-Analyzer, and Wireshark, and in Apple's PacketLogger format for easier debugging on OS X. Also, it can just dump HCI packets to stdout.
+
+=== Development/Debugging ===
+In addition to support for Bluetooth modules connected by a serial connection (H4/H5), libUSB allows to use USB BT modules during development. More on the [HCI_USB_Transport HCI USB Transport page]. 
+
+== Unsorted ==
+
+
+=== Opaque BT Connection Handles ===
+The Bluetooth module might immediately reuse a baseband connection handle after it is closed. In BTnut, we mapped the handle ids generated by the BT module to a 16 bit application connection handle. By this, use of obsolete baseband handles by the application could be detected and ignored.
 
 
 == References ==
