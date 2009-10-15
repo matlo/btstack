@@ -2,14 +2,17 @@
 
 = Introduction =
 
-The *BT Stack* has to support multiple clients. The *Host Controller Interface* supported by all Bluetooth devices assumes that a single Bluetooth Stack is in control. This means that the *BT Stack* needs to incorporate a mechanism for multiplexing requests from different clients. 
+*BTstack* is a Bluetooth stack mainly designed for embedded devices where resources are scarce. Despite this, it allows multiple applications to make use of Bluetooth services at the same time. The BTstack architecture consists of a Bluetooth server, called *BTdaemon*, which handles client requests, and a corresponding client library, which forwards the requests to the BTdaemon. In the following, the design of the BTdaemon is explained in more detail.
 
 
 == Current architecture ==
 Application -> BT library (RFCOMM/SDP/L2CAP/HCI) -> Socket (TCP, Unix Domain) -> BTdaemon (RFCOMM/SDP/L2CAP/HCI) -> HCI transport support (H4, H5, USB) -> Bluetooth module
 
 == Bluetooth Daemon ==
-A minimal *BTdaemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BTdaemon over TCP or Unix sockets. The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run loop, all file descriptors can be tracked in parallel. 
+A minimal *BTdaemon* is necessary to handle the multiplexing of multiple applications. Applications shall communicate with the BTdaemon over TCP or Unix sockets. 
+
+=== Run Loop ===
+The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run loop, all file descriptors can be tracked in parallel. 
 An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html  For now, each active component (socket server, socket connections, bluetooth module) have to provide a data_source_t structure:
 
 {{{
