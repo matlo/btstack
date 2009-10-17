@@ -6,6 +6,9 @@
 
 
 == Current architecture ==
+
+http://btstack.googlecode.com/svn/files/BTstack_architecture.png
+
 Application -> BT library (RFCOMM/SDP/L2CAP/HCI) -> Socket (TCP, Unix Domain) -> BTdaemon (RFCOMM/SDP/L2CAP/HCI) -> HCI transport support (H4, H5, USB) -> Bluetooth module
 
 == Bluetooth Daemon ==
