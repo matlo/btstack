@@ -58,10 +58,13 @@ The state shared between all connected clients consists of:
 
 
 == Modular Design ==
-The HCI daemon is started with a pointer to an hci_transport_t structure, a pointer to an hci transport configuration structure and a pointer to an bt_control_t structure.
+
+The BTstack was designed in a modular fashion: it provides an interface for "pluging-in" different run loop, HCI transport, and Bluetooth hardware control implementations. The run loop has to be set first by calling run_loop_init({RUN_LOOP_POSIX, RUN_LOOP_COCOA}). The HCI layer is constructed with a pointer to an hci_transport_t structure, a pointer to an HCI transport configuration structure and a pointer to an bt_control_t structure. 
+
 
 === HCI Transport API ===
-The HCI Transport API allows the HCI daemon to use different transport implementations. The hci_tranport_t control structure contains a data_source_t structure used for the single-thread implementation.
+
+The HCI Transport API allows the BTdaemon to use different transport implementations. The hci_tranport_t control structure contains a data_source_t structure used for the single-thread implementation.
  
 {{{
 typedef struct {
@@ -75,7 +78,7 @@ typedef struct {
 } hci_transport_t;
 }}}
 
-Note: packet sizes are not needed for HCI packets (ACL, Command, Event) as they contain length information. Could remove these from the function parameters.
+Note: packet sizes are not needed for HCI packets (ACL, Command, Event), as they themselves contain length information. They could be removed from the function parameters, but are kept for convenience.
 
 === BT Control API ===
 In addition to the pure BT stack implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
