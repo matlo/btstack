@@ -5,7 +5,7 @@
 *BTstack* is a Bluetooth stack that is mainly designed for embedded devices where resources are scarce. Despite scarce resources, it allows multiple applications to make use of Bluetooth services at the same time. The BTstack architecture consists of a Bluetooth server, called *BTdaemon*, which handles client requests, and a corresponding client library, which forwards the requests to the BTdaemon. In the following, the design of the BTdaemon is explained in more detail.
 
 
-= BTdaemon architecture =
+= BTdaemon Architecture =
 
 
 The *BTdaemon* is necessary to handle multiple clients. Clients use the BTstack client library to communicate with the BTdaemon over TCP or Unix sockets. 
@@ -14,9 +14,11 @@ In addition to necessary *socket server*, the other main components of the BTdae
 http://btstack.googlecode.com/svn/files/BTstack_architecture.png
 BTstack architecture 
 
-== Run Loop ==
-The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run loop, all file descriptors can be tracked in parallel. 
-An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html  For now, each active component (socket server, socket connections, bluetooth module) have to provide a data_source_t structure:
+== Posix Run Loop Implementation ==
+
+In the widely spread Posix standard, everything (files, I/Os, sockets, devices) is accessed via file descriptors. The BTdaemon's run loop is exploiting this fact to manage multiple data sources without multithreading. Such a data source is defined by a file descriptor and an associated data_source_ready handler. All data sources are tracked in parallel using the select() call. For detailed introduction into handling of multiple file descriptors within a single thread, check this [http://www.lowtek.com/sockets/select.html single-threaded socket server].
+
+Each active component (socket server, socket connections, Bluetooth module) have to provide a data_source_t structure:
 
 {{{
 typedef struct data_source {
