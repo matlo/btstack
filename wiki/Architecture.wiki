@@ -5,7 +5,7 @@
 *BTstack* is a Bluetooth stack that is mainly designed for embedded devices where resources are scarce. Despite scarce resources, it allows multiple applications to make use of Bluetooth services at the same time. The BTstack architecture consists of a Bluetooth server, called *BTdaemon*, which handles client requests, and a corresponding client library, which forwards the requests to the BTdaemon. In the following, the design of the BTdaemon is explained in more detail.
 
 
-== Current architecture ==
+== BTstack architecture ==
 
 http://btstack.googlecode.com/svn/files/BTstack_architecture.png
 
