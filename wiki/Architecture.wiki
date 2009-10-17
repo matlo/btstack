@@ -80,8 +80,9 @@ typedef struct {
 
 Note: packet sizes are not needed for HCI packets (ACL, Command, Event), as they themselves contain length information. They could be removed from the function parameters, but are kept for convenience.
 
-=== BT Control API ===
-In addition to the pure BT stack implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
+=== Bluetooth Hardware Control API ===
+
+The Bluetooth hardware control API allows the HCI layer to initialize, turn on/off the Bluetooth module, and configure a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This is device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool; on the BTnode, the power is controlled by a special kernel function, etc.
 
 
 == Goodies ==
