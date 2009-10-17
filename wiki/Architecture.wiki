@@ -33,7 +33,7 @@ Besides data sources, the BTdaemon needs to track various Bluetooth-related time
 
 For this, the run loop maintains a list of timeout events associated with the timeout (callback) handler and an optional callback argument. The list is ordered by time, such that the earliest timeout appears as the first element. The run loop then uses the interval between the current time and the earliest timeout as timeout parameter in the select() call. After select() returns, the run loop calls the callback handlers of all file descriptors returned by the select() are called, and those of the expired timeouts.
 
-The described run loop approach is compatible with many GUI frameworks, notably Cocoa on Mac OS X and !CocoaTouch on the iPhone. This allows direct integration of the BTstack client library into GUI applications.
+The described run loop approach is compatible with many GUI frameworks, notably Cocoa on Mac OS X and !CocoaTouch on the iPhone. As the BTstack client library is also designed to be executed by a run loop, it can be readily integrated into GUI applications.
 
 === Flow Control for Socket Server ===
 
