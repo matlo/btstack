@@ -29,9 +29,11 @@ typedef struct data_source {
 
 All data sources are tracked in parallel using the [http://www.manpagez.com/man/2/select/ select()] call. For a detailed introduction into handling of multiple file descriptors within a single thread, check this [http://www.lowtek.com/sockets/select.html single-threaded socket server].
 
-Besides data sources, the BTdaemon needs to track various Bluetooth-related timeout conditions. If timeouts are kept in an ordered list, the time of the next timeout can be accessed in constant time. The run loop uses the interval until the next timeout in the select() call. After select() returns, the run loop checks which timeouts are ready and calls their corresponding handler.
+Besides data sources, the BTdaemon needs to track various Bluetooth-related timeout events. For example, the BTdaemon supports an option to turn off the Bluetooth module one minute after the last client disconnects. The tracking of timeouts is also performed by the run loop.
 
-The descriped run loop approach is compatible with many GUI frameworks, notably Cocoa on Mac OS X and CocoaTouch on the iPhone. This allows to directly integrate the BTstack client library also into GUI applications.
+For this, the run loop maintains a list of timeout events associated with the timeout (callback) handler and an optional callback argument. The list is ordered by time, such that the earliest timeout appears as the first element. The run loop then uses the interval between the current time and the earliest timeout as timeout parameter in the select() call. After select() returns, the run loop calls the callback handlers of all file descriptors returned by the select() are called, and those of the expired timeouts.
+
+The described run loop approach is compatible with many GUI frameworks, notably Cocoa on Mac OS X and CocoaTouch on the iPhone. This allows to directly integrate the BTstack client library also into GUI applications.
 
 === Flow Control for Socket Server ===
 
