@@ -5,18 +5,16 @@
 *BTstack* is a Bluetooth stack that is mainly designed for embedded devices where resources are scarce. Despite scarce resources, it allows multiple applications to make use of Bluetooth services at the same time. The BTstack architecture consists of a Bluetooth server, called *BTdaemon*, which handles client requests, and a corresponding client library, which forwards the requests to the BTdaemon. In the following, the design of the BTdaemon is explained in more detail.
 
 
-== BTstack architecture ==
+= BTdaemon architecture =
 
-http://btstack.googlecode.com/svn/files/BTstack_architecture.png
-
-Client <=> BTstack client library <=> Socket connection (TCP, Unix Domain) <=> BTdaemon <=> Bluetooth module
-
-== Bluetooth Daemon ==
 
 The *BTdaemon* is necessary to handle multiple clients. Clients use the BTstack client library to communicate with the BTdaemon over TCP or Unix sockets. 
 In addition to necessary *socket server*, the other main components of the BTdaemon are: a *run loop* and the actual *Bluetooth stack*. The Bluetooth stack and the socket server are implemented as a collection of finite state machines. The state machines are executed by a single run loop, where all sockets and the Bluetooth module are registered as individual data sources. This design allows for a single-threaded implementation, which avoids concurrency problems and facilitates porting and running BTstack on embedded systems. As embedded systems usually implement a single functionality, support for multiple clients results in an unnecessary overhead. When necessary, e.g., to support 8-bit microcontrollers, the socket server can be omitted and the client directly integrated into the BTdaemon run loop.
 
-=== Run Loop ===
+http://btstack.googlecode.com/svn/files/BTstack_architecture.png
+BTstack architecture 
+
+== Run Loop ==
 The daemon runs as a single thread. This is made possible by the unix concept of treating everything as a file descriptor. In a single run loop, all file descriptors can be tracked in parallel. 
 An introduction on single thread unix socket servers: http://www.lowtek.com/sockets/select.html  For now, each active component (socket server, socket connections, bluetooth module) have to provide a data_source_t structure:
 
@@ -34,6 +32,9 @@ As the socket servers can receive messages from the clients at any time, a comma
 
 Because of this, it is necessary that multiple event callbacks can be registered with the BTdaemon. Using a callback context structure could simplify the callback registration. Maybe we could implement a "generic" callback handler as we need several ones.
 
+=== HCI Command Flow Control ===
+Each command complete and command status event returns the amount of HCI commands the host is allowed to send to the BT module. A simple approach to this is to not generate command packets while, we cannot send them. This can be achieved by not reading from the clients and by only updating the internal state based on HCI events until packets are ready. (See the unfortunate code in BTnut bt_hci.c - scary!)
+
 === Timer ===
 There are two options for timer support in a single-threaded daemon. The first is using an explicit list of timeouts together with context information, the second detects timeouts on the fly and can determine the time until the next check.
   # If timeouts are kept in an ordered list, the HCI daemon can use the time until the next timeout as timeout in the select() call and process them. A linked list will be fine with an absolute time, a callback and an optional arg. As the HCI daemon will run in a single thread, removing timer events will be free of race conditions. This approach is compatible to the NSRunLoop used on the iPhone.
@@ -42,7 +43,7 @@ There are two options for timer support in a single-threaded daemon. The first i
 We go with the first option as it is simpler to implement. We use the time functions in <sys/time.h> which provides a gettimeofday and the struct timeval.
 
 
-== Shared state in BT daemon ==
+== Shared state ==
   * List of Baseband connections, their state sniffing/hold/park..
   * Bluetooth state: off/initializing/on/terminating
   * Configuration: page scan timeout, discoverable, etc..
@@ -77,8 +78,6 @@ Note: packet sizes are not needed for HCI packets (ACL, Command, Event) as they 
 === BT Control API ===
 In addition to the pure BT stack implementation, there is a need for functions such as turning on/off the Bluetooth module, configuring a particular transport protocol including the physical connection (H4/H5/USB, device path, baud rate, flow control, Vendor ID, Product ID). This will be device specific, e.g., turning on Bluetooth on the iPhone requires to make use of Apple's BlueTool, on the BTnode, the power is controlled by a special kernel function.
 
-== HCI Command Flow Control ==
-Each command complete and command status event returns the amount of HCI commands the host is allowed to send to the BT module. A simple approach to this is to not generate command packets while, we cannot send them. This can be achieved by not reading from the clients and by only updating the internal state based on HCI events until packets are ready. (See the unfortunate code in BTnut bt_hci.c - scary!)
 
 == Goodies ==
 
