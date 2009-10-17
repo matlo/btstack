@@ -22,7 +22,7 @@ In the widely spread Posix standard, everything (files, I/Os, sockets, devices) 
 typedef struct data_source {
     linked_item_t item;                                 // <-- used internally by RunLoop
     int  fd;                                            // <-- file descriptors to watch or 0
-    int  (*data_source_ready)(struct data_source *ds);            // <-- handler
+    int  (*data_source_ready)(struct data_source *ds);  // <-- handler
 } data_source_t;
 }}}
 
