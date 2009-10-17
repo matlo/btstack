@@ -47,15 +47,14 @@ To avoid sending commands while the Bluetooth module is busy, the BTdaemon uses 
 (See the unfortunate code in BTnut bt_hci.c for how you should not handle it - scary!)
 
 == Shared state ==
-  * List of Baseband connections, their state sniffing/hold/park..
+
+The state shared between all connected clients consists of:
+  * List of Baseband connections, and their state: active/sniffing/hold/park
   * Bluetooth state: off/initializing/on/terminating
-  * Configuration: page scan timeout, discoverable, etc..
+  * Configuration: page scan timeout, discoverable, etc.
   * List of L2CAP channels in listening mode (a.k.a server)
   * List of active L2CAP channels
-
-
-=== Baseband Connection Management ===
-The HCI daemon should know which connections are open. A linked list will be fine. Necessary functions: look up by BD_ADDR, module connection handle and application connection handle. Most changes are updated by processing events (Connection Complete, Connection Request, Disconnection Complete, Authentication Complete, Role Change, Number of Completet Packets, Connection Packet Type Changed) 
+  * List of active RFCOMM channels (not implemented yet)
 
 
 == Modular Design ==
