@@ -1,7 +1,7 @@
 #summary Overview on the Bluetooth Network Encapsulation Protocol
 
 = Introduction =
-The Bluetooth Network Encapsulation Protocol (BNEP) describes how IP packets can be transported over L2CAP channels
+The Bluetooth Network Encapsulation Protocol (BNEP) allows to transport regular IP packets over L2CAP channels. This is in contrast to cumbersome option of encapsulating IP packets with PPP over RFCOMM over L2CAP.
 
 = Status =
 Work has not starte yet.
