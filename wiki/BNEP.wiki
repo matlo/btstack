@@ -4,7 +4,7 @@
 The Bluetooth Network Encapsulation Protocol (BNEP) allows to transport regular IP packets over L2CAP channels. This is in contrast to cumbersome option of encapsulating IP packets with PPP over RFCOMM over L2CAP.
 
 = Status =
-Work has not starte yet.
+Work has not started yet.
 
 = Specifications =
   * [http://www.bluetooth.com/NR/rdonlyres/279DC460-295E-42ED-8952-61B723620884/984/PAN_SPEC_V10.pdf Personal Area Network (PAN) Profile]
