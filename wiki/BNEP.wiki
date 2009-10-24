@@ -8,4 +8,4 @@ Work has not starte yet.
 
 = Specifications =
   * [http://www.bluetooth.com/NR/rdonlyres/279DC460-295E-42ED-8952-61B723620884/984/PAN_SPEC_V10.pdf Personal Area Network (PAN) Profile]
-  * [[http://www.bluetooth.com/NR/rdonlyres/89B2BA02-D3FB-4717-97A1-A5B10D90F795/912/BNEPSpecification1.pdf Bluetooth Network Encapsulation (BNEP) Protocol]
+  * [http://www.bluetooth.com/NR/rdonlyres/89B2BA02-D3FB-4717-97A1-A5B10D90F795/912/BNEPSpecification1.pdf Bluetooth Network Encapsulation (BNEP) Protocol]
