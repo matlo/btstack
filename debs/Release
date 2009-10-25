@@ -1,0 +1,11 @@
+Origin: BTstack Repository at Google Code
+Label: BTstack
+Suite: stable
+Version: 0.9
+Codename: tangelo
+Architectures: iphoneos-arm
+Components: main
+Description: Open-source packages related to BTstack
+MD5Sum:
+ e9385da6b697611bffe9e60e0f919263 464 Packages
+ cb51c535cb0e37e42e1c7eeb4b597d6e 380 Packages.bz2
