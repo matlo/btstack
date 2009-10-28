@@ -1,12 +1,12 @@
 Package: ch.ringwald.btstack
-Version: 0.1-323
+Version: 0.1-401
 Section: Development
 Maintainer: Matthias Ringwald <iphone@ringwald.ch>
 Depends: ch.ringwald.springboardaccess
 Architecture: iphoneos-arm
-Filename: .//BTstack-0.1-323.deb
-Size: 36896
-MD5sum: 1566e91432b444fea522cfbd12cdd67b
+Filename: .//BTstack-0.1-401.deb
+Size: 34896
+MD5sum: 6930a4089f57d0b979eb7a468607e476
 Description: Open User-Space Bluetooth Stack
 Name: BTstack
 Author: Matthias Ringwald <iphone@ringwald.ch>
