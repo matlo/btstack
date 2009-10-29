@@ -1,4 +1,4 @@
-Origin: BTstack Repository at Google Code
+Origin: BTstack at Google Code
 Label: BTstack
 Suite: stable
 Version: 0.9
@@ -7,5 +7,5 @@ Architectures: iphoneos-arm
 Components: main
 Description: Open-source packages related to BTstack
 MD5Sum:
- 699db462cc3442db5ef98c28071642d7 1370 Packages
- 5e7f0468c6d238c2a45b22969cc107bc 704 Packages
+ 79de8bf40cd66e19a2279149c67f308f 1370 Packages
+ 2a13cdb2a922fa971d9c31616c5fe7c5 687 Packages.bz2

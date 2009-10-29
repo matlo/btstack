@@ -1,38 +1,38 @@
 Package: ch.ringwald.btstack
-Version: 0.1-403
+Version: 0.1-404
 Section: Development
 Maintainer: Matthias Ringwald <iphone@ringwald.ch>
 Depends: ch.ringwald.springboardaccess
 Architecture: iphoneos-arm
-Filename: .//BTstack-0.1-403.deb
-Size: 37026
-MD5sum: e9258023c88f940bdd52f35258fb4744
+Filename: .//BTstack-0.1-404.deb
+Size: 37010
+MD5sum: 80adacc79e8538c2e3514362692f4ac7
 Description: Open User-Space Bluetooth Stack
 Name: BTstack
 Author: Matthias Ringwald <iphone@ringwald.ch>
 
 Package: ch.ringwald.springboardaccess
-Version: 0.1-323
+Version: 0.1-404
 Section: Development
 Maintainer: Matthias Ringwald <iphone@ringwald.ch>
 Depends: mobilesubstrate (>= 0.9.2966-1)
 Architecture: iphoneos-arm
-Filename: .//SpringBoardAccess-0.1-323.deb
-Size: 5628
-MD5sum: 988221f9f84ab889fbcef5b177734a3a
+Filename: .//SpringBoardAccess-0.1-404.deb
+Size: 5618
+MD5sum: acf22e56ebe0e17f71c1e52d744a1c22
 Description: Controls status bar icons from daemons
 Name: SpringBoardAccess
 Author: Matthias Ringwald <iphone@ringwald.ch>
 
 Package: ch.ringwald.wiimoteopengldemo
-Version: 1.0-354
+Version: 1.0-404
 Section: Networking
 Maintainer: Matthias Ringwald <iphone@ringwald.ch>
 Depends: ch.ringwald.btstack
 Architecture: iphoneos-arm
-Filename: .//WiiMoteOpenGLDemo-1.0-354.deb
-Size: 267498
-MD5sum: 20b8d2fae9dbddc2bc1509951463126b
+Filename: .//WiiMoteOpenGLDemo-1.0-404.deb
+Size: 267448
+MD5sum: 7d96c2c9fabe35a261b1238aff49762e
 Description: BTstack Demo
  This demo shows how a virtual WiiMote can mirror
  the behavior of a real one thanks to the open-source
