@@ -7,5 +7,5 @@ Architectures: iphoneos-arm
 Components: main
 Description: Open-source packages related to BTstack
 MD5Sum:
- 79de8bf40cd66e19a2279149c67f308f 1370 Packages
- 2a13cdb2a922fa971d9c31616c5fe7c5 687 Packages.bz2
+ cab25f7115af013d065f296c4648fbd9 1370 Packages
+ 3befeefb486fcce47e8601fbb7b20cbe 695 Packages.bz2
