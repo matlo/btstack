@@ -10,3 +10,6 @@ rm Release
 cp Release.in Release
 echo " $P1_MD5 $P1_SIZE Packages" >> Release
 echo " $P2_MD5 $P2_SIZE Packages.bz2" >> Release
+
+# help with svn, too
+svn add *.deb

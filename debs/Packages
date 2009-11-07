@@ -25,14 +25,14 @@ Name: SpringBoardAccess
 Author: Matthias Ringwald <iphone@ringwald.ch>
 
 Package: ch.ringwald.wiimoteopengldemo
-Version: 1.0-404
+Version: 1.0-425
 Section: Networking
 Maintainer: Matthias Ringwald <iphone@ringwald.ch>
 Depends: ch.ringwald.btstack
 Architecture: iphoneos-arm
-Filename: .//WiiMoteOpenGLDemo-1.0-404.deb
-Size: 267448
-MD5sum: 7d96c2c9fabe35a261b1238aff49762e
+Filename: .//WiiMoteOpenGLDemo-1.0-425.deb
+Size: 267654
+MD5sum: 6b3946e1f8a9adff03fe0139ccc9917a
 Description: BTstack Demo
  This demo shows how a virtual WiiMote can mirror
  the behavior of a real one thanks to the open-source
