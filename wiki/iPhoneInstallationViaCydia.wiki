@@ -5,10 +5,10 @@
 Binary packages of the BTstack components and the !WiiMote demo are provided at: http://btstack.googlecode.com/svn/debs/
 
 You can install them via Cydia in two steps:
- * Add BTstack Google Code Repository to Cydia
- * Install !WiiMote demo
+ # Add BTstack Google Code Repository to Cydia
+ # Install !WiiMote demo
 
-== Add BTstack Google Code Repository to Cydia ==
+== Step 1: Add BTstack Google Code Repository to Cydia ==
  * Start Cydia
  * Select the "Manage" tab at the bottom
  * Select "Sources"
@@ -19,9 +19,9 @@ You can install them via Cydia in two steps:
  * Select "Done" in the upper right
 This has to be done only once.
 
-== Install !WiiMote Demo ==
+== Step 2: Install !WiiMote Demo ==
  * On the Cydia "Search" tab, enter _!WiiMote_ into the search field
- * Select "WiiMote OopenGL-ES..." 
+ * Select "!WiiMote OpenGL-ES..." 
  * Select "Install" and confirm it
 
 == Try it out ==
