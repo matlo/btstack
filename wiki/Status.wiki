@@ -19,18 +19,15 @@ In particular, it runs on the iPhone 3G(S) and all iPod touch devices with Bluet
  * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. More work has to done: incoming connections, MTU negotiation, packet segmentation, packet reassembly and flow control are not implemented. 
 
 == RFCOMM ==
- * Quite some interest, development has started. See [RFCOMM] The existing L2CAP implementation is sufficient.
+ * Quite some interest, development has started. See [RFCOMM]. The existing L2CAP implementation is sufficient.
 
 = Other =
 
-== BT Control ==
-=== iPhone and iPod touch ===
- * The iPhone control component is able to switch the Bluetooth chipset on/off and properly initialize them in HCI H4 Transport mode with baud rates from 57600-921600 on all iPhone and iPod touch devices with build-in Bluetooth.
- * Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple. The problem is not with the Bluetooth chipset. The termios call to set the speed of the serial port returns "invalid parameter" for higher baud rates.
- * Repeated power on/off work without issues, so the BTdaemon can keep running with the BT turned off completely while the iPhone is in sleep mode.
- * A new SpringBoardAccess extension allows the BTdaemon to show a BTstack icon similiar to Apple's Bluetooth icon. 
- * BTdaemon can be automatically started Launchd. This makes it more robust and allows for an automatic power-off, when no application is using Bluetooth.
- * Successfully tested on iPhone 3G with OS 2.2.1 and 3.0, iPod touch 2G with 2.2.1 and 3.0, and iPhone 3GS with 3.0.1.
+== iPhone and iPod touch ==
+ * The iPhone control component is able to switch the Bluetooth chipset on/off and properly initialize them in HCI H4 Transport mode with baud rates from 57600-921600 on all iPhone and iPod touch devices with build-in Bluetooth. Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple. The problem is not with the Bluetooth chipset. The termios call to set the speed of the serial port returns "invalid parameter" for higher baud rates.
+ * The SpringBoardAccess MobileSubstrate extension allows the BTdaemon to show a BTstack icon similar to Apple's Bluetooth icon in the status bar.
+ * BTdaemon is automatically started by Launchd. This makes it more robust and allows for automatic power-off, when no application is using Bluetooth.
+ * Successfully tested on iPhone 3G with OS 2.2.1 and 3.0, iPod touch 2G with 2.2.1 and 3.0, iPod touch 3G with 3.1.2, and iPhone 3GS with 3.0.1. and 3.1.2.
 
 == Logging/Debugging ==
  * hci_dump.c supports multiple formats:
