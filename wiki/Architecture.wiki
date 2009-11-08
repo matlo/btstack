@@ -1,4 +1,5 @@
 #summary Describes the overall architecture and how clients interact with the stack.
+#labels Featured
 
 = Introduction =
 
