@@ -1,19 +1,19 @@
-#summary Status of the BTstack implementation
+#summary Status of the BTstack
 
-The BTstack is in early development phase and mostly suited for people interesting in learning their way around in the Bluetooth Stack. However, the example test.c can create an L2CAP connection to a WiiMote and receive acceleration data.
+BTstack reached version 0.1 and allows for multiple outgoing L2CAP connections and rudimentary RFCOMM connections. Although in an early stage, it supports Bluetooth Human Interface Devices via L2CAP (keyboard, WiiMote, etc.. ), the control of robots, and basic RFCOMM-based devices like GPS receivers, the ZeeMote JS-1 joystick, or a Bluetooth Chipcard reader.
+
+It runs in a single thread in user-space and makes use of the standard POSIX API. It expects a Bluetooth module connected via a serial connection (Bluetooth H4 HCI Transport). Support for Bluetooth USB modules is not working yet.
+
+In particular, it runs on the iPhone 3G(S) and all iPod touch devices with Bluetooth support. It is unclear yet, if it works properly on the iPhone 2G. On this platform, BTstack is automatically started by the system's launch daemon and provides its own status bar icon to distinguish itself from Apple's Bluetooth stack. It is available as binary via the [http://www.saurik.com/id/1 Cydia distribution system].
+
 
 = Bluetooth Layers =
 
-== HCI Transport ==
-
-=== H4 ===
- * The original H4 protocol for UARTs is fully implemented and working.
-
-=== BCSP/H5 ===
- * The more advanced CSR BSCP and the "Three Wire UART" transport protocol are not supported.
-
 == HCI ==
  * A minimal HCI layer is implemented. Instead of implementing each HCI command separately, a table-driven approach allows to add HCI commands by only specifying the command packet format.
+ * HCI Transport:
+   * H4: The original H4 protocol for UARTs is fully implemented and working.
+   * BCSP/H5: The more advanced CSR BSCP and the "Three Wire UART" transport protocol are not supported.
 
 == L2CAP ==
  * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. More work has to done: incoming connections, MTU negotiation, packet segmentation, packet reassembly and flow control are not implemented. 
