@@ -1,4 +1,4 @@
-BTstack reached version 0.1 and allows for multiple outgoing L2CAP connections and rudimentary RFCOMM connections. Although in an early stage, it supports Bluetooth Human Interface Devices via L2CAP (keyboard, WiiMote, etc.. ), the control of robots, and basic RFCOMM-based devices like GPS receivers, the ZeeMote JS-1 joystick, or a Bluetooth Chipcard reader.
+BTstack reached version 0.1 and allows for multiple outgoing L2CAP connections and rudimentary RFCOMM connections. Although in an early stage, it supports Bluetooth Human Interface Devices via L2CAP (keyboard, !WiiMote, etc.. ), the control of robots, and basic RFCOMM-based devices like standard GPS receivers, the [http://www.zeemote.com/ ZeeMote JS-1 joystick], or a Bluetooth Chipcard reader.
 
 It runs in a single thread in user-space and makes use of the standard POSIX API. It expects a Bluetooth module connected via a serial connection (Bluetooth H4 HCI Transport). Support for Bluetooth USB modules is not working yet.
 
