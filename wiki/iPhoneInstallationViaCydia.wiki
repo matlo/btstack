@@ -1,0 +1,26 @@
+#summary How to add BTstack repository and install WiiMote demo via Cydia
+
+= Introduction =
+Binary packages of the BTstack components and the WiiMote demo are provided at: http://btstack.googlecode.com/svn/debs/
+
+After adding this source to Cydia, BTstack and the demo can be installed as usual.
+
+== Add BTstack Google Code Repository to Cydia ==
+ * Start Cydia
+ * Select the "Manage" tab at the bottom
+ * Select "Sources"
+ * Select "Edit" in the upper right
+ * Select "Add" in the upper left
+ * Enter _http://btstack.googlecode.com/svn/debs/_ as Cydia/APT URL
+ * Press "Add Source"
+ * Select "Done" in the upper right
+This has to be done only once.
+
+== Install WiiMote Demo ==
+ * On the Cydia "Search" tab, enter _WiiMote_ into the search field
+ * Select "WiiMote OopenGL-ES..." 
+ * Select "Install" and confirm it
+
+== Try it out ==
+ * Press the home button, and start the new _WiiMote_ app, ready your WiiMote and follow the screen instruction that tells you to make it discoverable by pressing the 1+2 buttons at the same time. The current demo v1.0 only tracks rolling of the WiiMote around the main axis.
+ 
