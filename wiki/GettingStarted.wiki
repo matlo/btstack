@@ -1,4 +1,5 @@
 #summary How to get a grip on the BTstack
+#labels Featured
 
 = Introduction =
 Although in an early stage, the BTstack can already used to create connections to other devices using the L2CAP protocol. This allows for example to receive keypress events from an Bluetooth keyboard or movement data from a WiiMote.
