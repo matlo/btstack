@@ -1,4 +1,5 @@
 #summary This page reviews the Bluetooth controller on the Apple's iPhone and iPod touch and explains how it can be used independently from the OS
+#labels Featured
 
 = Introduction =
 
