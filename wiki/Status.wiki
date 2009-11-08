@@ -12,6 +12,7 @@ In particular, it runs on the iPhone 3G(S) and all iPod touch devices with Bluet
  * HCI Transport:
    * H4: The original H4 protocol for UARTs is fully implemented and working.
    * BCSP/H5: The more advanced CSR BSCP and the "Three Wire UART" transport protocol are not supported.
+   * USB: Some code exists, but not working yet.
 
 == L2CAP ==
  * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. More work has to done: incoming connections, MTU negotiation, packet segmentation, packet reassembly and flow control are not implemented. 
