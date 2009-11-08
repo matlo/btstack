@@ -1,4 +1,4 @@
-#summary How to add BTstack repository and install !WiiMote demo via Cydia
+#summary How to add BTstack repository and install WiiMote demo via Cydia
 #labels Featured
 
 = Introduction =
@@ -25,5 +25,5 @@ This has to be done only once.
  * Select "Install" and confirm it
 
 == Try it out ==
- * Press the home button, and start the new _!WiiMote_ app, ready your !WiiMote and follow the screen instruction that tells you to make it discoverable by pressing the 1+2 buttons at the same time. The current demo v1.0 only tracks rolling of the !WiiMote around the main axis.
+Press the home button, and start the new _!WiiMote_ app, ready your !WiiMote and follow the screen instruction that tells you to make it discoverable by pressing the 1+2 buttons at the same time. The current demo v1.0 only tracks rolling of the !WiiMote around the main axis.
  
