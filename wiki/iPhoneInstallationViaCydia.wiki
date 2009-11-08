@@ -2,7 +2,7 @@
 #labels Featured
 
 = Introduction =
-BTstack is tested on iPhone 3G(S) and all iPod touch models with Bluetooth. It is unclear, if it works on iPhone 2G.
+*NOTE:* BTstack is tested on iPhone 3G(S) and all iPod touch models with Bluetooth. It is unclear, if it works on iPhone 2G.
 
 Binary packages of the BTstack components and the !WiiMote demo are provided at: http://btstack.googlecode.com/svn/debs/
 
