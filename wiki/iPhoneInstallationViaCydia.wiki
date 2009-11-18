@@ -4,7 +4,7 @@
 = Introduction =
 *NOTE:* BTstack is tested on iPhone 3G(S) and all iPod touch models with Bluetooth. It is unclear, if it works on iPhone 2G.
 
-Binary packages of the BTstack components and the !WiiMote demo are provided via the [BigBoss http://thebigboss.org/] repository. It can be installed by Cydia, Rock My Phone, and Icy.
+Binary packages of the BTstack components and the !WiiMote demo are kindly provided via the [http://thebigboss.org/ BigBoss ] repository. It can be installed by Cydia, Rock My Phone, and Icy.
 
 == Install via Cydia ==
  * On the Cydia "Search" tab, enter _!WiiMote_ into the search field
