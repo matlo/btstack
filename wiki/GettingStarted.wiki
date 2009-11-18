@@ -16,7 +16,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
 = Steps =
 
   # get the BTstack project from the Google code SVN:
-    {{{svn checkout https://btstack.googlecode.com/svn/trunk/ btstack}}}
+    {{{svn checkout http://btstack.googlecode.com/svn/trunk/ btstack}}}
   # cd into the btstack folder 
     {{{cd btstack}}}
   # If you have pkg-config from MacPorts
