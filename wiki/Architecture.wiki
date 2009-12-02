@@ -103,6 +103,7 @@ An early version of an HCI USB Transport implementation is included and should s
   * Official Bluetooth specification: http://www.bluetooth.com/Bluetooth/Technology/Building/Specifications/Default.htm
   * CSR provides a wealth of documents on HCI and their hardware after registering a free account at http://www.csrsupport.com
   * BlueZ - The GPL Linux Bluetooth Stack: http://www.bluez.org/
+    * The [http://wiki.bluez.org/wiki BlueZ Wiki]
     * The implementation for CSR lists some of the magical properties set by the Apple BlueTool init scripts, I could not find in the CSR documentation.
   * The lightweight Bluetooth Stack (lwBT). Another embedded BT stack, intended for use with the lightweight IP stack (lwIP): http://www.sm.luth.se/~conny/lwbt/
   * The ETH BTnut BT Stack: http://www.btnode.ethz.ch
