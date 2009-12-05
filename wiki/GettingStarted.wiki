@@ -70,9 +70,9 @@ As this event handler shows, everything is event-triggered. After sending a comm
 
 = Develop BTstack apps in the iPhone Simulator =
 
-To develop iPhone apps on the Mac, you need a serial Bluetooth module like the [http://www.tik.ee.ethz.ch/~beutel/projects/bttester/bt_tester.html Ericsson ROK Tester] connected over a USB-to-Serial adapter as the HCI_USB_Transport does not work yet. With such a setup, you have to configure BTstack for running on the host, not the iPhone as described above. You also have to specify the UART device, see ./configure --help
+To develop iPhone apps on the Mac, you need a serial Bluetooth module like the [http://www.tik.ee.ethz.ch/~beutel/projects/bttester/bt_tester.html Ericsson ROK Tester] connected over a USB-to-Serial adapter, as the[HCI_USB_Transport] does not work yet. With such a setup, you can configure BTstack for running on the Mac host, not the iPhone as described above. You also have to specify the UART device, see ./configure --help
 
-For testing you run BTdaemon in one terminal before starting your app in the simulator.
+For testing you run BTdaemon in one terminal before starting your app in the simulator. The app will then connect to the BTdaemon over the local unix domain socket.
 
 = References =
   * [http://www.bluetooth.com/NR/rdonlyres/0BE438ED-DC1B-41D1-AAC0-1AAA956097A2/980/HID_SPEC_V10.pdf Human Interface Devices profile]
