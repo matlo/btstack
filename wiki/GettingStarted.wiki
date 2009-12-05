@@ -4,7 +4,7 @@
 = Introduction =
 Although in an early stage, the BTstack can already used to create connections to other devices using the L2CAP protocol. This allows for example to receive keypress events from an Bluetooth keyboard or movement data from a !WiiMote.
 
-On this page, we provide a quick walk-through to run example/test.c on an iPhone 3G(S) or iPod touch 2G/3G and connect to a !WiiMote, while displaying acceleration and button reports.
+On this page, we provide a quick walk-through to run example/test.c on an iPhone 3G(S) or iPod touch 2G/3G and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
 
 = Requirements =
   * the autotools
@@ -13,7 +13,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
   * a subversion client
   * a jailbroken iPhone or iPod touch 2G with the ldid code-signing tool installed.
 
-= Steps =
+= Steps to get BTstack example running on the iPhone=
 
   # get the BTstack project from the Google code SVN:
     {{{svn checkout http://btstack.googlecode.com/svn/trunk/ btstack}}}
@@ -25,7 +25,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     in configure.in: change the SDK_VERSION variable to the SDK you want to use/have. BTstack works with all versions.
   # run the bootstrap helper
     {{{./bootstrap.sh}}}
-  # configure BTstack for the iPhone
+  # configure BTstack for the iPhone 
     {{{./configure --target=iphone}}}
   # If you get an error that mentions "PKG_CHECK_MODULES", then aclocal did not pick up pkg-config installation. Try to fix it and run configure again.
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
@@ -68,6 +68,11 @@ Anyway, the different steps of the program are visible in the event handler. Fir
 
 As this event handler shows, everything is event-triggered. After sending a command to the BTdaemon, which in turn sends it to the Bluetooth chipset, we wait for the corresponding event to continue with our application. Instead of writing this single even handler, it is much better to follow the concept of finite state machines. Based on our current state, an event such as HCI events, triggers the next action and the transition to another state. For more insight inton finite state machine, I highly recommend the book by Miro Samek.
 
+= Develop BTstack apps in the iPhone Simulator =
+
+To develop iPhone apps on the Mac, you need a serial Bluetooth module like the [http://www.tik.ee.ethz.ch/~beutel/projects/bttester/bt_tester.html Ericsson ROK Tester] connected over a USB-to-Serial adapter as the HCI_USB_Transport does not work yet. With such a setup, you have to configure BTstack for running on the host, not the iPhone as described above. You also have to specify the UART device, see ./configure --help
+
+For testing you run BTdaemon in one terminal before starting your app in the simulator.
 
 = References =
   * [http://www.bluetooth.com/NR/rdonlyres/0BE438ED-DC1B-41D1-AAC0-1AAA956097A2/980/HID_SPEC_V10.pdf Human Interface Devices profile]
