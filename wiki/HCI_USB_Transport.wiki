@@ -20,10 +20,9 @@ However, it is not ported to Windows yet. For debugging purposes on Windows, a s
 = Status =
  * Finding a BT module (either by product & vendor ID or by device class) works on Linux and Mac.
  * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux, crashes on Mac - I've seen an update which claims to fix a related crash. Although, they are not mandated by the  BT specification, most products follow the BT specification recommendation so we can just use the defaults for now.
- * Sending and receiving HCI Reset command works on Linux and Mac.
+ * Sending and receiving HCI Reset command does not work on Linux and Mac.
 
 = TODO =
- * Adapt test code in src/hci_transport_usb.c to hci_transport.h API
- * Integrate libUSB event handling into BTstack run loop
+ * Get RESET command and event receive to wrk.
  * Test HID L2CAP example with USB dongle
  
