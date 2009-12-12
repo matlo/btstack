@@ -1,4 +1,4 @@
-#summary How to add BTstack repository and install WiiMote demo via Cydia
+#summary How to install BTstack try WiiMote demo via Cydia
 #labels Featured
 
 = Introduction =
