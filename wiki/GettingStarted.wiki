@@ -10,8 +10,9 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
   * the autotools
   * pkg-config. this not installed by e.g. XCode. You can use the one from [http://www.finkproject.org Fink] or [http://www.macports.org MacPorts].
   * a toolchain for the iPhone. This introduction assumes the use of the XCode iPhone SDK on Mac OS X.
+  * the ldid code-signing tool. Please use he one from Fink  if you are on a PPC platform and the original sources by Jay Freeman have endianess issues.
   * a subversion client
-  * a jailbroken iPhone or iPod touch 2G with the ldid code-signing tool installed.
+  * a jailbroken iPhone or iPod touch 2G or later.
 
 = Steps to get BTstack example running on the iPhone=
 
