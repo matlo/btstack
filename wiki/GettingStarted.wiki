@@ -27,7 +27,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{./bootstrap.sh}}}
   # configure BTstack for the iPhone 
     {{{./configure --target=iphone}}}
-  # If you get an error that mentions "PKG_CHECK_MODULES", then aclocal did not pick up pkg-config installation. Try to fix it and run configure again.
+  # If you get an error that mentions "PKG_CHECK_MODULES", then aclocal did not pick up pkg-config installation. Try to fix it or remove lines 41-58 (incl.) of configure.in and re-run the ./bootstrap and configure again.
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
   # build it
     {{{make}}}
@@ -35,12 +35,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{scp src/BTdaemon src/libBTstack.dylib example/test mobile@192.168.3.102:.}}}
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
-  # sign the binaries with ldid
-{{{
- ldid -S BTdaemon
- ldid -S test
- ldid -S libBTstack.dylib
-}}}
+  # --sign the binaries with ldid -S -- not needed. all files are signed during build
   # copy the client library into /usr/local/lib
 {{{
  su
