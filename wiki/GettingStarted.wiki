@@ -35,7 +35,6 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{scp src/BTdaemon src/libBTstack.dylib example/test mobile@192.168.3.102:.}}}
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
-  # --sign the binaries with ldid -S -- not needed. all files are signed during build
   # copy the client library into /usr/local/lib
 {{{
  su
