@@ -11,6 +11,8 @@ We do not intend to support per-channel flow control or retransmissions. Therefo
 == Client API ==
 All L2CAP commands are forwarded to the BTdaemon with the bt_send_cmd. Maybe explicit function calls will be provided at a later time - using a code generator. 
 
+Have a look at the example code: http://code.google.com/p/btstack/source/browse/trunk/example/l2cap-server.c
+
 === Outgoing Connections ===
 To open an L2CAP connection use the l2cap_create_channel command:
 {{{
