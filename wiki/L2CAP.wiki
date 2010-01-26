@@ -24,14 +24,14 @@ To open an L2CAP connection use the l2cap_create_channel command:
 On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the source_cid. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
 
 === Incoming Connections ===
-Incoming Connections are not implemented yet. They will be implemented like this: To register an L2CAP PSM, send the l2cap_register_psm(..) command. On incoming L2CAP connection request, an event will be received by the application event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
+To register an L2CAP service, send the l2cap_register_service(uint16_t psm, uint16_t mtu) command. The incoming MTU is ignored for not. On incoming L2CAP connection request, an L2CAP_EVENT_INCOMING_CONNECTION event will be received by the application event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
 
 {{{
-  l2cap_register_psm(uint16_t psm, uint16_t incoming_mtu);
-  l2cap_accept_connection(bd_addr_t  remote_address, uint16_t dest_cid);
-  l2cap_decline_connection(bd_addr_t remote address, utin16_t dest_cid, uint8_t reason);
-  l2cap_unregister_psm(uint16_t psm);
+  bt_send_cmd(&l2cap_register_psm, uint16_t psm, uint16_t incoming_mtu);
+  bt_send_cmd(&l2cap_unregister_psm, uint16_t psm);
 
+  bt_send_cmd(&l2cap_accept_connection, uint16_t source_cid);
+  bt_send_cmd(&l2cap_decline_connection, utin16_t source_cid, uint8_t reason);
 }}}
 
 = Details =
@@ -55,10 +55,22 @@ To process incoming L2CAP Signaling Commands, they need to be dispatched to the 
 
 Commands 0x08-0x0b are not channel related, also 0x02 is used to setup a new channel. We only have to react to {0x01-0x07}\{0x02}. For command codes with odd number, we match by the signal identifier sent earlier by the channel - the channel_t struct stores the last sent signal identifier. Otherwise, we match by the destination channel ID.
 
-=== l2cap_listener_t (a.k.a Socket) ===
-  * PSM
-  * MTU
-  * Connection Indication Callback
+=== l2cap_listener_t ===
+{{{
+typedef struct {
+    // linked list - assert: first field
+    linked_item_t    item;
+
+    // service id
+    uint16_t  psm;
+    
+    // incoming MTU
+    uint16_t mtu;
+    
+    // provider for this server
+    connection_t *connection;    
+} l2cap_service_t;
+}}}
 
 === l2cap_channel_t ===
 {{{
@@ -90,7 +102,5 @@ Similar to the HCI Command Flow Control, the flow of ACL packets has to be contr
 
 
 == References ==
-  * Official Bluetooth specification, see [Architecture]
+  * Official Bluetooth specification and other open stacks, see [Architecture]
   * Nice [http://www.inf.ethz.ch/personal/kasten/research/bathtub/bluetooth/ L2CAP Summary]
-  * The lightweight Bluetooth Stack (lwBT). Another embedded BT stack, intended for use with the lightweight IP stack (lwIP): http://www.sm.luth.se/~conny/lwbt/
-  * The ETH BTnut BT Stack: http://www.btnode.ethz.ch
