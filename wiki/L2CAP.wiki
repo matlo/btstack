@@ -99,9 +99,9 @@ Similar to the HCI Command Flow Control, the flow of ACL packets has to be contr
 
 == ACL Buffers at BT Daemon ==
   * For each baseband connection:
-    * 2 ACL buffers for incoming packets. 1 x client, 1 x Bluetooth chipset.
-    * 2 L2CAP packet buffers of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). One L2CAP buffer is needed for assembly of received ACL packets, the second for receiving complete client packets.
-
+    * 1 ACL buffer for incoming packets from Bluetooth chipset.
+    * 2 L2CAP packet buffer of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). It is needed for assembly of received ACL packets of incoming packets and reception of client packets.
+    * Note: with a bit of optimization, the ACL buffer can be avoided. 
 
 == References ==
   * Official Bluetooth specification and other open stacks, see [Architecture]
