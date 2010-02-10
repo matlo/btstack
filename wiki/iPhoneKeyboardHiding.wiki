@@ -34,7 +34,7 @@ Applications that don't work correctly, which means that you cannot use the area
  * Apple Messages (keyboard does not hide)
  * Apple Safari (keyboard does not hide)
  * [http://www.evernote.com/about/download/iphone/ Evernote]
- * [http://thebigboss.org/2009/07/06/flowchat-ipho ne-irc/ FlowChat]
+ * [http://thebigboss.org/2009/07/06/flowchat-iphone-irc/ FlowChat]
  * [http://www.savysoda.com/Documents/ Documents by SavySoda]
 
 If you have more results, please add a comment. If you have an app which you really want to use in full screen, please email their support with a link to this wiki page.
