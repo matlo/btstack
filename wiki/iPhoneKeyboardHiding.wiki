@@ -1,0 +1,40 @@
+#summary How BTstack Keyboard hides the screen keyboard, what apps support it and what you have to change if your app doesn't.
+
+= Introduction =
+The latest version of BTstack Keyboard allows to hide the soft keyboard from an external Bluetooth keyboard with the CTRL-TAB shortcut. This is done with very little code:
+
+{{{
+void UIKeyboardOrderInAutomatic();
+void UIKeyboardOrderOutAutomatic();
+BOOL UIKeyboardAutomaticIsOnScreen();
+
+static void toggleKeyboard(UIKeyboardImpl * keyImpl){
+	if (UIKeyboardAutomaticIsOnScreen()) {
+		UIKeyboardOrderOutAutomatic();
+	} else {
+		UIKeyboardOrderInAutomatic();
+	}
+}
+}}}
+
+This motivates the OS to hide/show the keyboard, and applications that follow [http://developer.apple.com/iPhone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TextandWeb/TextandWeb.html#//apple_ref/doc/uid/TP40007072-CH20-SW16 Apple's SDK guidelines for Receiving Keyboard Notifications]. The most obvious mistake is to react on the - (void)textFieldDidBeginEditing:(UITextField *)textField delegate method instead of observing UIKeyboardDidShowNotification.
+
+= White list =
+Applications that work correctly
+* Apple Notes
+* [http://colloquy.mobi/ Mobile Colloquy]
+* [http://www.hogbaysoftware.com/products/writeroom_iphone WriteRoom]
+
+= Gray list =
+* Mobile Terminal: it shows it's own keyboard. Just double tab the screen and it is gone
+
+= Black list =
+Applications that don't work correctly, which means that you cannot use the are below the soft keyboard after it is hidden.
+* Apple Mail
+* Apple Messages (keyboard does not hide)
+* Apple Safari (keyboard does not hide)
+* [http://www.evernote.com/about/download/iphone/ Evernote]
+* [http://thebigboss.org/2009/07/06/flowchat-ipho ne-irc/ FlowChat]
+* [http://www.savysoda.com/Documents/ Documents by SavySoda]
+
+If you have more results, please add a comment. If you have an app which you really want to use in full screen, please email their support with a link to this wiki page.
