@@ -1,4 +1,4 @@
-#summary How BTstack Keyboard hides the screen keyboard, what apps support it and what you have to change if your app doesn't.
+#summary How BTstack Keyboard hides the screen keyboard, which apps support it and what you have to change if your app doesn't.
 
 = Introduction =
 The latest version of BTstack Keyboard allows to hide the soft keyboard from an external Bluetooth keyboard with the CTRL-TAB shortcut. This is done with very little code:
@@ -26,7 +26,7 @@ Applications that work correctly
 * [http://www.hogbaysoftware.com/products/writeroom_iphone WriteRoom]
 
 = Gray list =
-* Mobile Terminal: it shows it's own keyboard. Just double tab the screen and it is gone
+* Mobile Terminal: it shows its own keyboard. Just double tab the screen and it is gone
 
 = Black list =
 Applications that don't work correctly, which means that you cannot use the are below the soft keyboard after it is hidden.
