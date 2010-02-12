@@ -20,10 +20,13 @@ static void toggleKeyboard(UIKeyboardImpl * keyImpl){
 This motivates the OS to hide/show the keyboard, and applications that follow [http://developer.apple.com/iPhone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TextandWeb/TextandWeb.html#//apple_ref/doc/uid/TP40007072-CH20-SW16 Apple's SDK guidelines for Receiving Keyboard Notifications]. The most obvious mistake is to react on the - (void)textFieldDidBeginEditing:textField delegate method instead of observing UIKeyboardDidShowNotification.
 
 = Good =
-Applications that work correctly after hiding the keyboard, i.e., you can use the full screen for your text
+Applications that work correctly after hiding the keyboard, i.e., you can use the full screen for your text. Note: these are unverified user reports
  * Apple Notes
+ * eBuddy+
+ * IM+
  * [http://colloquy.mobi/ Mobile Colloquy]
  * !MobileNoter (an app that syncs with Microsoft Onenote)
+ * Nimbuzz
  * [http://www.hogbaysoftware.com/products/writeroom_iphone WriteRoom]
 
 = OK =
