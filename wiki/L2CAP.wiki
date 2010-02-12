@@ -98,10 +98,11 @@ typedef struct {
 Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented in the BTdaemon than in the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
 
 == ACL Buffers at BT Daemon ==
+  * 1 ACL buffer for incoming packets from Bluetooth chipset.
   * For each baseband connection:
-    * 1 ACL buffer for incoming packets from Bluetooth chipset.
-    * 2 L2CAP packet buffer of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). It is needed for assembly of received ACL packets of incoming packets and reception of client packets.
-    * Note: with a bit of optimization, the ACL buffer can be avoided. 
+    * 1 L2CAP packet buffer of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). It is needed for assembly of received ACL packets into an L2CAP packet from Bluetooth chipset
+  * For each client connection: 1 L2CAP packet buffer of size MTU
+  * _BTstack only supports L2CAP packet with max 339 bytes payload (= DH5 packet)_
 
 == References ==
   * Official Bluetooth specification and other open stacks, see [Architecture]
