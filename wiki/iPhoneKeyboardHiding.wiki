@@ -23,7 +23,7 @@ This motivates the OS to hide/show the keyboard, and applications that follow [h
 Applications that work correctly after hiding the keyboard, i.e., you can use the full screen for your text
  * Apple Notes
  * [http://colloquy.mobi/ Mobile Colloquy]
- * MobileNoter
+ * !MobileNoter (an app that syncs with Microsoft Onenote)
  * [http://www.hogbaysoftware.com/products/writeroom_iphone WriteRoom]
 
 = OK =
