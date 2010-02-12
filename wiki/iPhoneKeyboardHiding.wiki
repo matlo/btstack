@@ -19,22 +19,24 @@ static void toggleKeyboard(UIKeyboardImpl * keyImpl){
 
 This motivates the OS to hide/show the keyboard, and applications that follow [http://developer.apple.com/iPhone/library/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/TextandWeb/TextandWeb.html#//apple_ref/doc/uid/TP40007072-CH20-SW16 Apple's SDK guidelines for Receiving Keyboard Notifications]. The most obvious mistake is to react on the - (void)textFieldDidBeginEditing:textField delegate method instead of observing UIKeyboardDidShowNotification.
 
-= White list =
-Applications that work correctly
+= Good =
+Applications that work correctly after hiding the keyboard, i.e., you can use the full screen for your text
  * Apple Notes
  * [http://colloquy.mobi/ Mobile Colloquy]
+ * MobileNoter
  * [http://www.hogbaysoftware.com/products/writeroom_iphone WriteRoom]
 
-= Gray list =
+= OK =
  * Mobile Terminal: it shows its own keyboard. Just double tab the screen and it is gone
 
-= Black list =
-Applications that don't work correctly, which means that you cannot use the area below the soft keyboard after it is hidden.
+= Bad  =
+Applications that don't work correctly, which means that you cannot use the area below the soft keyboard after it is hidden, because of the reasons detailed above.
  * Apple Mail
  * Apple Messages (keyboard does not hide)
  * Apple Safari (keyboard does not hide)
+ * [http://www.savysoda.com/Documents/ Documents by SavySoda]
  * [http://www.evernote.com/about/download/iphone/ Evernote]
  * [http://thebigboss.org/2009/07/06/flowchat-iphone-irc/ FlowChat]
- * [http://www.savysoda.com/Documents/ Documents by SavySoda]
+ * [http://www.quickoffice.com/quickoffice_connect_suite_iphone/ QuickOffice] - Got no answer to my mail a month ago
 
-If you have more results, please add a comment. If you have an app which you really want to use in full screen, please email their support with a link to this wiki page.
+_If you have more results, please add a comment. If you have an app which you really want to use in full screen, please email their support with a link to this wiki page._
