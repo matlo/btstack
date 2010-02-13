@@ -26,7 +26,7 @@ To open an L2CAP connection use the l2cap_create_channel command:
 On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the source_cid. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
 
 === Incoming Connections ===
-To register an L2CAP service, send the l2cap_register_service(uint16_t psm, uint16_t mtu) command. The incoming MTU is ignored for not. On incoming L2CAP connection request, an L2CAP_EVENT_INCOMING_CONNECTION event will be received by the application event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
+To register an L2CAP service, send the l2cap_register_service(uint16_t psm, uint16_t mtu) command. The incoming MTU is ignored for now. On incoming L2CAP connection request, an L2CAP_EVENT_INCOMING_CONNECTION event will be received by the application event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
 
 {{{
   bt_send_cmd(&l2cap_register_psm, uint16_t psm, uint16_t incoming_mtu);
@@ -97,12 +97,19 @@ typedef struct {
 == ACL Flow Control ==
 Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented in the BTdaemon than in the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
 
-== ACL Buffers at BT Daemon ==
-  * One ACL buffer for incoming packets from Bluetooth chipset.
+== Packet Buffers at BTdaemon ==
+
+Theory:
+  * One ACL buffer for incoming packets from Bluetooth chipset (in hci_transport_h4.c) 
   * For each baseband connection:
-    * One L2CAP packet buffer of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). It is needed for assembly of received ACL packets into an L2CAP packet from Bluetooth chipset
-  * For each client connection: One L2CAP packet buffer of size MTU
-  * _BTstack only supports L2CAP packet with max 339 bytes payload(= DH5 packet) yet_
+    * One L2CAP packet buffer of size max MTU(X) (X is set of all L2CAP connections on this baseband connection). It is needed for assembly of received ACL packets into an L2CAP packet. (hci_connection_t in hci.h)
+  * For each client connection: one L2CAP packet buffer of size MTU (struct connection in socket_connection.c)
+
+Practice:
+  * BTstack only supports L2CAP packets with max MTU <= 339 bytes(= DH5 packet)
+
+Possible optimizations:
+  * Single ACL buffer in HCI transport unnecessary when access to L2CAP buffer possible
 
 == References ==
   * Official Bluetooth specification and other open stacks, see [Architecture]
