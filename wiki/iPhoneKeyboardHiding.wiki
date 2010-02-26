@@ -27,6 +27,7 @@ Applications that work correctly after hiding the keyboard, i.e., you can use th
  * Docs To Go
  * eBuddy+
  * IM+
+ * MentalNote
  * [http://colloquy.mobi/ Mobile Colloquy]
  * !MobileNoter (an app that syncs with Microsoft Onenote)
  * Nimbuzz
