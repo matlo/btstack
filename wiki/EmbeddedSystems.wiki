@@ -10,3 +10,8 @@ On top of my head, the following files are needed:
  * bt_control_embedded.c
  * socket_connection_embedded.c
  * daemon_embedded.c
+
+== Arduino ==
+The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking.
+
+With the blocking write (same on POSIX), it is necessary that incoming data is stopped using the hardware handshake. This could be done as part of the blocking write or as an extension of the UART driver. Support for RTS/CTS seems like the better option.
