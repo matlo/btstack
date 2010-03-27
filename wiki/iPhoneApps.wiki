@@ -1,4 +1,4 @@
-#summary List of iPhone Apps using BTstack available via Cydia
+#summary iPhone/iPod touch Apps using BTstack available via Cydia
 
  * [http://keyboard.ringwald.de BTstack Keyboard] ([http://ringwald.ch/cydia/keyboard paid-version], [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse]
