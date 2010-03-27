@@ -1,6 +1,6 @@
 #summary iPhone/iPod touch Apps using BTstack available via Cydia
 
- * [http://keyboard.ringwald.de BTstack Keyboard] ([http://ringwald.ch/cydia/keyboard paid-version], [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
+ * [http://keyboard.ringwald.de BTstack Keyboard] ([http://ringwald.ch/cydia/keyboard full], [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse]
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.wiimoteopengldemo&db= WiiMote OpenGL-ES Demo]
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=com.conradkramer.wiimotemusiccontrols&db= Wiimote Music Control]
