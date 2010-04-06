@@ -2,7 +2,7 @@
 
 = Introduction =
 
-[http://en.wikipedia.org/wiki/Bluetooth_profile#SIM_Access_Profile_.28SAP.2C_SIM.2C_rSAP.29 From Wikipedia]: "[The  Remote Sim Access Protocol ]..allows devices such as car phones with built in GSM  transceivers to connect to a SIM card in a phone with Bluetooth, thus the car phone itself doesn't require a separate SIM card. This profile is also known as rSAP (remote-SIM-Access-Profile).."
+[http://en.wikipedia.org/wiki/Bluetooth_profile#SIM_Access_Profile_.28SAP.2C_SIM.2C_rSAP.29 From Wikipedia]: "The  Remote Sim Access Protocol ... allows devices such as car phones with built in GSM  transceivers to connect to a SIM card in a phone with Bluetooth, thus the car phone itself doesn't require a separate SIM card. This profile is also known as rSAP (remote-SIM-Access-Profile).."
 
 So far, I haven't seen a specification for that but as far as I understand that summary, it allows the car mobile telephone to exchanged data with the SIM card over Bluetooth. So, there are two main component: Bluetooth communication and SIM access.
 
