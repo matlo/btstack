@@ -22,7 +22,13 @@ For these use cases, RFCOMM is a rather cumbersome protocol given that all commu
 That said, you cannot change the gadget you own, so we need RFCOMM support in BTstack... :)
 
 An another argument for the use of RFCOMM can be made based on the RFCOMM support in all major operating systems. A virtual serial connection can be configure via the OS and an application can communicate with a Bluetooth device without even knowing that this device uses Bluetooth. The benefit of this approach is also its main drawback. All configuration has to be manually conducted by the user via the OS preferences (or command-line). An application cannot even scan for devices by itself. Using RFCOMM via a proper Bluetooth API provides this flexibility but also renders this benefit of seamless integration worthless.
- 
+
+= RFCOMM.c Example in BTstack =
+[http://code.google.com/p/btstack/source/browse/trunk/example/rfcomm.c example/rfcomm.c] implements a rudimentary version of RFCOMM as a little library on the client-side. It can be used to connect to an external SPP/RFCOMM device if you know the other's RFCOMM channel ID, which usually is 1. Received data is provided via a a named FIFO at /tmp/rfcomm0.
+
+Although the example does not allow to send data, the implementation does. To send data, you call _bt_rfcomm_send_uih_data with initiator = 1 and the correct channel ID.
+
+If you integrate RFCOMM in your own app, this is easy to achieve. If you want/need a command line tool, it should be possible to replace the FIFO with a PTY. (and I'm happy to accept patches for this :) 
 
 = Specs =
   * [https://www.fer.hr/_download/repository/ts_101369v060300p.pdf TS 07.10 aka TS 101 369] on which is RFOMM is based.
