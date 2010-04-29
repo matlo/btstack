@@ -10,7 +10,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
   * the autotools
   * pkg-config. this not installed by e.g. XCode. You can use the one from [http://www.finkproject.org Fink] or [http://www.macports.org MacPorts].
   * a toolchain for the iPhone. This introduction assumes the use of the XCode iPhone SDK on Mac OS X.
-  * the ldid code-signing tool. Please use the one from Fink, if you are on a PPC platform and the original sources by Jay Freeman have endianess issues.
+  * the ldid code-signing tool, either on your host or on the iPhone (via Cydia). If you install it on the build system, the signing is done automatically. For a Mac PPC, please use the one from Fink as the original sources by Jay Freeman have endianess issues. 
   * a subversion client
   * a jailbroken iPhone or iPod touch 2G or later.
 
@@ -36,9 +36,15 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{scp src/BTdaemon src/libBTstack.dylib example/test mobile@192.168.3.102:.}}}
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
+  # sign the binaries on the device, if you did not install ldid on your build system
+{{{
+ ldid -S BTdaemon
+ ldid -S libBTstack.dylib
+}}}
   # copy the client library into /usr/local/lib
 {{{
  su
+ mkdir -p /usr/local/lib
  cp libBTstack.dylib /usr/local/lib
  exit
 }}}
@@ -49,9 +55,9 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{ssh mobile@192.168.3.102}}}
   # run the test
     {{{./test}}}
-  # check the output in both sesssions. If everything works, the app will prompt you to make your !WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
+  # check the output in both sessions. If everything works, the app will prompt you to make your !WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
 
-Shortcut: Install the BTstack package via Cydia. Only copy the test app to the iPjone. BTdaemon is started automatically by launchd.
+Shortcut: Install the BTstack package via Cydia. Only copy the test app to the iPhone. BTdaemon is started automatically by launchd.
 
 
 Important: My WLAN often breaks down when using Bluetooth. When logged in via SSH this looks like the app would not work or hang, when in reality the WLAN is just not working properly. Check the WLAN icon in the status bar. After the introduction of Internet tethering, I highly recommend to connect the iPhone via USB and use this connection for SSH. When using USB Tethering, my machine receives the IP address 192.168.20.3, and the iPhone can be accessed at 192.168.20.1.
@@ -68,9 +74,9 @@ As this event handler shows, everything is event-triggered. After sending a comm
 
 = Develop BTstack apps in the iPhone Simulator =
 
-To develop iPhone apps on the Mac, you need a serial Bluetooth module like the [http://www.tik.ee.ethz.ch/~beutel/projects/bttester/bt_tester.html Ericsson ROK Tester] connected over a USB-to-Serial adapter, as the[HCI_USB_Transport] does not work yet. With such a setup, you can configure BTstack for running on the Mac host, not the iPhone as described above. You also have to specify the UART device, see ./configure --help
+To develop iPhone apps on the Mac, you need a serial Bluetooth module like the [http://www.tik.ee.ethz.ch/~beutel/projects/bttester/bt_tester.html Ericsson ROK Tester] connected over a USB-to-Serial adapter, as the [HCI_USB_Transport] does not work yet. With such a setup, you can configure BTstack for running on the Mac host, not the iPhone as described above. You also have to specify the UART device, see ./configure --help
 
-For testing you run BTdaemon in one terminal before starting your app in the simulator. The app will then connect to the BTdaemon over the local unix domain socket.
+For testing you run BTdaemon in one terminal before starting your app in the simulator. The app will then connect to the BTdaemon over the local UNIX domain socket.
 
 = References =
   * [http://www.bluetooth.com/NR/rdonlyres/0BE438ED-DC1B-41D1-AAC0-1AAA956097A2/980/HID_SPEC_V10.pdf Human Interface Devices profile]
