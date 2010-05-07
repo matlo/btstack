@@ -6,22 +6,20 @@ Most people that contacted me have expressed interest in the use of RFCOMM. The 
 
 RFCOMM is commonly used:
    * for Bluetooth GPS Receivers.
-   * to provide Bluetooth to legacy devices which used RS232 before. E.g., laser BarCode scanners, mobile/foldable Bluetooth keyboards, wireless interface for hobby embedded system and robotic projects.
-   * as a basis for other protocols like OBEX and PPP.
+   * to provide Bluetooth to legacy devices which used RS232 before. E.g., laser !BarCode scanners, early mobile/foldable Bluetooth keyboards, wireless interface for hobby embedded system and robotic projects.
+   * as a basis for other legacy protocols like OBEX and PPP.
 
+= Why RFCOMM is not a good idea for new projects =
+Most communication devices work on a packet basis, i.e., they communicate by passing messages back and forth. A GPS receiver periodically sends position packets, a !BarCode scanner will send individual !BarCode IDs, ... 
 
-= Details =
-RFCOMM is not implemented for BTstack yet. A first duct tape RFCOMM test is able to receive data from simple RFCOMM devices, e.g. the Zeemote JS1, or probably a BT GPS, too.
-
-
-= Why RFCOMM is no good idea for new projects =
-Most communication devices work on a packet basis, i.e., they communicate by passing messages back and forth. A GPS receiver periodically sends position packets, a BarCode scanner will send individual BarCode IDs. 
-
-For these use cases, RFCOMM is a rather cumbersome protocol given that all communication in Bluetooth is inherently packet based. L2CAP provides the perfect abstraction for sending packets between parties. RFCOMM now is used to emulate a serial cable where bytes can be sent individually. For the mentioned applications, this means that the application unnecessarily has to detect packet frame again, although the underlying communication already is packet based.
+For these use cases, RFCOMM is a rather cumbersome protocol given that all communication in Bluetooth is inherently packet based. The lower layer L2CAP already provides a perfect abstraction for sending packets between parties. Now, RFCOMM emulates a serial cable where bytes can be sent individually. For the previously mentioned applications, this means that the application unnecessarily has to detect packet frames again, although the underlying communication already is packet-based.
 
 That said, you cannot change the gadget you own, so we need RFCOMM support in BTstack... :)
 
-An another argument for the use of RFCOMM can be made based on the RFCOMM support in all major operating systems. A virtual serial connection can be configure via the OS and an application can communicate with a Bluetooth device without even knowing that this device uses Bluetooth. The benefit of this approach is also its main drawback. All configuration has to be manually conducted by the user via the OS preferences (or command-line). An application cannot even scan for devices by itself. Using RFCOMM via a proper Bluetooth API provides this flexibility but also renders this benefit of seamless integration worthless.
+Another argument for the use of RFCOMM could be made based on the RFCOMM support that exists in all major operating systems. A virtual serial connection can be configure via the OS and an application can communicate with a Bluetooth device without even knowing that this device uses Bluetooth. The benefit of this approach is also its main drawback. All configuration has to be manually conducted by the user via the OS preferences (or command-line). An application cannot even scan for devices by itself. Using RFCOMM via a proper Bluetooth API provides this flexibility but also renders this benefit of seamless integration worthless.
+
+= Details =
+RFCOMM is not implemented as part of BTstack yet. A first duct tape RFCOMM test is able to receive data from simple RFCOMM devices, e.g. the Zeemote JS1, or probably a BT GPS, too.
 
 = RFCOMM.c Example in BTstack =
 [http://code.google.com/p/btstack/source/browse/trunk/example/rfcomm.c example/rfcomm.c] implements a rudimentary version of RFCOMM as a little library on the client-side. It can be used to connect to an external SPP/RFCOMM device if you know the other's RFCOMM channel ID, which usually is 1. Received data is provided via a a named FIFO at /tmp/rfcomm0.
