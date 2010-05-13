@@ -2,7 +2,7 @@
 #labels Featured
 
 = Introduction =
-BTstack is tested on an iPhones (support for iPhone 2G since revision r489) and all iPod touch models with Bluetooth. 
+BTstack is tested on an iPhones (support for iPhone 2G since revision r489), all iPod touch models with Bluetooth, and the new iPad.
 
 Binary packages of the BTstack components and the !WiiMote demo are kindly provided via the [http://thebigboss.org/ BigBoss ] repository. It can be installed by Cydia, Rock My Phone, and Icy.
 
