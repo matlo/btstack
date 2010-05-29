@@ -11,4 +11,8 @@ So far, I haven't seen a specification for that but as far as I understand that 
 I would expect the Bluetooth communication to be a very basic protocol. However, I don't know, how an application on the iPhone can "talk" to the "SIM-Card". There is a /dev/tty.umts, but I have no idea what to do with it.
 
 
-If anybody is interested in looking into this, or has some pointers, please add comments or join the BTstack Google Group.
+If anybody is interested in looking into this, or has more pointers, please add comments or join the BTstack Google Group.
+
+= Spec =
+I'm certain that the specification was missing at Bluetooth.com, but it's there now
+[http://www.bluetooth.com/Specification%20Documents/SAP_SPEC_V11.pdf Sim Access Procotol Specification v1.1]
