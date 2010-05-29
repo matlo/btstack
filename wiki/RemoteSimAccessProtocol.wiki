@@ -8,11 +8,15 @@ So far, I haven't seen a specification for that but as far as I understand that 
 
 = Details =
 
-I would expect the Bluetooth communication to be a very basic protocol. However, I don't know, how an application on the iPhone can "talk" to the "SIM-Card". There is a /dev/tty.umts, but I have no idea what to do with it.
-
+The Bluetooth communication is detailed in the spec below. However, I don't know, how an application on the iPhone can "talk" to the "SIM-Card". There is a /dev/tty.umts, but I have no idea what to do with it. It looks like the "at+csim=..." command is used on some mobile phone chips.
 
 If anybody is interested in looking into this, or has more pointers, please add comments or join the BTstack Google Group.
 
 = Spec =
 I'm certain that the specification was missing at Bluetooth.com, but it's there now
 [http://www.bluetooth.com/Specification%20Documents/SAP_SPEC_V11.pdf Sim Access Procotol Specification v1.1]
+
+= Random bits =
+ * [http://wiki.openmoko.org/wiki/Hardware:AT_Commands AT Commands used by the OpenMoko Freeruner) -> looks like AT+CSIM is used to access SIM card, other links there
+ * http://lists.openmoko.org/pipermail/gsmd-devel/2007-March/000009.html
+ * [http://developer.symbian.org/oss/MCL/sf/mw/btservices/file/a42ed326b458/bluetoothengine/btsap/ Implementation for Symbian]
