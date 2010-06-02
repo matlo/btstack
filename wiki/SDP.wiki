@@ -1,0 +1,17 @@
+#summary Service Discovery Protocol for BTstack
+
+= Introduction =
+
+The service discovery protocol is used to learn about services provided by remote devices and is required whenever a BTstack-based app wants to implement a standard Profile like HID or RFCOMM for other devices.
+
+= Details =
+It basically consists of a simple request-response scheme with the option of segmenting a response into multiple packets. Although it could be implemented as a client-side protocol, such as the [wiki:RFCOMM] example, it would only allow to provide a single service. So, as I plan on two different apps that required SDP, I'll going to implement a crude version for shared use.
+
+= Limitations =
+Not sure yet, but it might only support SDP records up to a max size to avoid segementation
+
+= Plan =
+ * Implement minimal SDP server and activate it in BTdaemon that at least denies all SDP requests
+ * Allow to register a SDP record with the SDP server over a pseudo-BTstack command
+ * Have server report single record
+ * Have server report list of matching records
