@@ -12,5 +12,4 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
- * Bluetooth internet tethering for iPad to iPhone, if possible
  * Other private/consulting projects
