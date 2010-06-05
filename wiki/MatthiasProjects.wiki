@@ -1,7 +1,7 @@
 #summary List of BTstack-Related Projects of Me
 
 = Introduction =
-Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack only is my main hobby project
+Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
  * BTstack on iPhone OS 4.0
