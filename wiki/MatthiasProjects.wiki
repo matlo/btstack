@@ -4,8 +4,9 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
+ * ~~Handle multiple L2CAP commands in a single signaling packet~~ fixed in revision 658
  * BTstack on iPhone OS 4.0
- * Handle multiple L2CAP commands in a single signaling packet
+   * Almost done... just need to update my iPhone to actually test it.
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard, more layouts
  * [SDP Service Discovery Protocol] - needed by two other projects:
    * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
