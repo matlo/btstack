@@ -5,12 +5,14 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
 
 = Tasks/Projects =
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ fixed in revision 658
+ * [SDP Service Discovery Protocol]
+   * almost done
+   * required by two other projects:
+     * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
+     * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
  * BTstack on iPhone OS 4.0
-   * Almost done... just need to update my iPhone to actually test it.
+   * Is working but not released yet. One caveat: there is no BTstack icon in the status bar (nobody knows how this is done by Apple and/or how to show own icons)
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard, more layouts
- * [SDP Service Discovery Protocol] - needed by two other projects:
-   * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
-   * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * Other private/consulting projects
