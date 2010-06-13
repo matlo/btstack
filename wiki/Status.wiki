@@ -21,7 +21,8 @@ In particular, it runs on all iPhones and all iPod touch devices with Bluetooth 
  * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. It also supports incoming L2CAP channels by registering a predefined PSM. Incoming ACL packets are reassembled before delivered to the client application. More work has to done: MTU negotiation, packet segmentation, and flow control are not implemented. 
 
 == [SDP] ==
- * SDP Server support is basically working and almost complete. No documentation or examples yet.
+ * SDP Server support is basically working and almost complete. No documentation or examples yet. 
+ * SPD Client functionality is not directly provided, but sdp_util.c can help to create  ServiceSearchPattern, AttributeIDList and process received AttributeLists.
 
 == [RFCOMM] ==
  * Quite some interest, development has started. See [RFCOMM]. The existing L2CAP implementation is sufficient.
