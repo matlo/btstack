@@ -36,7 +36,7 @@ In particular, it runs on all iPhones and all iPod touch devices with Bluetooth 
 
 == Logging/Debugging ==
  * hci_dump.c supports multiple formats:
-    * Apple's PacketLogger
+    * Apple's !PacketLogger
     * Linux BlueZ format
     * Direct packet hexdump to stdout.
 
