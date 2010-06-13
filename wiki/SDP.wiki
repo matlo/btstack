@@ -5,13 +5,17 @@
 The service discovery protocol is used to learn about services provided by remote devices and is required whenever a BTstack-based app wants to implement a standard Profile like HID or RFCOMM for other devices.
 
 = Details =
-It basically consists of a simple request-response scheme with the option of segmenting a response into multiple packets. Although it could be implemented as a client-side protocol, such as the [wiki:RFCOMM] example, it would only allow to provide a single service. So, as I plan on two different apps that required SDP, I'll going to implement a crude version for shared use.
+It basically consists of a simple request-response scheme with the option of segmenting a response into multiple packets. A fully implemented but untested SDP server was added with r709.
 
 = Limitations =
-Not sure yet, but it might only support SDP records up to a max size to avoid segementation
+The SDP Server does not provide a service record for itself. Let me know, if your missing this feature.
 
-= Plan =
- * Implement minimal SDP server and activate it in BTdaemon that at least denies all SDP requests
- * Allow to register a SDP record with the SDP server over a pseudo-BTstack command
- * Have server report single record
- * Have server report list of matching records
+= Usage =
+To register a service record, you first need to create one. For this, you can either use a hard-coded representation or use the de_... functions in sdp_utils.h
+
+The functions in sdp_utils.c have been designed with the goal of minimal memory footprint and allow to created an service record in-place without additional structures. However, they are not exactly user-friendly. 
+
+In OS X, a service record can be described by Property Lists (plist), which can be read into an NSDictionary. By this, the process of creating a service record is made easier as Apple's PropertyList editor can be used. For the Cocoa(Touch) platform, this can be implemented. If someone does it before me, please tell me.
+
+= Note =
+Although I'm not aware of bugs in the SDP implementation, I didn't manage yet to make my Mac to accept that BTstack app provides a Bluetooth HID or a serial port service. 
