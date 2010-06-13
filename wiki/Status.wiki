@@ -5,7 +5,7 @@ BTstack reached version 0.1 and allows for incoming and outgoing L2CAP connectio
 
 It runs in a single thread in user-space and makes use of the standard POSIX API. It expects a Bluetooth module connected via a serial connection (Bluetooth H4 HCI Transport). Support for Bluetooth USB modules is not working yet.
 
-In particular, it runs on the iPhone 3G(S) and all iPod touch devices with Bluetooth support. It is unclear yet, if it works properly on the iPhone 2G. On this platform, BTstack is automatically started by the system's launch daemon and provides its own status bar icon to distinguish itself from Apple's Bluetooth stack. It is available as binary via the [http://www.saurik.com/id/1 Cydia distribution system].
+In particular, it runs on all iPhones and all iPod touch devices with Bluetooth support and iPhone OS < 4.0. On this platform, BTstack is automatically started by the system's launch daemon and provides its own status bar icon to distinguish itself from Apple's Bluetooth stack. It is available as binary via the [http://www.saurik.com/id/1 Cydia distribution system].
 
 
 = Bluetooth Layers =
@@ -17,10 +17,13 @@ In particular, it runs on the iPhone 3G(S) and all iPod touch devices with Bluet
    * BCSP/H5: The more advanced CSR BSCP and the "Three Wire UART" transport protocol are not supported.
    * USB: Some code exists, but not working yet.
 
-== L2CAP ==
+== [L2CAP] ==
  * The L2CAP State Machine can open an HCI connection and set up an outgoing L2CAP channel. It also supports incoming L2CAP channels by registering a predefined PSM. Incoming ACL packets are reassembled before delivered to the client application. More work has to done: MTU negotiation, packet segmentation, and flow control are not implemented. 
 
-== RFCOMM ==
+== [SDP] ==
+ * SDP Server support is basically working and almost complete. No documentation or examples yet.
+
+== [RFCOMM] ==
  * Quite some interest, development has started. See [RFCOMM]. The existing L2CAP implementation is sufficient.
 
 = Other =
