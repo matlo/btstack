@@ -16,3 +16,8 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * Other private/consulting projects
+
+= Other Projects, I don't seem to tackle soon, feel free to contact me if you work on them :) =
+ * Add support for the Wii Balance board:
+   * enable data reporting according to [http://wiibrew.org/wiki/Wiimote/Extension_Controllers#Balance_Board wiibrew.org documentation]
+   * create 3D model of the balance board for OpenGL display
