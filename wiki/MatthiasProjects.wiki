@@ -7,8 +7,8 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
  * L2CAP
    * ~~keep track of remote incoming MTU~~ revision 750
-   * keep track of available !BaseBand packets
-   * fragment L2CAP packets according to available !BaseBand packets
+   * keep track of available Baseband packets
+   * fragment L2CAP packets according to available Baseband packets
  * [SDP Service Discovery Protocol]
    * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
  * BTstack on iPhone OS 4.0
@@ -22,7 +22,8 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * Improve use of remote desktop apps on iPad
  * Other private/consulting projects
 
-= Other Projects, I don't seem to tackle soon, feel free to contact me if you work on them :) =
+= Other Projects... =
+... I don't seem to tackle soon, feel free to contact me if you work on them :)
  * Add support for the Wii Balance board:
    * enable data reporting according to [http://wiibrew.org/wiki/Wiimote/Extension_Controllers#Balance_Board wiibrew.org documentation]
    * create 3D model of the balance board for OpenGL display
