@@ -4,13 +4,13 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
- * ~~Handle multiple L2CAP commands in a single signaling packet~~ fixed in revision 658
+ * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
  * L2CAP
-   * ~~keep track of remote incoming MTU~~ added in revision 750
+   * ~~keep track of remote incoming MTU~~ revision 750
    * keep track of available !BaseBand packets
    * fragment L2CAP packets according to available !BaseBand packets
  * [SDP Service Discovery Protocol]
-   * limit amount of information in responses to remote L2CAP MTU
+   * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
  * BTstack on iPhone OS 4.0
    * Is working but not released yet.
    * One caveat: there is no BTstack icon in the status bar
