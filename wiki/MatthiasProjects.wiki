@@ -12,7 +12,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * [SDP Service Discovery Protocol]
    * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
  * BTstack on iPhone OS 4.0
-   * Is working but not released yet.
+   * ~~Is working but not released yet.~~ Release revision 757 June 22n 
    * One caveat: there is no BTstack icon in the status bar
    * Provide BTstack icon in-place of original one
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard, more layouts
