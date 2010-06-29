@@ -13,18 +13,23 @@ On top of my head, the following files are needed:
 
 Although intended for use on embedded systems, the use of POSIX semantics during early development led to unnecessary dependencies which should be cleaned beforehand.
 
-On embedded system, the concept of a select() function might not be present, this requires a way to specify data sources that have to polled. Similarly, basic functions to set single shot and period timers should be defined.
+== Run Loop ==
+On embedded system without a select() function, data sources have to be polled.
+Similarly, basic functions to set single shot and period timers should be defined.
+
+== Blocking Write ==
+The current implementation uses a blocking write to send data to the BT module with the hidden knowledge that the OS will buffer incoming data. 
+
+Instead, a polled "data source" can be used to transfer data from an output buffer to the Bluetooth module, if the assumption of the synchronous write is removed and higher layers are made responsible for not sending a second packet while the previous is not acknowledged.
 
 == Arduino ==
 The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking.
 
 With the blocking write (same on POSIX), it is necessary that incoming data is stopped using the hardware handshake. This could be done as part of the blocking write or as an extension of the UART driver. Support for RTS/CTS seems like the better option.
 
-Update: a polling "data source" can be used to send the data of the output buffer to the Bluetooth module, if the assumption of the synchronous write is removed and higher layers are made responsible for not sending a second packet while the previous is not acknowledged.
-
-
 == Next steps ==
- * reduce run loop API to support non-POSIX systems
- * add flags to data_source_t: RL_ACTIVE, RL_SELECT, RL_POLL
- * change int fd in data_source_t into void `*` context
- * add functions to create/add single shot and periodic timers without exposing POSIX data types
+ * create a basic run_loop_embedded.c without timer support
+ * create example h4_transport_embedded.c for system with single byte read/write
+ * create example bt_control_embedded.c
+   * add callbacks to have bt_control_embeded send long HCI init sequence
+ * create test app that initializes BT and does an inquiry
