@@ -4,6 +4,7 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
+ * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
  * L2CAP
    * ~~keep track of remote incoming MTU~~ revision 750
