@@ -33,3 +33,4 @@ With the blocking write (same on POSIX), it is necessary that incoming data is s
  * create example bt_control_embedded.c
    * add callbacks to have bt_control_embeded send long HCI init sequence
  * create test app that initializes BT and does an inquiry
+ * make sure that app/stack only sends one command/acl packet at a time, to allow for non-blocking writes
