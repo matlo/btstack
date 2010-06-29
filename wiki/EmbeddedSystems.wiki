@@ -26,5 +26,5 @@ Update: a polling "data source" can be used to send the data of the output buffe
 == Next steps ==
  * reduce run loop API to support non-POSIX systems
  * add flags to data_source_t: RL_ACTIVE, RL_SELECT, RL_POLL
- * change int fd in data_source_t into void * context
+ * change int fd in data_source_t into void `*` context
  * add functions to create/add single shot and periodic timers without exposing POSIX data types
