@@ -8,57 +8,42 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
 
 = Requirements =
   * the autotools
-  * pkg-config. this not installed by e.g. XCode. You can use the one from [http://www.finkproject.org Fink] or [http://www.macports.org MacPorts].
+  * pkg-config. this is not installed by e.g. XCode. You can use the one from [http://www.finkproject.org Fink] or [http://www.macports.org MacPorts].
   * a toolchain for the iPhone. This introduction assumes the use of the XCode iPhone SDK on Mac OS X.
   * the ldid code-signing tool, either on your host or on the iPhone (via Cydia). If you install it on the build system, the signing is done automatically. For a Mac PPC, please use the one from Fink as the original sources by Jay Freeman have endianess issues. 
   * a subversion client
   * a jailbroken iPhone or iPod touch 2G or later.
 
-= Steps to get BTstack example running on the iPhone=
-
+= Steps to compile and run a BTstack example on the iPhone=
+  # Install the BTstack package in Cydia
   # get the BTstack project from the Google code SVN:
     {{{svn checkout http://btstack.googlecode.com/svn/trunk/ btstack}}}
   # cd into the btstack folder 
     {{{cd btstack}}}
   # If you have pkg-config from MacPorts
     in bootstrap.sh: change aclocal to aclocal -I /opt/local/share/aclocal
-  # If you don't have iPhone SDK 2.0 installed
-    in configure.in: change the SDK_VERSION variable to the SDK you want to use/have. BTstack works with all versions.
   # run the bootstrap helper
     {{{./bootstrap.sh}}}
-  # configure BTstack for the iPhone 
+  # configure BTstack for the iPhone if you have SDK 2.0 installed
     {{{./configure --target=iphone}}}
+  # configure BTstack for the iPhone if you have SDK 3.1.3 installed
+    {{{./configure --target=iphone --with-sdk-version=3.1.3 --with-gcc-version=4.2.1}}}
   # If you get an error that mentions "PKG_CHECK_MODULES", then aclocal did not pick up pkg-config installation. Try to fix it or remove lines 41-58 (incl.) of configure.in and re-run the ./bootstrap and configure again.
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
   # build it
     {{{make}}}
-  # copy the BTdaemon, the client client library and the example test to your iPhone. Replace 192.168.3.102 with the IP address of your device
-    {{{scp src/BTdaemon src/libBTstack.dylib example/test mobile@192.168.3.102:.}}}
+  # copy the example test to your iPhone. Replace 192.168.3.102 with the IP address of your device
+    {{{scp example/test mobile@192.168.3.102:.}}}
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
   # sign the binaries on the device, if you did not install ldid on your build system
 {{{
- ldid -S BTdaemon
- ldid -S libBTstack.dylib
-}}}
-  # copy the client library into /usr/local/lib
-{{{
- su
- mkdir -p /usr/local/lib
- cp libBTstack.dylib /usr/local/lib
- exit
+ ldid -S test
 }}}
   # make sure Bluetooth is turned OFF in the Settings.app
-  # run the BTdaemon
-    {{{./BTdaemon}}}
-  # ssh into your device again
-    {{{ssh mobile@192.168.3.102}}}
   # run the test
     {{{./test}}}
   # check the output in both sessions. If everything works, the app will prompt you to make your !WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
-
-Shortcut: Install the BTstack package via Cydia. Only copy the test app to the iPhone. BTdaemon is started automatically by launchd.
-
 
 Important: My WLAN often breaks down when using Bluetooth. When logged in via SSH this looks like the app would not work or hang, when in reality the WLAN is just not working properly. Check the WLAN icon in the status bar. After the introduction of Internet tethering, I highly recommend to connect the iPhone via USB and use this connection for SSH. When using USB Tethering, my machine receives the IP address 192.168.20.3, and the iPhone can be accessed at 192.168.20.1.
 
