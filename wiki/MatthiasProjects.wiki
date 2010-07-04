@@ -6,7 +6,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
 = Tasks/Projects =
  * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
  * Full OBEX support for iOS - in collaboration with  [http://code.google.com/u/francisois/ francis]
- * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
  * L2CAP
    * ~~keep track of remote incoming MTU~~ revision 750
    * keep track of available Baseband packets
@@ -14,10 +13,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * [SDP Service Discovery Protocol]
    * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
    * Figure out a way to serve records larger than 255 bytes
- * BTstack on iPhone OS 4.0
-   * ~~Is working but not released yet.~~ Release revision 757 June 22n 
-   * Caveat: there is no BTstack icon in the status bar
-   * Wait for 3rd party solution to show BTstack icon
+[http://apt.thebigboss.org/onepackage.php?bundleid=libstatusbar&db= libstatusbar] July 4rd
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard, more layouts
  * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
  * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
@@ -30,3 +26,9 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * Add support for the Wii Balance board:
    * enable data reporting according to [http://wiibrew.org/wiki/Wiimote/Extension_Controllers#Balance_Board wiibrew.org documentation]
    * create 3D model of the balance board for OpenGL display
+
+= Completed =
+ * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
+ * ~~BTstack on iPhone OS 4.0~~
+   * ~~Is working but not released yet.~~ Release revision 757 June 22n 
+   * ~~Caveat: there is no BTstack icon in the status bar~~ Solved by 
