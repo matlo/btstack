@@ -13,7 +13,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * [SDP Service Discovery Protocol]
    * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
    * Figure out a way to serve records larger than 255 bytes
-[http://apt.thebigboss.org/onepackage.php?bundleid=libstatusbar&db= libstatusbar] July 4rd
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard, more layouts
  * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
  * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
@@ -31,4 +30,4 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
  * ~~BTstack on iPhone OS 4.0~~
    * ~~Is working but not released yet.~~ Release revision 757 June 22n 
-   * ~~Caveat: there is no BTstack icon in the status bar~~ Solved by 
+   * ~~Caveat: there is no BTstack icon in the status bar~~ Solved by [http://apt.thebigboss.org/onepackage.php?bundleid=libstatusbar&db= libstatusbar] July 4rd
