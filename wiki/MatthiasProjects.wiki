@@ -5,6 +5,8 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
 
 = Tasks/Projects =
  * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
+   * ~~iSynergyClient 0.8~~ submitted to BigBoss repo 4th of July
+   * iSynergyClient 1.0 with keyboard support based on BTstack Keyboard
  * Full OBEX support for iOS - in collaboration with  [http://code.google.com/u/francisois/ francis]
  * L2CAP
    * ~~keep track of remote incoming MTU~~ revision 750
@@ -25,6 +27,8 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * Add support for the Wii Balance board:
    * enable data reporting according to [http://wiibrew.org/wiki/Wiimote/Extension_Controllers#Balance_Board wiibrew.org documentation]
    * create 3D model of the balance board for OpenGL display
+ * Audio stuff A2DP, HFP...
+ * Other Bluetooth profiles
 
 = Completed =
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
