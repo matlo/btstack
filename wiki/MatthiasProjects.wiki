@@ -12,14 +12,17 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * ~~keep track of remote incoming MTU~~ revision 750
    * keep track of available Baseband packets
    * fragment L2CAP packets according to available Baseband packets
+   * provide credit-based flow control using e.g. 2 buffers in BTdaemon and "ready for x data packets" 
+   * use ~ 1000 byte packets
  * [SDP Service Discovery Protocol]
    * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
-   * Figure out a way to serve records larger than 255 bytes
+   * Figure out a way to serve records larger than 255 bytes - 1000 byte packets should be enough for most services
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
  * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
  * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
+ * Take over MouseSupport from ashikase
  * Other private/consulting projects
 
 = Other Projects... =
