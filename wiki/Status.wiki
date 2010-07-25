@@ -1,11 +1,11 @@
 #summary Overview on the BTstack Development
 #labels Featured
 
-BTstack reached version 0.1 and allows for incoming and outgoing L2CAP connections and rudimentary RFCOMM connections. Although in an early stage, it supports Bluetooth Human Interface Devices via L2CAP (keyboard, !WiiMote, etc.. ), the control of robots, and basic RFCOMM-based devices like standard GPS receivers, the [http://www.zeemote.com/ ZeeMote JS-1 joystick], or a Bluetooth Chipcard reader.
+BTstack reached version 0.2 and allows for incoming and outgoing L2CAP connections, registration of SDP records and rudimentary RFCOMM connections. Although in an early stage, it supports Bluetooth Human Interface Devices via L2CAP (keyboard, !WiiMote, etc.. ), the control of robots, and basic RFCOMM-based devices like standard GPS receivers, the [http://www.zeemote.com/ ZeeMote JS-1 joystick], or a Bluetooth Chipcard reader.
 
 It runs in a single thread in user-space and makes use of the standard POSIX API. It expects a Bluetooth module connected via a serial connection (Bluetooth H4 HCI Transport). Support for Bluetooth USB modules is not working yet.
 
-In particular, it runs on all iPhones and all iPod touch devices with Bluetooth support and iPhone OS < 4.0. On this platform, BTstack is automatically started by the system's launch daemon and provides its own status bar icon to distinguish itself from Apple's Bluetooth stack. It is available as binary via the [http://www.saurik.com/id/1 Cydia distribution system].
+In particular, it runs on all iPhones and all iPod touch devices with Bluetooth support and iOS from SDK 2.0. On this platform, BTstack is automatically started by the system's launch daemon and provides its own status bar icon to distinguish itself from Apple's Bluetooth stack. It is available as binary via the [http://www.saurik.com/id/1 Cydia distribution system].
 
 
 = Bluetooth Layers =
@@ -25,15 +25,15 @@ In particular, it runs on all iPhones and all iPod touch devices with Bluetooth 
  * SPD Client functionality is not directly provided, but sdp_util.c can help to create  ServiceSearchPattern, AttributeIDList and process received AttributeLists.
 
 == [RFCOMM] ==
- * Quite some interest, development has started. See [RFCOMM]. The existing L2CAP implementation is sufficient.
+ * We plan to release RFCOMM as part of an commercial OBEX app maybe in Sept. 2010. See [RFCOMM].
 
 = Other =
 
 == iPhone and iPod touch ==
  * The iPhone control component is able to switch the Bluetooth chipset on/off and properly initialize them in HCI H4 Transport mode with baud rates from 57600-921600 on all iPhone and iPod touch devices with build-in Bluetooth. Higher rates cannot be specified yet, especially not the 2.4 Mbps used by Apple. The problem is not with the Bluetooth chipset. The termios call to set the speed of the serial port returns "invalid parameter" for higher baud rates.
  * BTdaemon is automatically started by launchd. This makes it more robust and allows for automatic power-off, when no application is using Bluetooth.
- * The !SpringBoardAccess !MobileSubstrate extension allows the BTdaemon to show a BTstack icon similar to Apple's Bluetooth icon in the status bar (OS < 4.0).
- * Working on all iDevices that have a build-in Bluetooth module on OS < 4.0. It also works on iPod touch 1st generation if an external HCI H4 Bluetooth module is connected.
+ * The !SpringBoardAccess !MobileSubstrate extension allows the BTdaemon to show a BTstack icon similar to Apple's Bluetooth icon in the status bar.
+ * Working on all iDevices that have a build-in Bluetooth module. It also works on iPod touch 1st generation if an external HCI H4 Bluetooth module is connected.
 
 == Logging/Debugging ==
  * hci_dump.c supports multiple formats:
