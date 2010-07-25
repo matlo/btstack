@@ -10,7 +10,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * L2CAP
    * ~~keep track of remote incoming MTU~~ revision 750
    * ~~use 1021 byte L2CAP buffer (3-DH5) in BTdaemon~~
-   * query BT module for nr and size of ACL packets (HCI read buffer size command)
+   * ~~query BT module for nr and size of ACL packets (HCI read buffer size command)~~ revision 818
    * keep track of free ACL buffers in BT module (Number Of Completed Packets Event)
    * keep track of available Baseband packet sizes for a given connection
    * fragment L2CAP packets according to available Baseband packets
