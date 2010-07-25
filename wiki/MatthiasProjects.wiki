@@ -17,13 +17,16 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * provide credit-based flow control ("ready for x data packets")
    * remove source from run loop, if BT module has no free buffers
    * send ACL packets to BT until full
- * [SDP Service Discovery Protocol]
-   * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
-   * Figure out a way to serve records larger than 255 bytes - 1000 byte packets should be enough for most services
+ * Full RFCOMM support:
+   * move RFCOMM into BTdaemon
+   * handle multiple connections
+   * handle incoming connections
  * Full OBEX support for iOS - in collaboration with  [http://code.google.com/u/francisois/ francis]
+   * depends on full RFCOMM support
+ * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
+   * depends on full RFCOMM support
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
  * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
- * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * Take over MouseSupport from ashikase
@@ -42,3 +45,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * ~~BTstack on iPhone OS 4.0~~
    * ~~Is working but not released yet.~~ Release revision 757 June 22n 
    * ~~Caveat: there is no BTstack icon in the status bar~~ Solved by [http://apt.thebigboss.org/onepackage.php?bundleid=libstatusbar&db= libstatusbar] July 4rd
+ * [SDP Service Discovery Protocol]
+   * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
+   * ~~Figure out a way to serve records larger than 255 bytes~~ ~ 1000 byte packets should be enough for most services
