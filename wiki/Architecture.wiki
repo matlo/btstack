@@ -39,6 +39,13 @@ The described run loop approach is compatible with many GUI frameworks, notably 
 
 As the socket server can receive messages from the clients at any time, a command or a data packet might be received while the Bluetooth module is already busy. If the socket server would simply skip reading data this time, it would be called again immediately by the run loop, as the socket connection is still ready. Therefor, the BTdaemon has to _block_ this socket connection by removing its data source from the run loop. As soon as the Bluetooth module is ready again, the data source can be added back to the run loop.
 
+=== HCI ACL Flow Control ===
+
+The Read Buffer Size command returns the number and size of ACL buffers in the Bluetooth module. This number has to be decreased with every ACL packet sent to the module. The Number Of Completed Packet reports processes packets and allows to increment the number of free buffers in the module again. BTstack tracks the number of packets in the module per baseband connection as they are sent in a FIFO order. By summing them up, the amount of free packets is available.
+
+=== L2CAP Flow Control ===
+...
+
 === HCI Command Flow Control ===
 
 Each command complete and command status event sent by the Bluetooth module, indicate the amount of HCI commands that the host is allowed to send to the Bluetooth module.  
