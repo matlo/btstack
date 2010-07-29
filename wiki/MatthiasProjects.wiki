@@ -14,10 +14,11 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * ~~keep track of free ACL buffers in BT module (Number Of Completed Packets Event)~~ r820
    * implement mechanism to _park_ socket connections
      * ~~add linked_list_add_tail(list, item)~~
-     * make sure socket callback handler have proper returns codes (== 0 for btstack.c)
-     * if dispatch fails and park list set: remove from run loop and add to parked
-     * if re-dispatch succeeds remove from parked list and add to run loop
-   * implement "call re-dispatch on all parked connections, in FIFO order
+     * ~~assert socket callback handlers return 0~~
+     * add list of parked connections
+     * if dispatch fails: remove from run loop and add to parked list
+   * implement "call re-dispatch on all parked connections, in FIFO order"
+     * if re-dispatch succeeds: remove from parked list and add to run loop
    * provide credit-based flow control ("probably ready for x data packets")
      * on send ACL packet, check buffers. return -1 if not possible
      * on number completed packets: call re-dispatch on parked connections
