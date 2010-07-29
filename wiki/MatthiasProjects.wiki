@@ -17,7 +17,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
      * ~~assert socket callback handlers return 0~~
      * ~~add list of parked connections~~
      * ~~if dispatch fails: remove from run loop and add to parked list~~
-   * have send_l2cap and send_acl return error -1 if no space on BT module
+   * ~~have send_l2cap and send_acl return error -1 if no space on BT module~~
    * implement "call re-dispatch on all parked connections, in FIFO order"
      * if re-dispatch succeeds: remove from parked list and add to run loop
    * provide credit-based flow control ("probably ready for x data packets")
