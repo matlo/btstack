@@ -12,11 +12,11 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * ~~use 1021 byte L2CAP buffer (3-DH5) in BTdaemon~~
    * ~~query BT module for nr and size of ACL packets (HCI read buffer size command)~~ r818
    * ~~keep track of free ACL buffers in BT module (Number Of Completed Packets Event)~~ r820
-   * implement mechanism to _park_ socket connections
+   * ~~implement mechanism to _park_ socket connections~~
      * ~~add linked_list_add_tail(list, item)~~
      * ~~assert socket callback handlers return 0~~
      * ~~add list of parked connections~~
-     * if dispatch fails: remove from run loop and add to parked list
+     * ~~if dispatch fails: remove from run loop and add to parked list~~
    * have send_l2cap and send_acl return error -1 if no space on BT module
    * implement "call re-dispatch on all parked connections, in FIFO order"
      * if re-dispatch succeeds: remove from parked list and add to run loop
