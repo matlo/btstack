@@ -13,7 +13,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * ~~query BT module for nr and size of ACL packets (HCI read buffer size command)~~ r818
    * ~~keep track of free ACL buffers in BT module (Number Of Completed Packets Event)~~ r820
    * implement mechanism to _park_ socket connections
-     * add linked_list_add_tail(list, item)
+     * ~~add linked_list_add_tail(list, item)~~
      * make sure socket callback handler have proper returns codes (== 0 for btstack.c)
      * if dispatch fails and park list set: remove from run loop and add to parked
      * if re-dispatch succeeds remove from parked list and add to run loop
