@@ -18,12 +18,12 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
      * ~~add list of parked connections~~
      * ~~if dispatch fails: remove from run loop and add to parked list~~
    * ~~have send_l2cap and send_acl return error -1 if no space on BT module~~
-   * implement "call re-dispatch on all parked connections, in FIFO order"
-     * if re-dispatch succeeds: remove from parked list and add to run loop
+   * ~~implement "call re-dispatch on all parked connections, in FIFO order"~~
+     * ~~if re-dispatch succeeds: remove from parked list and add to run loop~~
    * provide credit-based flow control ("probably ready for x data packets")
-     * on send ACL packet, check buffers. return -1 if not possible
-     * on number completed packets: call re-dispatch on parked connections
-     * hand out credits if conditions are met
+     * on number completed packets:
+       * call re-dispatch on parked connections
+       * hand out credits if conditions are met
    * keep track of available Baseband packet sizes for a given connection
    * fragment L2CAP packets according to available Baseband packets
  * Full RFCOMM support:
