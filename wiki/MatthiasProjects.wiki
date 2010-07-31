@@ -24,8 +24,8 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
      * ~~on number completed packets:~~
        * ~~call re-dispatch on parked connections~~
        * ~~hand out credits if conditions are met~~
-   * write L2CAP performance test apps for both client and server mode for Apple's Bluetooth Explorer using PSM 0xdead
-   * test on device
+   * ~~write L2CAP performance test apps for both client and server mode for Apple's Bluetooth Explorer using PSM 0xdead~~
+   * ~~test on device~~ -> 40 KB/s incoming, 1 KB/s outgoing :(
    * keep track of available Baseband packet sizes for a given connection
    * fragment L2CAP packets according to available Baseband packets
  * Full RFCOMM support:
