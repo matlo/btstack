@@ -26,6 +26,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * Take over MouseSupport from ashikase and improve it:
+   * update to use (copy of) kennytm's headers (support OS >= 3.0) 
    * add hi-res mouse pointer for iPhone 4 Retina display
    * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
  * Other private/consulting projects
