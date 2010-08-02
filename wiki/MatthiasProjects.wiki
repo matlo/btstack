@@ -25,7 +25,9 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
- * Take over MouseSupport from ashikase
+ * Take over MouseSupport from ashikase and improve it:
+   * add hi-res mouse pointer for iPhone 4 Retina display
+   * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
  * Other private/consulting projects
 
 = Other Projects... =
