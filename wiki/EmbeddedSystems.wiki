@@ -3,6 +3,9 @@
 = Introduction =
 While BTstack runs on most OSs with POSIX file I/O, it cannot run on Embedded Systems that luck such luxury. When running on a device without any OS some things have to change. Examples for such a system might be the Arduino platform, if a bigger MCU like the ATmega 2561 is used, or the [http://btnode.ethz.ch BTnode], or, your favorite ARM-developer board. :)
 
+= First prototype =
+First run of BTstack on embedded system without OS: http://www.youtube.com/watch?v=NlOcoKWuZhU
+
 = Details =
 On top of my head, the following files are needed:
  * run_loop_embedded.c
@@ -28,9 +31,9 @@ The Arduino firmware provides interrupt-driven UART drivers with an 128 byte rea
 With the blocking write (same on POSIX), it is necessary that incoming data is stopped using the hardware handshake. This could be done as part of the blocking write or as an extension of the UART driver. Support for RTS/CTS seems like the better option.
 
 == Next steps ==
- * create a basic run_loop_embedded.c without timer support
- * create example h4_transport_embedded.c for system with single byte read/write
- * create example bt_control_embedded.c
-   * add callbacks to have bt_control_embeded send long HCI init sequence
- * create test app that initializes BT and does an inquiry
+ * ~~create a basic run_loop_embedded.c without timer support~~
+ * ~~create example h4_transport_embedded.c for system with single byte read/write~~
+ * ~~create example bt_control_embedded.c~~
+   * ~~add callbacks to have bt_control_embeded send long HCI init sequence~~
+ * ~~create test app with video~~
  * make sure that app/stack only sends one command/acl packet at a time, to allow for non-blocking writes
