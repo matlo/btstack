@@ -7,6 +7,11 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
    * ~~iSynergyClient 0.8~~ submitted to BigBoss repo 4th of July
    * iSynergyClient 1.0 with keyboard support based on BTstack Keyboard
+ * HCI - iOS
+   * handle link key management in BTdaemon
+   * store link keys in plist on file system
+   * intercept store/read link key commands and use plist
+   * answer link key requests by Bluetooth module
  * L2CAP
    * ~~keep track of remote incoming MTU~~ r750
    * ~~use 1021 byte L2CAP buffer (3-DH5) in BTdaemon~~
