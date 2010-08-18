@@ -23,7 +23,7 @@ To open an L2CAP connection use the l2cap_create_channel command:
   l2cap_send(uint16_t source_cid, uint8_t *data, uint16_t len);
 }}}
 
-On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the source_cid. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
+On success, an HCI_EVENT_L2CAP_CHANNEL_OPENED event will generated which contains the locall_cid. Data received on the channel will be received by the data callback. To send data over the channel, use the l2cap_send function.
 
 === Incoming Connections ===
 To register an L2CAP service, send the l2cap_register_service(uint16_t psm, uint16_t mtu) command. The incoming MTU is ignored for now. On incoming L2CAP connection request, an L2CAP_EVENT_INCOMING_CONNECTION event will be received by the application event handler. The application is then free to accept or decline the request using the l2cap_decline/accept_connection commands. 
@@ -34,6 +34,25 @@ To register an L2CAP service, send the l2cap_register_service(uint16_t psm, uint
 
   bt_send_cmd(&l2cap_accept_connection, uint16_t source_cid);
   bt_send_cmd(&l2cap_decline_connection, utin16_t source_cid, uint8_t reason);
+}}}
+
+=== Events ===
+L2CAP emits the following events:
+{{{
+#define L2CAP_EVENT_CHANNEL_OPENED                         0x70
+// data: event (8), len(8), status (8), address(48), handle (16), psm (16), local_cid(16), remote_cid (16) 
+
+#define L2CAP_EVENT_CHANNEL_CLOSED                         0x71
+// data: event (8), len(8), channel (16)
+
+#define L2CAP_EVENT_INCOMING_CONNECTION			   0x72
+// data: event (8), len(8), status (8), address(48), handle (16), psm (16), local_cid(16), remote_cid (16) 
+
+#define L2CAP_EVENT_TIMEOUT_CHECK                          0x73
+// data: event(8), len(8), handle(16)
+
+#define L2CAP_EVENT_CREDITS				   0x74
+// data: event(8), len(8), handle(16)
 }}}
 
 = Details =
@@ -56,46 +75,11 @@ To process incoming L2CAP Signaling Commands, they need to be dispatched to the 
   # information response: id   - not a particular channel
 
 Commands 0x08-0x0b are not channel related, also 0x02 is used to setup a new channel. We only have to react to {0x01-0x07}\{0x02}. For command codes with odd number, we match by the signal identifier sent earlier by the channel - the channel_t struct stores the last sent signal identifier. Otherwise, we match by the destination channel ID.
-
-=== l2cap_listener_t ===
-{{{
-typedef struct {
-    // linked list - assert: first field
-    linked_item_t    item;
-
-    // service id
-    uint16_t  psm;
-    
-    // incoming MTU
-    uint16_t mtu;
-    
-    // provider for this server
-    connection_t *connection;    
-} l2cap_service_t;
-}}}
-
-=== l2cap_channel_t ===
-{{{
-typedef struct {
-
-    linked_item_t item;
-
-    L2CAP_STATE state;
-    bd_addr_t address;
-    hci_con_handle_t handle;
-    uint16_t  psm;
-    uint8_t   sig_id;  // last sent
-    uint16_t  local_cid;
-    uint16_t  dest_cid;
-    // uint16_t mtu_incoming;
-    // uint16_t mtu_outgoing;
-    // uint16_t flush_timeout_incoming;
-    // uint16_t flush_timeout_outgoing;
-} l2cap_channel_t;
-}}}
  
 == ACL Flow Control ==
-Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled, e.g. not to overrun the BT module. On the BTnode, it was the other way round. In any case, the data coming from a unix socket can just be delayed. For L2CAP packets that are larger than the maximal ACL packet, the flow control and the segmentation is better implemented in the BTdaemon than in the client. Otherwise, if multiple clients send in parallel, data for the same baseband link might be interleaved, which is not possible. 
+Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled to not overrun the Bluetooth module. For this, HCI queries the Bluetooth module for the number of total ACL buffer it provides. Then, HCI keeps tracks of each ACL send to the controller and the number of packets reported as processed. By this, the send_acl_packet functions returns with an error if there are no free slots in the controller. BTdaemon will keep the packet to send, but stop receiving further packets from the client until the packet could be sent.
+
+That's the fallback in case an application does not implement the credit-based flow control in BTstack. As there's no benefit of having more than 3 packets buffered in the Bluetooth module ready to be send, L2CAP emits single packet credits (L2CAP_EVENT_CREDITS)to the application which then is allowed to send a single packet. 
 
 == Packet Buffers at BTdaemon ==
 
@@ -107,6 +91,7 @@ Theory:
 
 Practice:
   * BTstack only supports L2CAP packets with max MTU <= 339 bytes(= DH5 packet)
+  * Update: the SVN version uses 1021 bytes packets (= 3-DH5 packets)
 
 Possible optimizations:
   * Single ACL buffer in HCI transport unnecessary when access to L2CAP buffer possible
