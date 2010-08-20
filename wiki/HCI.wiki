@@ -1,5 +1,14 @@
 #summary HCI layer details.
 
+=== HCI Command Flow Control ===
+
+Each command complete and command status event sent by the Bluetooth module, indicate the amount of HCI commands that the host is allowed to send to the Bluetooth module.  
+To avoid sending commands while the Bluetooth module is busy, the BTdaemon uses the previously described approach of not reading from the clients. In this case, the BTdaemon only processes events from the Bluetooth module.
+
+(See the unfortunate code in BTnut bt_hci.c for how you should not handle it - scary!)
+
+=== HCI ACL Flow Control ===
+Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled to not overrun the Bluetooth module. For this, HCI queries the Bluetooth module for the number of total ACL buffer it provides with the Read Buffer Size command. Then, HCI keeps track of each ACL send to the controller and the number of packets that get reported as processed. BTstack tracks the number of packets in the module per baseband connection. By summing them up, the amount of free packets is available and the send_acl_packet functions can return with an error if there are no free slots in the controller. BTdaemon will keep the packet to send in its client receive buffer, but stop receiving further packets from from this client until the packet could be sent.
 
 = Opaque Bluetooth Connection Handles =
 
