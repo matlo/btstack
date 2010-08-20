@@ -52,7 +52,7 @@ L2CAP emits the following events:
 // data: event(8), len(8), handle(16)
 
 #define L2CAP_EVENT_CREDITS				   0x74
-// data: event(8), len(8), handle(16)
+// data: event(8), len(8), local_cid(16), credits(8)
 }}}
 
 = Details =
