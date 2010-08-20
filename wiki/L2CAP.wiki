@@ -76,10 +76,11 @@ To process incoming L2CAP Signaling Commands, they need to be dispatched to the 
 
 Commands 0x08-0x0b are not channel related, also 0x02 is used to setup a new channel. We only have to react to {0x01-0x07}\{0x02}. For command codes with odd number, we match by the signal identifier sent earlier by the channel - the channel_t struct stores the last sent signal identifier. Otherwise, we match by the destination channel ID.
  
-== ACL Flow Control ==
-Similar to the HCI Command Flow Control, the flow of ACL packets has to be controlled to not overrun the Bluetooth module. For this, HCI queries the Bluetooth module for the number of total ACL buffer it provides. Then, HCI keeps tracks of each ACL send to the controller and the number of packets reported as processed. By this, the send_acl_packet functions returns with an error if there are no free slots in the controller. BTdaemon will keep the packet to send, but stop receiving further packets from the client until the packet could be sent.
+== Credit-based Flow Control ==
 
-That's the fallback in case an application does not implement the credit-based flow control in BTstack. As there's no benefit of having more than 3 packets buffered in the Bluetooth module ready to be send, L2CAP emits single packet credits (L2CAP_EVENT_CREDITS)to the application which then is allowed to send a single packet. 
+Although HCI will prevent you from overrunning the Bluetooth controller, it's more efficient to use the credit-based flow control provided by the BTstack L2CAP layer.
+
+As there's no benefit of having more than 3 packets buffered in the Bluetooth module ready to be send, L2CAP emits single packet credits (L2CAP_EVENT_CREDITS)to the application which then is allowed to send a single packet. The first credit is emitted after the channel is opened.
 
 == Packet Buffers at BTdaemon ==
 
