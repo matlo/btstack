@@ -65,15 +65,13 @@ The HCI Transport API allows the BTdaemon to use different transport implementat
 typedef struct {
     int    (*open)(void *transport_config);
     int    (*close)();
-    int    (*send_cmd_packet)(uint8_t *packet, int size);
-    int    (*send_acl_packet)(uint8_t *packet, int size);
-    void   (*register_event_packet_handler)(void (*handler)(uint8_t *packet, int size));
-    void   (*register_acl_packet_handler)  (void (*handler)(uint8_t *packet, int size));
+    int    (*send_packet)(uint8_t packet_type, uint8_t *packet, int size);
+    void   (*register_packet_handler)(void (*handler)(uint8_t packet_type, uint8_t *packet, int size));
     const char * (*get_transport_name)();
 } hci_transport_t;
 }}}
 
-Note: packet sizes are not needed for HCI packets (ACL, Command, Event), as they themselves contain length information. They could be removed from the function parameters, but are kept for convenience.
+Note: packet sizes are not needed for HCI packets (ACL, Command, Event), as they themselves contain length information. They could be removed from the function parameters, but are kept for efficient code.
 
 === Bluetooth Hardware Control API ===
 
