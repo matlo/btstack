@@ -7,12 +7,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
    * ~~iSynergyClient 0.8~~ submitted to BigBoss repo 4th of July
    * iSynergyClient 1.0 with keyboard support based on BTstack Keyboard
- * HCI - iOS Remote Device DB
-   * ~~handle link key management in BTdaemon~~
-   * ~~store new link keys in plist on file system~~
-   * ~~answer link key requests by Bluetooth module~~
-   * store remote names in plist
-   * send BTSTACK_EVENT_REMOTE_NAME_CHACHED for each device in a inquiry result
  * L2CAP
    * ~~keep track of remote incoming MTU~~ r750
    * ~~use 1021 byte L2CAP buffer (3-DH5) in BTdaemon~~
@@ -70,6 +64,12 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * ~~test on device~~
      * ~~r848 40 KB/s incoming,  1 KB/s outgoing :(~~
      * ~~r849 40 KB/s incoming, 45 KB/s outgoing :)~~
- * [SDP Service Discovery Protocol]
+ * ~~[SDP Service Discovery Protocol]~~
    * ~~limit amount of information in responses to remote L2CAP MTU~~ revision 753
    * ~~Figure out a way to serve records larger than 255 bytes~~ ~ 1000 byte packets should be enough for most services
+ * ~~HCI - iOS Remote Device DB~~
+   * ~~handle link key management in BTdaemon~~
+   * ~~store new link keys in plist on file system~~
+   * ~~answer link key requests by Bluetooth module~~
+   * ~~store remote names in plist~~
+   * ~~send BTSTACK_EVENT_REMOTE_NAME_CHACHED for each device in a inquiry result~~
