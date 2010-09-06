@@ -30,8 +30,9 @@ If you integrate RFCOMM in your own app, this is easy to achieve. If you want/ne
 
 = Specs =
   * [https://www.fer.hr/_download/repository/ts_101369v060300p.pdf TS 07.10 aka TS 101 369] on which is RFOMM is based.
-  * [http://www.bluetooth.com/NR/rdonlyres/4C1E59CA-7E67-4126-8FE8-107C84A7B72C/916/rfcomm.pdf The RFCOMM Protocol] describes the adaption of TS 07.10 for RFCOMM, these are both clarification and/or details.
-  * [http://www.bluetooth.com/NR/rdonlyres/9C6DB2A4-A7D9-47A6-81B3-5F03981AE9C4/986/SPP_SPEC_V11.pdf The SPP Profile] specified how RFCOMM is used as main part of the Serial Port Profile.
+  * rfcom.pdf at http://bluetooth.com/English/Technology/Building/Pages/Specification.aspx
+ describes the adaption of TS 07.10 for RFCOMM, these are both clarification and/or details.
+  * SPP_SPEC_V11.pdf specifies how RFCOMM is used as main part of the Serial Port Profile.
 
 = Tutorial =
 [http://authors.phptr.com/bluetooth/bray/pdf/cr_ch10.pdf Chapter 10] of [http://authors.phptr.com/bluetooth/bray/index.html Bluetooth without Cables] from Prentice Hall. 
