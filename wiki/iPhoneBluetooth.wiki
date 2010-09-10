@@ -8,6 +8,9 @@ The 2.x OS on the iPhone and the iPod touch did only support Bluetooth headsets.
 = Bluetooth Support in OS 3.x =
 Here's a short list on the Bluetooth services provides by an unmodified iPhone/iPod touch.
 
+== Car Integration ==
+Apple's stack provides Hands-free and Phonebook Access services, allowing for full hands-free operation in cars that support it.
+
 == Bluetooth Headsets ==
 Since 3.0, also Stereo Bluetooth Headsets are supported. Check out other consumer web sites for more info on these.
 
