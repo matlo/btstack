@@ -22,7 +22,7 @@ Another argument for the use of RFCOMM could be made based on the RFCOMM support
 RFCOMM is not implemented as part of BTstack yet. A first duct tape RFCOMM test is able to receive data from simple RFCOMM devices, e.g. the Zeemote JS1, or probably a BT GPS, too.
 
 = RFCOMM.c Example in BTstack =
-[http://code.google.com/p/btstack/source/browse/trunk/example/rfcomm.c example/rfcomm.c] implements a rudimentary version of RFCOMM as a little library on the client-side. It can be used to connect to an external SPP/RFCOMM device if you know the other's RFCOMM channel ID, which usually is 1. Received data is provided via a a named FIFO at /tmp/rfcomm0.
+[http://code.google.com/p/btstack/source/browse/trunk/example/rfcomm.c example/rfcomm.c] implements a rudimentary version of RFCOMM as a little library on the client-side. It can be used to connect to an external SPP/RFCOMM device if you know the other's RFCOMM channel ID, which usually is 1. Received data is provided via a a named FIFO at /tmp/rfcomm0. For a first test, open a second SSH connection and run: `cat /tmp/rfcomm0` for a quick test. 
 
 Although the example does not allow to send data, the implementation does. To send data, you call _bt_rfcomm_send_uih_data with initiator = 1 and the correct channel ID.
 
