@@ -23,8 +23,8 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{./bootstrap.sh}}}
   # configure BTstack for the iPhone if you have SDK 2.0 installed
     {{{./configure --target=iphone}}}
-  # configure BTstack for the iPhone if you have SDK 3.1.3 installed
-    {{{./configure --target=iphone --with-sdk-version=3.1.3}}}
+  # configure BTstack for the iPhone if you have SDK 3.2 from SDK 4.1 installed
+    {{{./configure --target=iphone --with-sdk-version=3.2}}}
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
   # build it
     {{{make}}}
