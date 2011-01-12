@@ -9,8 +9,8 @@ However, it is not ported to Windows yet. For debugging purposes on Windows, a s
 
 = Caveats =
  * Linux: root access rights are required to have libUSB connect to a Bluetooth modue. Running BTdaemon as root is not optimal, but probably ok for most people toying with BTstack.
- * OS X: The OS sizes the BT module when plugged in. To use it with libUSB, a "Vendor Specific" kernel extension has to be created and installed. The kernel extension basically only consists of a plist (XML) file that specifies the used BT dongle. [http://www.opensource.apple.com/source/IOUSBFamily/IOUSBFamily-343.4.3/Examples/VendorSpecific%20Driver/ VendorSpecific Driver example code].
-
+ * OS X: The OS sizes the BT module when plugged in. To use it with libUSB, a "Vendor Specific" kernel extension has to be created and installed. The kernel extension basically only consists of a plist (XML) file that specifies the used BT dongle. [http://www.opensource.apple.com/source/IOUSBFamily/IOUSBFamily-343.4.3/Examples/VendorSpecific%20Driver/ VendorSpecific Driver example code]. For unknown reasons, this failed for me. Another, rough but reliable approach is to remove /System/Library/IOBluetoothFamily.kext and reboot. Problem solved.
+   
 = Default Endpoints =
  * 0x00: Control Transfer: HCI Commands
  * 0x81: Interrupt Transfer: HCI Events
@@ -19,10 +19,11 @@ However, it is not ported to Windows yet. For debugging purposes on Windows, a s
 
 = Status =
  * Finding a BT module (either by product & vendor ID or by device class) works on Linux and Mac.
- * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux, crashes on Mac - I've seen an update which claims to fix a related crash. Although, they are not mandated by the  BT specification, most products follow the BT specification recommendation so we can just use the defaults for now.
- * Sending and receiving HCI Reset command does not work on Linux and Mac.
+   * The built-in Bluetooth in my MacBook Pro has  class 0xff instead of 0xe0, so I use the VID/PID 
+ * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux and Mac
+ * With current libusb from GIT (Jan 2011), BTstack boots up properly and basic operations work on Mac (i386)
 
 = TODO =
- * Get RESET command and event receive to wrk.
- * Test HID L2CAP example with USB dongle
- 
+ * More tests
+ * more documentation
+ * libusb is supported on win32 - have someone try that out 
