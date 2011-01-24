@@ -4,6 +4,7 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
+ * ~~iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...~~ released [http://www.weblooks.ch/webe-plus/ WeBe++] Dec 10th
  * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
    * ~~iSynergyClient 0.8~~ submitted to BigBoss repo 4th of July
    * iSynergyClient 1.0 with keyboard support based on BTstack Keyboard
@@ -18,7 +19,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * depends on full RFCOMM support
    * Tricky: no solution on how to get location from daemon on 4.0 - erica tried
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
- * iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * Take over MouseSupport from ashikase and improve it:
