@@ -5,9 +5,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
 
 = Tasks/Projects =
  * ~~iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...~~ released [http://www.weblooks.ch/webe-plus/ WeBe++] Dec 10th
- * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
-   * ~~iSynergyClient 0.8~~ submitted to BigBoss repo 4th of July
-   * iSynergyClient 1.0 with keyboard support based on BTstack Keyboard
  * Full RFCOMM support:
    * move RFCOMM into BTdaemon
    * use new L2CAP Credit-based Flowcontrol
@@ -35,6 +32,9 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * create 3D model of the balance board for OpenGL display
  * Audio stuff A2DP, HFP...
  * Other Bluetooth profiles
+ * [http://www.tuaw.com/2010/06/28/found-footage-synergy-on-ios/ iOS client for Synergy protocol] - not Bluetooth related, but a nice little project.
+   * ~~iSynergyClient 0.8~~ submitted to BigBoss repo 4th of July
+   * released as open source project at http://code.google.com/p/isynergyclient/
 
 = Completed =
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
