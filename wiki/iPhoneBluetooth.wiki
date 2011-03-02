@@ -14,8 +14,10 @@ Apple's stack provides Hands-free and Phonebook Access services, allowing for fu
 == Bluetooth Headsets ==
 Since 3.0, also Stereo Bluetooth Headsets are supported. Check out other consumer web sites for more info on these.
 
-== Bluetooth Accessories ==
+== Bluetooth Accessories - Made for iPhone ==
 Apple's Accessory API introduced in 3.0 allows to register for external accessories which can be connected either via the Dock connector or via Bluetooth. It then allows to specify an accessory based on a so-called "protocol" string and provides a socket-like connection to the device. AFAIK, there are no non-head-phones Bluetooth accessories on the marked yet and there is no information on the actual Bluetooth protocols used. For details, you'll have to sign up and get accepted into the "Made for iPhone" (MfI) program, and most likely sign an NDA. However, it is rumored that an MfI Bluetooth device requires a proprietary chip which is sold by Apple.
+
+Development kit for iPod/iPhone accessories via the dock connector by Microchip: http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=2872&param=en546067
 
 == Peer-to-Peer Gaming ==
 Apple's Game Networking API in 3.0 allows to connect nearby iPhones via Bluetooth and to use normal IP networking (TCP, UDP, Bonjour..). The main goal of this is to simplify the pairing procedure which does not involve PINs. It makes use of the Extended Inquiry procedure of Bluetooth 2.1 and higher. The extended inquiry response (EIR) contains a list of SDP service records of which one is a "vendor-specific" extension. If a device provides such a EIR, the iPhone will connect to the foreign device and query its SDP for more details. More analysis is needed to provide peer-to-peer gaming for non-Apple devices.
