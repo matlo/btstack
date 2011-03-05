@@ -4,6 +4,7 @@
  * [http://keyboard.ringwald.de BTstack Keyboard] ([http://ringwald.ch/cydia/keyboard full], [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse]
  * [http://ringwald.ch/cydia/gps BTstack GPS - use BT GPS with iPod touch and iPad Wifi]
+ * [http://www.weblooks.ch/webe-plus/ WeBe++ Bluetooth HID Mouse and Keyboard]
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=ch.ringwald.wiimoteopengldemo&db= WiiMote OpenGL-ES Demo]
  * [http://apt.bigboss.us.com/onepackage.php?bundleid=com.conradkramer.wiimotemusiccontrols&db= Wiimote Music Control]
  * [http://www.zodttd.com/wp/2009/11/wiimote-demonstration-video-with-mame4iphone/ mame4iphone]
