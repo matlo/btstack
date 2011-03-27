@@ -9,3 +9,6 @@ The OBEX protocol sits on top of the [RFCOMM] protocol and also requires [SDP] f
 
 = Specs =
   * [http://www.bluetooth.com/NR/rdonlyres/D0600F99-8505-45A5-9635-518936123402/913/OBEX.pdf OBEX specification]
+
+= OBEX for iOS devices =
+[http://getceleste.com Bluetooth file sharing for iOS, at last.]
