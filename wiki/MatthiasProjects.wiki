@@ -4,25 +4,24 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
- * ~~iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...~~ released [http://www.weblooks.ch/webe-plus/ WeBe++] Dec 10th
- * Full RFCOMM support:
-   * move RFCOMM into BTdaemon
-   * use new L2CAP Credit-based Flowcontrol
-   * handle multiple connections
-   * handle incoming connections
- * Full OBEX support for iOS - in collaboration with  [http://code.google.com/u/francisois/ francis]
-   * depends on full RFCOMM support
- * BTstack GPS Server: provide iPhone or iPad 3G GPS data to BTstack GPS
-   * depends on full RFCOMM support
-   * Tricky: no solution on how to get location from daemon on 4.0 - erica tried
+ * Celeste Version 1.0
+ * MouseSupport:
+   * Fix MouseSupport and/or add mouse pointer simulation to hid-support
+   * add hi-res mouse pointer for iPhone 4 Retina display
+   * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
+ * Full RFCOMM support: implemented, schedule for addition to BTstack for End of April 2011
+ * BTstack GPS:
+   * provide information if BTstack GPS is active
+   * add option to throttle update rate
+   * use speed & course from NMEA messages
+   * use accuracy from NMEA messages
+   * use new RFCOMM API
+   * Server option: provide iPhone or iPad 3G GPS data to BTstack GPS
+     * Tricky: no solution on how to get location from daemon on 4.0 - erica tried
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
- * Take over MouseSupport from ashikase and improve it:
-   * update to use (copy of) kennytm's headers (support OS >= 3.0) 
-   * add hi-res mouse pointer for iPhone 4 Retina display
-   * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
- * iPhone/iPad GameController: Play games with Wiimote, Zeemote, and PS3 SixAxis. In collaboration with conradev. 
+ * iPhone/iPad GameController: Play games with Wiimote, Zeemote, and PS3 SixAxis.
  * Other private/consulting projects
 
 = Other Projects... =
@@ -37,6 +36,9 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * released as open source project at http://code.google.com/p/isynergyclient/
 
 = Completed =
+ * ~~Full OBEX support for iOS~~
+   * [http://getceleste.com Bluetooth file sharing for iOS, at last.] released
+ * ~~iPhone as Keyboard & Touchpad for other devices like PC, PS3, ...~~ released March 23, 2011 [http://www.weblooks.ch/webe-plus/ WeBe++] Dec 10th, 2010
  * ~~Handle multiple L2CAP commands in a single signaling packet~~ revision 658
  * ~~BTstack on iPhone OS 4.0~~
    * ~~Is working but not released yet.~~ Release revision 757 June 22n 
