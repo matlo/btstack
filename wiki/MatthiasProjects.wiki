@@ -5,10 +5,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
 
 = Tasks/Projects =
  * Celeste Version 1.0
- * MouseSupport:
-   * Fix MouseSupport and/or add mouse pointer simulation to hid-support
-   * add hi-res mouse pointer for iPhone 4 Retina display
-   * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
  * Full RFCOMM support: implemented, schedule for addition to BTstack for End of April 2011
  * BTstack GPS:
    * provide information if BTstack GPS is active
@@ -18,6 +14,10 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * use new RFCOMM API
    * Server option: provide iPhone or iPad 3G GPS data to BTstack GPS
      * Tricky: no solution on how to get location from daemon on 4.0 - erica tried
+ * hid-support:
+   * Add mouse pointer simulation. send touch event for mouse pointer point 
+   * add hi-res mouse pointer for iPhone 4 Retina display
+   * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
