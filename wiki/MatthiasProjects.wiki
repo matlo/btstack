@@ -22,6 +22,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * iPhone/iPad GameController: Play games with Wiimote, Zeemote, and PS3 SixAxis.
+ * Implement GameKit for Mac and other non-iOS devices
  * Other private/consulting projects
 
 = Other Projects... =
