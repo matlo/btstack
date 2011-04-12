@@ -93,7 +93,7 @@ An early version of an HCI USB Transport implementation is included and should s
 
 == References ==
 
-  * [http://www.bluetooth.com/English/Technology/Building/Pages/Specification.aspx Official Bluetooth specification]
+  * [https://www.bluetooth.org/Technical/Specifications/adopted.htm Official Bluetooth specification]
   * CSR provides a wealth of documents on HCI and their hardware after registration (free account) on their [http://www.csrsupport.com CSR Support Site].
   * [http://www.bluez.org/ BlueZ - The GPL Linux Bluetooth Stack] 
     * The [http://wiki.bluez.org/wiki BlueZ Wiki]
