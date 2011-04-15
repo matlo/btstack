@@ -18,7 +18,7 @@ In theory, !SmartCard vendors could follow a similar approach as with USB Human 
 After pairing with the default PIN '0000', which could be changed according to the manual, the reader provides an RFCOMM service at channel #1. Over this channel CCID TPDUs can be send. The TPDUs are wrapped in a minimal packet consisting of the start symbol 0xa5 and an XOR checksum over the TPDU.
 Responses from the reader are wrapped by the same convention.
 
-Example: the TPDU to turn power on for the first card slot is {{{ 62 00 00 00 00 00 00 00 00 00  }}. To send it over Bluetooth to the OMNIKEY 2061, you would send {{{ A5 62 00 00 00 00 00 00 00 00 00 62 }}} - note the 0x62 at the end, which was easy to calculate in this case :)
+Example: the TPDU to turn power on for the first card slot is {{{ 62 00 00 00 00 00 00 00 00 00 }}}. To send it over Bluetooth to the OMNIKEY 2061, you would send {{{ A5 62 00 00 00 00 00 00 00 00 00 62 }}} - note the 0x62 at the end, which was easy to calculate in this case :)
 
 
  
