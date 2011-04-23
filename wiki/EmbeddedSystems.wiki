@@ -3,8 +3,10 @@
 = Introduction =
 While BTstack runs on most OSs with POSIX file I/O, it cannot run on Embedded Systems that luck such luxury. When running on a device without any OS some things have to change. Examples for such a system might be the Arduino platform, if a bigger MCU like the ATmega 2561 is used, or the [http://btnode.ethz.ch BTnode], or, your favorite ARM-developer board. :)
 
-= First prototype =
-First run of BTstack on embedded system without OS: http://www.youtube.com/watch?v=NlOcoKWuZhU
+= Prototype =
+First run of BTstack on embedded systems without OS:
+ * [http://www.youtube.com/watch?v=NlOcoKWuZhU Stellaris Cortex M3]
+ * [http://www.youtube.com/watch?v=j7mJuklrIxw TI-MSP430F5438]
 
 = Details =
 On top of my head, the following files are needed:
