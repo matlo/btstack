@@ -8,6 +8,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * BTstack GPS:
    * provide information if BTstack GPS is active
    * add option to throttle update rate
+   * add option to enforce pairing
    * use speed & course from NMEA messages
    * use accuracy from NMEA messages
    * use new RFCOMM API
