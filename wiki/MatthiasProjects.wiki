@@ -12,7 +12,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * use accuracy from NMEA messages
    * use new RFCOMM API
    * Server option: provide iPhone or iPad 3G GPS data to BTstack GPS
-     * Tricky: no solution on how to get location from daemon on 4.0 - erica tried
  * hid-support:
    * Add mouse pointer simulation. send touch event for mouse pointer point 
    * add hi-res mouse pointer for iPhone 4 Retina display
@@ -20,7 +19,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
- * iPhone/iPad GameController: Play games with Wiimote, Zeemote, and PS3 SixAxis.
+ * iPhone/iPad !GameController: Play games with Wiimote, Zeemote, PS3 !SixAxis, and iControlPad
  * Implement GameKit for Mac and other non-iOS devices
  * Other private/consulting projects
 
