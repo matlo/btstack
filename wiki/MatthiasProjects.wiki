@@ -16,7 +16,17 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * Add mouse pointer simulation. send touch event for mouse pointer point 
    * add hi-res mouse pointer for iPhone 4 Retina display
    * require heartbeat from apps (Veency, BTstack Mouse, SynergyClient) to turn off when app/extension crashes
- * BTstack Keyboard 1.1 update: lots of details to take care of like better iPad support, accented chars, accept incoming connections, disable auto-correction, more layouts, layout switcher, alternate selection for Asian languages, support Freedom Universal SPP keyboard
+ * BTstack Keyboard 1.1 update, lots of details to take care of like
+  * split into background daemon + config app/preference bundle
+  * auto-accept incoming connections
+  * use new 3.2+ events for cursors, volume, brightness
+  * accented chars
+  * disable auto-correction
+  * more layouts
+  * layout switcher
+  * alternate selection for Asian language
+  * support Freedom Universal SPP keyboard
+  * use new RFCOMM API
  * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * iPhone/iPad !GameController: Play games with Wiimote, Zeemote, PS3 !SixAxis, and iControlPad
