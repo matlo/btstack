@@ -11,7 +11,7 @@ First run of BTstack on embedded systems without OS:
 = Details =
 On top of my head, the following files are needed:
  * run_loop_embedded.c
- * h4_embedded.c
+ * hci_h4_embedded.c
  * bt_control_embedded.c
  * socket_connection_embedded.c
  * daemon_embedded.c
@@ -22,10 +22,24 @@ Although intended for use on embedded systems, the use of POSIX semantics during
 On embedded system without a select() function, data sources have to be polled.
 Similarly, basic functions to set single shot and period timers should be defined.
 
-== Blocking Write ==
-The current implementation uses a blocking write to send data to the BT module with the hidden knowledge that the OS will buffer incoming data. 
+== HCI  Interface with IRQ & DMA ==
+On embedded systems, a Bluetooth module can be connected via USB or an UART port. We will focus on UART first. 
 
-Instead, a polled "data source" can be used to transfer data from an output buffer to the Bluetooth module, if the assumption of the synchronous write is removed and higher layers are made responsible for not sending a second packet while the previous is not acknowledged.
+=== Blocking Write ===
+Write: The current implementation uses a blocking write to send data to the BT module with the hidden knowledge that the OS will buffer incoming data. Instead, a polled "data source" can be used to transfer data from an output buffer to the Bluetooth module, if the assumption of the synchronous write is removed and higher layers are made responsible for not sending a second packet while the previous is not acknowledged.
+
+=== IRQ & DMA UART RX===
+I've created a first IRQ driver for the MSP430 that is aware of the HCI packet format and only signals the run loop when a complete HCI packet was received. RTS is used to request a stop of incoming data after a complete packet was received. This is quite efficient, however I don't see how this can be made more portable.
+
+Regular UART drivers operate on the byte level and a RX callback might be set up. As Bluetooth communication is always in a packet format, it's better to let the low-level IRQ or even DMA driver receive a block of bytes. HCI Event and ACL packets can be received as 3 block reads. This can be quite efficient for large DH5 packets of 1021 bytes.
+
+=== UART Hardware Abstraction Layer ===
+Ther main HCI H4 implementations for embedded system will be hci_h4_dma. hci_h4_dma roughly has to provide
+ * hal_bt_init()
+ * hal_bt_set_baud()
+ * hal_bt_set_block_received(handler)
+ * hal_bt_read_block(start pos, length)
+The semantic for this is as follows: after hal_bt_init() and hal_bt_set_block_receive(), the HCI layer will start packet processing by calling hal_bt_read_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. The handler can return the amount of additional data it would like to receive in the same buffer. By this, the HAL implementation can stay generic, while requiring only 3 callsbacks per HCI packet.
 
 == Arduino ==
 The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking.
@@ -33,9 +47,4 @@ The Arduino firmware provides interrupt-driven UART drivers with an 128 byte rea
 With the blocking write (same on POSIX), it is necessary that incoming data is stopped using the hardware handshake. This could be done as part of the blocking write or as an extension of the UART driver. Support for RTS/CTS seems like the better option.
 
 == Next steps ==
- * ~~create a basic run_loop_embedded.c without timer support~~
- * ~~create example h4_transport_embedded.c for system with single byte read/write~~
- * ~~create example bt_control_embedded.c~~
-   * ~~add callbacks to have bt_control_embeded send long HCI init sequence~~
- * ~~create test app with video~~
- * make sure that app/stack only sends one command/acl packet at a time, to allow for non-blocking writes
+ * make sure that app/stack only sends one command/acl packet at a time, to allow for non-blocking writes done by a IRQ UART driver
