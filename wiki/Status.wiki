@@ -25,7 +25,7 @@ In particular, it runs on all iPhones and all iPod touch devices with Bluetooth 
  * SPD Client functionality is not directly provided, but sdp_util.c can help to create  ServiceSearchPattern, AttributeIDList and process received AttributeLists.
 
 == [RFCOMM] ==
- * We plan to release RFCOMM as part of an commercial OBEX app maybe in Sept. 2010. See [RFCOMM].
+ * RFCOMM client and server functionality was released May 2011. 
 
 = Other =
 
