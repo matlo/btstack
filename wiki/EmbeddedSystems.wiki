@@ -32,17 +32,22 @@ Regular UART drivers operate on the byte level and a RX callback might be set up
 
 === UART Hardware Abstraction Layer ===
 The main HCI H4 implementations for embedded system will be hci_h4_dma. hci_h4_dma roughly has to provide
- * hal_bt_init()
- * hal_bt_set_baud(baud)
- * hal_bt_set_block_received(handler)
- * hal_bt_read_block(buffer, length)
+{{{
+void hal_uart_dma_init(void);
+void hal_uart_dma_set_block_received( void (*block_handler)(void));
+int  hal_uart_dma_set_baud(uint32_t baud);
+void hal_uart_dma_send_block(uint8_t *buffer, uint16_t length);
+void hal_uart_dma_receive_block(uint8_t *buffer, uint16_t len);
+}}}
 The semantic for this is as follows: after hal_bt_init() and hal_bt_set_block_receive(), the HCI layer will start packet processing by calling hal_bt_read_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only 3 callsbacks per HCI packet.
 
 === Tick Hardware Abstraction Layer ===
 BTstack requires a way to learn about passing time. In an embedded configuration, the following functions have to be provided.
- * void hal_tick_init(void);
- * void hal_tick_set_handler(void (*tick_handler)(void));
- * int  hal_tick_get_tick_period_in_ms(void);
+{{{
+void hal_tick_init(void);
+void hal_tick_set_handler(void (*tick_handler)(void));
+int  hal_tick_get_tick_period_in_ms(void);
+}}}
 
 == Arduino ==
 The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking.
