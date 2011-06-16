@@ -1,26 +1,23 @@
 #summary Ideas and Notes on a Port of BTstack for use on Embedded Systems.
 
 = Introduction =
-While BTstack runs on most OSs with POSIX file I/O, it cannot run on Embedded Systems that luck such luxury. When running on a device without any OS some things have to change. Examples for such a system might be the Arduino platform, if a bigger MCU like the ATmega 2561 is used, or the [http://btnode.ethz.ch BTnode], or, your favorite ARM-developer board. :)
+BTstack was developed and primarily used on OSs with POSIX file I/O (iOS had almost 2 million downloads recently). Smaller embedded systems luck such luxury. When running on a device without any OS some things have to adapt. Examples for such a system might be the Arduino platform, if a bigger MCU like the ATmega 2561 is used, or the [http://btnode.ethz.ch BTnode], or, your favorite ARM-developer board. :)
 
-= Prototype =
+= Prototypes =
 First run of BTstack on embedded systems without OS:
  * [http://www.youtube.com/watch?v=NlOcoKWuZhU Stellaris Cortex M3]
  * [http://www.youtube.com/watch?v=j7mJuklrIxw TI-MSP430F5438]
 
 = Details =
-On top of my head, the following files are needed:
+The embedded port is in an early stage, but usable. New files for embedded:
  * run_loop_embedded.c
- * hci_h4_embedded.c
- * bt_control_embedded.c
- * socket_connection_embedded.c
- * daemon_embedded.c
+ * hci_transport_h4_dma.c
 
 Although intended for use on embedded systems, the use of POSIX semantics during early development led to unnecessary dependencies which should be cleaned beforehand.
 
 == Run Loop ==
 On embedded system without a select() function, data sources have to be polled.
-Similarly, basic functions to set single shot and period timers should be defined.
+Similarly, it is common to have an timer IRQ handler that is executed periodically.
 
 == HCI  Interface with IRQ & DMA ==
 On embedded systems, a Bluetooth module can be connected via USB or an UART port. We will focus on UART first. 
@@ -34,12 +31,18 @@ I've created a first IRQ driver for the MSP430 that is aware of the HCI packet f
 Regular UART drivers operate on the byte level and a RX callback might be set up. As Bluetooth communication is always in a packet format, it's better to let the low-level IRQ or even DMA driver receive a block of bytes. HCI Event and ACL packets can be received as 3 block reads. This can be quite efficient for large DH5 packets of 1021 bytes.
 
 === UART Hardware Abstraction Layer ===
-Ther main HCI H4 implementations for embedded system will be hci_h4_dma. hci_h4_dma roughly has to provide
+The main HCI H4 implementations for embedded system will be hci_h4_dma. hci_h4_dma roughly has to provide
  * hal_bt_init()
- * hal_bt_set_baud()
+ * hal_bt_set_baud(baud)
  * hal_bt_set_block_received(handler)
- * hal_bt_read_block(start pos, length)
-The semantic for this is as follows: after hal_bt_init() and hal_bt_set_block_receive(), the HCI layer will start packet processing by calling hal_bt_read_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. The handler can return the amount of additional data it would like to receive in the same buffer. By this, the HAL implementation can stay generic, while requiring only 3 callsbacks per HCI packet.
+ * hal_bt_read_block(buffer, length)
+The semantic for this is as follows: after hal_bt_init() and hal_bt_set_block_receive(), the HCI layer will start packet processing by calling hal_bt_read_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only 3 callsbacks per HCI packet.
+
+=== Tick Hardware Abstraction Layer ===
+BTstack requires a way to learn about passing time. In an embedded configuration, the following functions have to be provided.
+ * void hal_tick_init(void);
+ * void hal_tick_set_handler(void (*tick_handler)(void));
+ * int  hal_tick_get_tick_period_in_ms(void);
 
 == Arduino ==
 The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking.
