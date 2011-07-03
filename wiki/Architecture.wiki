@@ -96,7 +96,7 @@ An early version of an HCI USB Transport implementation is included and should s
   * [https://www.bluetooth.org/Technical/Specifications/adopted.htm Official Bluetooth specification]
   * CSR provides a wealth of documents on HCI and their hardware after registration (free account) on their [http://www.csrsupport.com CSR Support Site].
   * [http://www.bluez.org/ BlueZ - The GPL Linux Bluetooth Stack] 
-    * The [http://wiki.bluez.org/wiki BlueZ Wiki]
+    * ~~The [http://wiki.bluez.org/wiki BlueZ Wiki]~~ seems to be gone (July 2011)
     * The implementation for CSR lists some of the magical properties set by the Apple BlueTool init scripts, I could not find in the CSR documentation.
   * The lightweight Bluetooth Stack (lwBT). An embedded BT stack, intended for use with the lightweight IP stack (lwIP). Not developed anymore, website gone. It is still used, e.g., in the [http://dynawa.org dynawa open-source watch] -[http://code.google.com/p/dynawa repository]. Also, it is/was used by all iPhone Bluetooth projects before BTstack.
   * The ETH BTnut BT Stack: http://www.btnode.ethz.ch
