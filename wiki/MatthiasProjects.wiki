@@ -4,14 +4,16 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
- * Celeste Version 1.0
+ * BTstack port for EmbeddedSystems
  * BTstack GPS:
+   * create BTstackGPSd
+   * use new RFCOMM API
    * provide information if BTstack GPS is active
    * add option to throttle update rate
    * add option to enforce pairing
-   * use speed & course from NMEA messages
+   * use speed from NMEA messages
+   * use course from NMEA messages
    * use accuracy from NMEA messages
-   * use new RFCOMM API
    * Server option: provide iPhone or iPad 3G GPS data to BTstack GPS
  * hid-support:
    * Add mouse pointer simulation. send touch event for mouse pointer point 
@@ -28,7 +30,6 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
   * alternate selection for Asian language
   * support Freedom Universal SPP keyboard
   * use new RFCOMM API
- * BTstack port for EmbeddedSystems
  * Improve use of remote desktop apps on iPad
  * iPhone/iPad !GameController: Play games with Wiimote, Zeemote, PS3 !SixAxis, and iControlPad
  * Implement GameKit for Mac and other non-iOS devices
@@ -46,6 +47,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * released as open source project at http://code.google.com/p/isynergyclient/
 
 = Completed =
+ * ~~ * Celeste Version 1.0~~
  * ~~Full RFCOMM support: implemented, released May 1, 2010~~
  * ~~Full OBEX support for iOS~~
    * [http://getceleste.com Bluetooth file sharing for iOS, at last.] released
