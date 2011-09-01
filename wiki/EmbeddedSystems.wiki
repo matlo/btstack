@@ -9,35 +9,34 @@ First run of BTstack on embedded systems without OS:
  * [http://www.youtube.com/watch?v=j7mJuklrIxw TI-MSP430F5438]
 
 = Details =
-The embedded port is in an early stage, but usable. New files for embedded:
- * run_loop_embedded.c
- * hci_transport_h4_dma.c
+The embedded port is in an early stage, but fully functional.
 
-Although intended for use on embedded systems, the use of POSIX semantics during early development led to unnecessary dependencies which should be cleaned beforehand.
+For use without an OS and a Bluetooth module connected via an UART, you need to implement:
+ * hal_tick.h
+ * hal_cpu.h
+ * hal_uart_dma.h
 
 == Run Loop ==
-On embedded system without a select() function, data sources have to be polled.
-Similarly, it is common to have an timer IRQ handler that is executed periodically.
+On embedded system without a select() function, data sources have to be polled. However, the MCU can be put into sleep mode if it will be woken by an IRQ from the UART.
+Similarly, BTstack expects to get called periodically to keep it's time.
 
 == HCI  Interface with IRQ & DMA ==
 On embedded systems, a Bluetooth module can be connected via USB or an UART port. We will focus on UART first. 
 
-=== Blocking Write ===
-Write: The current implementation uses a blocking write to send data to the BT module with the hidden knowledge that the OS will buffer incoming data. Instead, a polled "data source" can be used to transfer data from an output buffer to the Bluetooth module, if the assumption of the synchronous write is removed and higher layers are made responsible for not sending a second packet while the previous is not acknowledged.
-
 === IRQ & DMA UART RX===
-I've created a first IRQ driver for the MSP430 that is aware of the HCI packet format and only signals the run loop when a complete HCI packet was received. RTS is used to request a stop of incoming data after a complete packet was received. This is quite efficient, however I don't see how this can be made more portable.
-
 Regular UART drivers operate on the byte level and a RX callback might be set up. As Bluetooth communication is always in a packet format, it's better to let the low-level IRQ or even DMA driver receive a block of bytes. HCI Event and ACL packets can be received as 3 block reads. This can be quite efficient for large DH5 packets of 1021 bytes.
 
 === UART Hardware Abstraction Layer ===
-The main HCI H4 implementations for embedded system will be hci_h4_dma. hci_h4_dma roughly has to provide
+The main HCI H4 implementations for embedded system is hci_h4_dma. It provides:
 {{{
 void hal_uart_dma_init(void);
 void hal_uart_dma_set_block_received( void (*block_handler)(void));
+void hal_uart_dma_set_block_sent( void (*block_handler)(void));
+void hal_uart_dma_set_csr_irq_handler( void (*csr_irq_handler)(void));
 int  hal_uart_dma_set_baud(uint32_t baud);
-void hal_uart_dma_send_block(uint8_t *buffer, uint16_t length);
+void hal_uart_dma_send_block(const uint8_t *buffer, uint16_t length);
 void hal_uart_dma_receive_block(uint8_t *buffer, uint16_t len);
+void hal_uart_dma_set_sleep(uint8_t sleep);
 }}}
 The semantic for this is as follows: after hal_bt_init() and hal_bt_set_block_receive(), the HCI layer will start packet processing by calling hal_bt_read_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only 3 callsbacks per HCI packet.
 
@@ -49,10 +48,33 @@ void hal_tick_set_handler(void (*tick_handler)(void));
 int  hal_tick_get_tick_period_in_ms(void);
 }}}
 
+== Memory ==
+To avoid malloc, BTstack uses configurable memory pools that use the values found in config.h
+
+An example config.h for a single SPP service looks like this:
+{{{
+#define EMBEDDED
+
+#define HAVE_TICK
+
+// #define ENABLE_LOG_INFO 
+#define ENABLE_LOG_ERROR
+
+#define HCI_ACL_PAYLOAD_SIZE 52
+
+// 
+#define MAX_SPP_CONNECTIONS 1
+
+#define MAX_NO_HCI_CONNECTIONS MAX_SPP_CONNECTIONS
+#define MAX_NO_L2CAP_SERVICES  2
+#define MAX_NO_L2CAP_CHANNELS  (1+MAX_SPP_CONNECTIONS)
+#define MAX_NO_RFCOMM_MULTIPLEXERS MAX_SPP_CONNECTIONS
+#define MAX_NO_RFCOMM_SERVICES 1
+#define MAX_NO_RFCOMM_CHANNELS MAX_SPP_CONNECTIONS
+#define MAX_NO_DB_MEM_DEVICE_NAMES  0
+#define MAX_NO_DB_MEM_LINK_KEYS  3
+#define MAX_NO_DB_MEM_SERVICES 1
+}}}
+
 == Arduino ==
-The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking.
-
-With the blocking write (same on POSIX), it is necessary that incoming data is stopped using the hardware handshake. This could be done as part of the blocking write or as an extension of the UART driver. Support for RTS/CTS seems like the better option.
-
-== Next steps ==
- * make sure that app/stack only sends one command/acl packet at a time, to allow for non-blocking writes done by a IRQ UART driver
+The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking. A better driver is needed but possible.
