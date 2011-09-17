@@ -1,0 +1,25 @@
+#summary Information on Bluetooth Modules based on TI's CC256x chipsets
+
+= Introduction =
+Although CC256x-based Bluetooth Modules provide the standard H4 interface, they cannot be used without an extended init script (also called "Service Pack") by Texas Instruments. Until recently, it was not possible to acquire these scripts for use with a generic Bluetooth stack.
+
+In Aug 2011, TI released the [http://www.ti.com/tool/sw-dk-em2-2560b Stellaris® SW-DK-EM2-2560B Firmware Development Package] for use with their Stellaris platform. 
+
+In contrast to a similar package for the MSP430 platform, the Stellaris package contains the init scripts as part of a C source file, which makes them straight forward to extract.
+
+= Bluetooth modules based on the CC256x chipsets =
+ * CC2560-based: PAN1315, PAN1325
+ * CC2567-based: PAN1317, PAN1323, PAN1325
+
+= How to use CC256x chipsets with BTstack =
+  # Get the necessary init scripts
+    # Create a free account at myti.com
+    # Download [http://www.ti.com/tool/sw-dk-em2-2560b SW-DK-EM2-2560B]
+    # Install on a Windows system -  any virtualization software will do. I didn't try Wine.
+    # Copy Stellarware/Bluetopia/btpsvend/BTPSVEND.c into btstack/chipset-cc256x
+    # Run the provided Python script: ./create_cc256x_init_scripts.py
+  # Add bt_control_cc256x.c plus cc2560_init_script.c or cc2567_init_script.c to your project
+  # Use bt_control_cc256x_instance() to get a bt_control_t instance and use it in hci_init() call
+
+= Examples =
+We will release full examples for the MSP-EXP430F5438 development board using PAN1315 or PAN1317 soon.
