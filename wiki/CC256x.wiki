@@ -23,4 +23,5 @@ In contrast to a similar package for the MSP430 platform, the Stellaris package 
 
 = Examples =
 ~~We will release full examples for the MSP-EXP430F5438 development board using PAN1315 or PAN1317 soon.~~
-[http://groups.google.com/group/btstack-dev/browse_thread/thread/e76cc6efef1e272 Email announcing first examples]
+
+[http://groups.google.com/group/btstack-dev/browse_thread/thread/e76cc6efef1e272 Email announcing first examples available in SVN]
