@@ -1,0 +1,21 @@
+#summary How to get started with BTstack and MSP-EXP430F5438 + CC256x
+
+= General Tools =
+
+The MSP430 port of BTstack is developed using the Long Term Support version of of mspgcc. General information about it and installation instructions are here: http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=MSPGCC_Wiki
+
+On Unix-based systems, Subversion, make, and Python are usually installed. If not it's easy to use the system's packet manager to install them. 
+
+On Windows, you need to install and configure them manually:
+ * Subversion: http://www.sliksvn.com/en/download 
+ * Optionally Tortoise SVN: This is a GUI frontend for Subversion and makes checkouts and other operations easie by integrating into the windows explorer: http://tortoisesvn.net/downloads.html 
+ * GNU Make for Windows: 
+   * Download from http://gnuwin32.sourceforge.net/packages/make.htm
+   * Add its bin folder to the Windows Path in Environment variable. The bin folder is where make.exe resides, and it's usually located in "C:\Program Files\GnuWin32\bin". Add this path to the Path environment variable as described later.
+ * Python for Windows: 
+   * Download from http://www.python.org/getit/
+   * Add python installation folder to the Windows Path in Environment variable. For example, for one python installation the path is "C:\Python27".&nbsp;Add this path to the Path environment variable as described later
+ * mspgcc:
+   * Download MSPgcc for Windows from here:http://sourceforge.net/projects/mspgcc/files/Windows/mingw32/
+   * Extract to c:\mspgcc<br>Add C:\mspgcc\bin folder to the Windows Path in Environment variable. 
+ * Adding paths to Windows Path variable: Go to Control Panel -&gt; System -&gt; Advanced tab -&gt; Environment Variables.<br>In the top part you will see a list of User variables.&nbsp; Click on the Path variable and then click edit. Go to the end of the line, then append "C:\mspgcc\bin" to the list without the quotes. Ensure that there is a semicolon before and after "C:\mspgcc\bin". 
