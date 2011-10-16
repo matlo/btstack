@@ -17,7 +17,8 @@ On Windows, you need to install and configure Subversion, make, and Python manua
    * Add python installation folder to the Windows Path in Environment variable. For example, for one python installation the path is "C:\Python27". Add this path to the Path environment variable as described later
  * mspgcc:
    * Download MSPgcc for Windows from here:http://sourceforge.net/projects/mspgcc/files/Windows/mingw32/
-   * Extract to c:\mspgcc<br>Add C:\mspgcc\bin folder to the Windows Path in Environment variable. 
+   * Extract to c:\mspgcc
+   * Add C:\mspgcc\bin folder to the Windows Path in Environment variable. 
  * Adding paths to the Windows Path variable:
    * Go to Control Panel -> System -> Advanced tab -> Environment Variables.
    * In the top part you will see a list of User variables 
