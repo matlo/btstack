@@ -4,11 +4,11 @@
 
 The MSP430 port of BTstack is developed using the Long Term Support version of of mspgcc. General information about it and installation instructions are provided on the [http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=MSPGCC_Wiki MSPGCC Wiki]
 
-On Unix-based systems, Subversion, make, and Python are usually installed. If not, it is easy to use the system's packet manager to install them. 
+On Unix-based systems, Subversion, make, and Python are usually installed. If not, use the system's packet manager to install them. 
 
-On Windows, you need to install and configure them manually:
- * Subversion: http://www.sliksvn.com/en/download 
- * Optionally Tortoise SVN: This is a GUI frontend for Subversion and makes checkouts and other operations easie by integrating into the windows explorer: http://tortoisesvn.net/downloads.html 
+On Windows, you need to install and configure Subversion, make, and Python manually:
+ * Subversion for Windows: http://www.sliksvn.com/en/download 
+ * Optionally Tortoise SVN: This is a GUI frontend for Subversion that makes checkouts and other operations easier by integrating them into the Windows Explorer: http://tortoisesvn.net/downloads.html 
  * GNU Make for Windows: 
    * Download from http://gnuwin32.sourceforge.net/packages/make.htm
    * Add its bin folder to the Windows Path in Environment variable. The bin folder is where make.exe resides, and it's usually located in "C:\Program Files\GnuWin32\bin". Add this path to the Path environment variable as described later.
