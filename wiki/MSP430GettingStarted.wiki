@@ -19,3 +19,12 @@ On Windows, you need to install and configure them manually:
    * Download MSPgcc for Windows from here:http://sourceforge.net/projects/mspgcc/files/Windows/mingw32/
    * Extract to c:\mspgcc<br>Add C:\mspgcc\bin folder to the Windows Path in Environment variable. 
  * Adding paths to Windows Path variable: Go to Control Panel -&gt; System -&gt; Advanced tab -&gt; Environment Variables.<br>In the top part you will see a list of User variables.&nbsp; Click on the Path variable and then click edit. Go to the end of the line, then append "C:\mspgcc\bin" to the list without the quotes. Ensure that there is a semicolon before and after "C:\mspgcc\bin". 
+
+= Get BTstack =
+
+Use subversion to get a check out of the latest version. There are two approaches:
+ #Use subversion in a command line: Simply go to a folder where you would like to download BTstack, then type:
+{{{svn checkout http://btstack.googlecode.com/svn/trunk/}}}
+ # Windows-only: Use tortoise svn (to checkout by using the URL http://btstack.googlecode.com/svn/trunk/
+
+In both cases, subversion will create a folder and pull all the code there.
