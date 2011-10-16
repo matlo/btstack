@@ -22,9 +22,35 @@ On Windows, you need to install and configure them manually:
 
 = Get BTstack =
 
-Use subversion to get a check out of the latest version. There are two approaches:
- #Use subversion in a command line: Simply go to a folder where you would like to download BTstack, then type:
+Use Subversion to get a check out of the latest version. There are two approaches:
+ # Use subversion in a command line: Simply go to a folder where you would like to download BTstack, then type:
 {{{svn checkout http://btstack.googlecode.com/svn/trunk/}}}
  # Windows-only: Use tortoise svn (to checkout by using the URL http://btstack.googlecode.com/svn/trunk/
 
 In both cases, subversion will create a folder and pull all the code there.
+
+= CC256x Init Scripts  =
+
+In order to use the CC256x device inside of the PAN13xx modules, an initialization script must be obtained. Due to licensing restrictions, this initialization script must be obtained as follows:
+ * Create a free account at myti.com
+ * Download SW-DK-EM2-2560B
+ * Install <br> Copy c:\Stellarware/Bluetopia/btpsvend/BTPSVEND.c into btstack/chipset-cc256x
+ * Run the provided Python script: ./create_cc256x_init_scripts.py that's in chipset-cc256x
+ * Add bt_control_cc256x.c plus cc2560_init_script.c or cc2567_init_script.c to your project. If you have a PAN1315, use cc2560
+ * Use bt_control_cc256x_instance() to get a bt_control_t instance and use it in hci_init() call 
+
+= Compiling the Examples  =
+
+Open a command prompt in the MSP-EXP430F5438-CC256x/example folder and run make. If all the paths are correct, it will generate several hex files. These files are binary and can be downloaded to the MSP430 device, as per the next section.<br> 
+
+= Downloading Binary =
+
+To download binary files to the MSP430 MCU, you need a programming tool, the MSP430 USB&nbsp;FET debugger or other programmer connected, and the MSP430F5438 Experimenter board or other board powered to do so.
+ 
+ * MSP430Flasher (windows-only):
+   * Download the binary version of the MSP430Flasher software: http://processors.wiki.ti.com/index.php/MSP430_Flasher_-_Command_Line_Programmer<br> 
+   * Use the command {{{ MSP430Flasher.exe -n MSP430F5438A -w "INSERT_NAME_OF_BINARY_OUT_FILE_HERE.hex" -v -g -z [VCC] }}}
+   * Modify the name with the name of your application and execute the binary file. 
+ * mspdebug
+
+
