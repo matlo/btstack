@@ -9,7 +9,7 @@ In contrast to a similar package for the MSP430 platform, the Stellaris package 
 
 = Bluetooth modules based on the CC256x chipsets =
  * CC2560-based: PAN1315, PAN1325
- * CC2567-based: PAN1317, PAN1323, PAN1325
+ * CC2567-based: PAN1317, PAN1323, PAN1327
 
 = How to use CC256x chipsets with BTstack =
   # Get the necessary init scripts
@@ -18,7 +18,7 @@ In contrast to a similar package for the MSP430 platform, the Stellaris package 
     # Install on a Windows system -  any virtualization software will do. I didn't try Wine.
     # Copy Stellarware/Bluetopia/btpsvend/BTPSVEND.c into btstack/chipset-cc256x
     # Run the provided Python script: ./create_cc256x_init_scripts.py
-  # Add bt_control_cc256x.c plus cc2560_init_script.c or cc2567_init_script.c to your project
+  # Add bt_control_cc256x.c plus cc2560_init_script.c (for PAN1315/25) or cc2567_init_script.c (for PAN1317/23/27) to your project
   # Use bt_control_cc256x_instance() to get a bt_control_t instance and use it in hci_init() call
 
 = Examples =
