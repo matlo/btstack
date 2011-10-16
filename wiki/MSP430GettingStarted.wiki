@@ -66,4 +66,4 @@ run
 }}}
 
 = Next Steps =
-You can learn more about BTstack by reading the other wiki pages. We recommend the Architecture overview next and the details about using the packet handler to execute a sequence of command on GettingStarted.
+You can learn more about BTstack by reading the other wiki pages. We recommend the [Architecture] overview next and the details about using the packet handler to execute a sequence of command on GettingStarted.
