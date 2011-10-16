@@ -1,4 +1,8 @@
 #summary How to get started with BTstack and MSP-EXP430F5438 + CC256x
+#labels Featured
+
+= Setup =
+We assume that a PAN1315, PAN1317, or PAN1323 is plugged into the provided port and the "RF3 Adapter board" is used or at least simulated. See http://processors.wiki.ti.com/index.php/PAN1315EMK_User_Guide 
 
 = General Tools =
 
@@ -65,6 +69,13 @@ mspdebug -j -d /dev/tty.FET430UIFfd130 uif
 prog blink.hex
 run
 }}}
+
+= List of Examples =
+ * led_counter: no Bluetooth, just a test to see if the timer interrupt and the debug UART work 
+ * hid_demo: on start, the device does a device discovery and connects to the first Bluetooth keyboard it finds, paris, and allows to type on the little LCD screen. 
+ * spp_counter: provides a virtual serial port via SPP. On connect, it sends a message every second 
+ * spp_accel: provides a virtual serial port via SPP. On connect, it sends the current accelerometer values as fast as possible 
+ * spp_flowcontrol: provide a virtual serial port via SPP. On connect, it echoes all received data on the debug UART but adds a 1/4 pause after each packet. This was used to test that flowcontrol works. 
 
 = Next Steps =
 You can learn more about BTstack by reading the other wiki pages. We recommend the [Architecture] overview next and the details about using the packet handler to execute a sequence of command on GettingStarted.
