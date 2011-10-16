@@ -2,7 +2,7 @@
 
 = General Tools =
 
-The MSP430 port of BTstack is developed using the Long Term Support version of of mspgcc. General information about it and installation instructions are here: http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=MSPGCC_Wiki
+The MSP430 port of BTstack is developed using the Long Term Support version of of mspgcc. General information about it and installation instructions are provided on the [http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=MSPGCC_Wiki MSPGCC Wiki]
 
 On Unix-based systems, Subversion, make, and Python are usually installed. If not it's easy to use the system's packet manager to install them. 
 
@@ -52,5 +52,3 @@ To download binary files to the MSP430 MCU, you need a programming tool, the MSP
    * Use the command {{{ MSP430Flasher.exe -n MSP430F5438A -w "INSERT_NAME_OF_BINARY_OUT_FILE_HERE.hex" -v -g -z [VCC] }}}
    * Modify the name with the name of your application and execute the binary file. 
  * mspdebug
-
-
