@@ -11,20 +11,24 @@ On Windows, you need to install and configure Subversion, make, and Python manua
  * Optionally Tortoise SVN: This is a GUI frontend for Subversion that makes checkouts and other operations easier by integrating them into the Windows Explorer: http://tortoisesvn.net/downloads.html 
  * GNU Make for Windows: 
    * Download from http://gnuwin32.sourceforge.net/packages/make.htm
-   * Add its bin folder to the Windows Path in Environment variable. The bin folder is where make.exe resides, and it's usually located in "C:\Program Files\GnuWin32\bin". Add this path to the Path environment variable as described later.
+   * Add its bin folder to the Windows Path in Environment variable. The bin folder is where make.exe resides, and it's usually located in "C:\Program Files\!GnuWin32\bin". Add this path to the Path environment variable as described later.
  * Python for Windows: 
    * Download from http://www.python.org/getit/
-   * Add python installation folder to the Windows Path in Environment variable. For example, for one python installation the path is "C:\Python27".&nbsp;Add this path to the Path environment variable as described later
+   * Add python installation folder to the Windows Path in Environment variable. For example, for one python installation the path is "C:\Python27". Add this path to the Path environment variable as described later
  * mspgcc:
    * Download MSPgcc for Windows from here:http://sourceforge.net/projects/mspgcc/files/Windows/mingw32/
    * Extract to c:\mspgcc<br>Add C:\mspgcc\bin folder to the Windows Path in Environment variable. 
- * Adding paths to Windows Path variable: Go to Control Panel -&gt; System -&gt; Advanced tab -&gt; Environment Variables.<br>In the top part you will see a list of User variables.&nbsp; Click on the Path variable and then click edit. Go to the end of the line, then append "C:\mspgcc\bin" to the list without the quotes. Ensure that there is a semicolon before and after "C:\mspgcc\bin". 
+ * Adding paths to the Windows Path variable:
+   * Go to Control Panel -> System -> Advanced tab -> Environment Variables.
+   * In the top part you will see a list of User variables 
+   * Click on the Path variable and then click edit.
+   * Go to the end of the line, then append "C:\mspgcc\bin" to the list without the quotes.
+   * Ensure that there is a semicolon before and after "C:\mspgcc\bin". 
 
-= Get BTstack =
+= Getting BTstack from SVN =
 
 Use Subversion to get a check out of the latest version. There are two approaches:
- # Use subversion in a command line: Simply go to a folder where you would like to download BTstack, then type:
-{{{svn checkout http://btstack.googlecode.com/svn/trunk/}}}
+ # Use subversion in a command line: Simply go to a folder where you would like to download BTstack, then type: {{{svn checkout http://btstack.googlecode.com/svn/trunk/}}}
  # Windows-only: Use tortoise svn (to checkout by using the URL http://btstack.googlecode.com/svn/trunk/
 
 In both cases, subversion will create a folder and pull all the code there.
@@ -51,4 +55,12 @@ To download binary files to the MSP430 MCU, you need a programming tool, the MSP
    * Download the binary version of the MSP430Flasher software: http://processors.wiki.ti.com/index.php/MSP430_Flasher_-_Command_Line_Programmer<br> 
    * Use the command {{{ MSP430Flasher.exe -n MSP430F5438A -w "INSERT_NAME_OF_BINARY_OUT_FILE_HERE.hex" -v -g -z [VCC] }}}
    * Modify the name with the name of your application and execute the binary file. 
- * mspdebug
+ * MSPdebug:
+   * http://mspdebug.sourceforge.net/
+   * Example session with the MSP-FET430UIF connected on OS X:
+{{{
+mspdebug -j -d /dev/tty.FET430UIFfd130 uif
+... 
+prog blink.hex
+run
+}}}
