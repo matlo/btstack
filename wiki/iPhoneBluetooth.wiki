@@ -13,6 +13,7 @@ OS 4.0 added support for A2DP and braille readers over RFCOMM.
 Apple's External Accessory API introduced in 3.0 allows to register for external accessories which can be connected either via the Dock connector or via Bluetooth. It then allows to specify an accessory based on a so-called "protocol" string and provides a socket-like connection to the device. Almost 2 years later, devices using MfI appear on the market, e.g. the UnityRemote by Gear4.com.
 
 To use this API, you'll have to sign up and get accepted into the "Made for iPhone" (MfI) program, and sign an NDA (or more...). If you get accepted into Mfi, you can purchase a MfI developer board. Such boards are currently provided by:
+ * [http://www.rovingnetworks.com/Apple_iOS_Support Roving Networks, Inc]
  * [http://lintech.de LinTech GmbH]
  * [http://www.connectblue.com/nc/press/news-archive/news-single/artikel/press-release-connectblueTM-releases-bluetooth-io-module-with-iphoneandroid-and-analog-io-suppor/?cHash=5e9a3176a4cff1de041cb1b194fce29c connectBlue]
  * [http://groups.google.com/group/free-online-advertising-group/browse_thread/thread/0e49ae15a2014b5d/8c38144d16a6b236?show_docid=8c38144d16a6b236 BlueGiga]
