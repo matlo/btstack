@@ -9,6 +9,8 @@ OS 3.0 provides support for headsets (mono/stereo), networking via the PAN/BNEP 
 
 OS 4.0 added support for A2DP and braille readers over RFCOMM.
 
+OS 5.0 on the new iPhone 4S added support for Bluetooth Low Energy device by the public !CoreBluetooth framework (also available on 10.7.2 with appropriate Bluetooth 4.0 modules, e.g. in the 2011 series of MacBook (Pro) and Mac mini)
+
 == Bluetooth Accessories - Made for iPhone ==
 Apple's External Accessory API introduced in 3.0 allows to register for external accessories which can be connected either via the Dock connector or via Bluetooth. It then allows to specify an accessory based on a so-called "protocol" string and provides a socket-like connection to the device. Almost 2 years later, devices using MfI appear on the market, e.g. the UnityRemote by Gear4.com.
 
@@ -25,6 +27,20 @@ Apple's GameKit API in 3.0 allows to connect nearby iPhones via Bluetooth and to
 
 == Bluetooth Tethering ==
 On 3.0, the iPhone is provides Bluetooth PAN/BNEP support. If the devices are paired and Bluetooth is enabled on the iPhone,  a network connection can directly be established from another device, e.g., a laptop. Internet Tethering will activated automatically. The iPhone acts as a normal home router and allows direct TCP/IP connections in both directions. The use of standard TCP/IP communication might be sufficient for most connections between networked devices like netbooks and laptops and the iPhone. However,  connecting to standard Bluetooth devices is not possible by this.
+
+== Bluetooth Low Energy via !CoreBluetooth ==
+On devices with Bluetooth 4.0, e.g. the new iPhone 4S, the CoreBluetooth is available. 
+
+From Apple's docs:
+
+   The Core Bluetooth framework (CoreBluetooth.framework) allows developers to
+   interact specifically with Bluetooth Low-Energy ("LE") accessories. The Objective-C
+   interfaces of this framework allow you to scan for LE accessories, connect and 
+   disconnect to ones you find, read and write attributes within a service, register
+   for service and attribute change notifications, and much more.
+
+   For more information about the interfaces of the Core Bluetooth framework,
+   see the header files.
 
 = Hardware Details =
 Both generation of the iPhone (2G and 3G versions) use Bluetooth chipsets from Cambridge Silicon Radio (CSR), one of the leading Bluetooth vendors. CSR provides a wealth of documentation in their [http://csrsupport.com technical support area] (free login required). The first generation iPhone contains a !BlueCore 4, the second generation (current 3G models) contains a !BlueCore 6 chipset. All newer devices, from the iPod touch second generation and the new iPhone 3GS on, contain Broadcom chipsets, a company not famous for providing developer information. 
