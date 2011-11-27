@@ -7,13 +7,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
  * BTstack port for EmbeddedSystems
  * BTstack GPS:
    * create BTstackGPSd
-   * use new RFCOMM API
-   * provide information if BTstack GPS is active
-   * add option to throttle update rate
    * add option to enforce pairing
-   * use speed from NMEA messages
-   * use course from NMEA messages
-   * use accuracy from NMEA messages
    * Server option: provide iPhone or iPad 3G GPS data to BTstack GPS
  * hid-support:
    * Add mouse pointer simulation. send touch event for mouse pointer point 
@@ -88,3 +82,10 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
    * ~~answer link key requests by Bluetooth module~~
    * ~~store remote names in plist~~
    * ~~send BTSTACK_EVENT_REMOTE_NAME_CHACHED for each device in a inquiry result~~
+ * ~~ BTstack GPS 1.6: ~
+   * ~~ use new RFCOMM API ~
+   * ~~ provide information if BTstack GPS is active ~
+   * ~~ add option to throttle update rate ~
+   * ~~ use speed from NMEA messages ~
+   * ~~ use course from NMEA messages ~
+   * ~~ use accuracy from NMEA messages ~~
