@@ -3,30 +3,35 @@
 = BTstack and Bluetooth 4.0 - Bluetooth Smart Devices =
 BTstack provides early support for Bluetooth Smart devices, both as single mode or dual mode stack (not tested yet). 
 
-Bluetooth Smart devices implement one or more GATT profiles. These GATT profiles define a set of one or more Services that each define a set of Characteristics. These profiles have a similar role as the SDP records in classic Bluetooth.
+Bluetooth Smart devices implement one or more GATT profiles. These GATT profiles define a set of one or more Services. Each Service in turn defines a set of Characteristics. These profiles have a similar role as the SDP records in classic Bluetooth.
 
-In BTstack, a GATT Profile compiler converts a textual representation of the GATT Services and Characteristics into a compact internal format used by the ATT protocol server.
+In BTstack, a GATT profile compiler converts a textual representation of the GATT Services and Characteristics into a compact internal database used by the ATT protocol server.
 
 The ATT protocol server answers incoming ATT requests based on information provided in the compiled database and provides read- and write-callbacks for dynamic attributes.
 
 == GATT Profiles ==
-GATT profiles are defined by a simple textual comma separated value (.csv) representation. This has the benefit, that while the description is easy to read and edit, it is compact and doesn't require RAM on the embedded memory as it constant.
+GATT profiles are defined by a simple textual comma separated value (.csv) representation. While the description is easy to read and edit, it is compact and can be placed in ROM.
 
 The current format is: 
 {{{
 PRIMARY_SERVICE, {SERVICE_UUID}
 CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, [READ | WRITE | DYNAMIC], {VALUE}
+CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, [READ | WRITE | DYNAMIC], {VALUE}
+...
+PRIMARY_SERVICE, {SERVICE_UUID}
+CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, [READ | WRITE | DYNAMIC], {VALUE}
+...
 }}}
 
-Reads/writes to a Characteristic that is defined as DYNAMIC results in application callbacks. Other Characteristics cannot be written and return the specified constant value. See {{{profile.gatt}}} in the example folder and the GATT compiler {{{compile-gatt.py}}}.
+Reads/writes to a Characteristic that is defined with the DYNAMIC flag, are forwarded to the application via callback. Other Characteristics cannot be written and return the specified constant value. See {{{profile.gatt}}} in the example folder and the GATT compiler {{{compile-gatt.py}}}.
 
 == ATT Protocol ==
-ATT sits on top of L2CAP. For a single mode Bluetooth 4.0 device, L2CAP does not provide much functionality. Because of this, a limited version is provides as l2cap_le.c in the ble folder.
+ATT sits on top of L2CAP. For a single-mode Bluetooth 4.0 device, most of L2CAP functionality is not used. To save on ROM space, a limited version of L2CAP is provided as l2cap_le.c in the ble folder.
 
 == Example ==
-{{{MSP-EXP430F5438-CC256x/example-ble}}} provides a ready to run example for a test Peripheral device. It assumes that a PAN1323 module with a CC2564 chipset is plugged into the RF socket. 
+{{{MSP-EXP430F5438-CC256x/example-ble}}} provides a ready-to-run example for a test Peripheral device. It assumes that a PAN1323 module with a CC2564 chipset is plugged into the RF socket. 
 
-It defines 3 dynamic Characteristics. Writing characteristic with the UUID fff1 (handle 0x000b) sets the displayed text on the LCD display, writing characteristics fff2 (handle 0x000d) controls an LED on the board.
+The profile of this device defines 3 dynamic Characteristics. A write to the characteristic with the UUID fff1 (handle 0x000b) sets the displayed text on the LCD display, a write to the characteristics fff2 (handle 0x000d) controls an LED on the board. The third Characteristic only shows how to specify a 128-bit UUID.
 
 == Next Steps ==
-Currently, the complete Low Energy configuration of the Bluetooth module is handled by the {{{ble_server}}} example application. This should be moved into {{{hci.c}}}. It isn't clear how which of those LE setup commands need to be customized in real applications.
+Currently, the complete Low Energy configuration of the Bluetooth module is handled by the {{{ble_server}}} example application. Most of this should be moved into {{{hci.c}}}. It isn't clear how much of  those LE setup commands need to be customized in real applications.
