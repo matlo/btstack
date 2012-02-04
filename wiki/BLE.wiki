@@ -1,4 +1,4 @@
-# Bluetooth Low Energy - Bluetooth Smart
+#summary Bluetooth 4.0 Low Energy - Bluetooth Smart Devices
 
 = BTstack and Bluetooth 4.0 - Bluetooth Smart Devices =
 BTstack provides early support for Bluetooth Smart devices, both as single mode or dual mode stack (not tested yet). 
