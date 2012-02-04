@@ -7,11 +7,14 @@ In Aug 2011, TI released the [http://www.ti.com/tool/sw-dk-em2-2560b Stellaris®
 
 In contrast to a similar package for the MSP430 platform, the Stellaris package contains the init scripts as part of a C source file, which makes them straight forward to extract.
 
-= Bluetooth modules based on the CC256x chipsets =
- * CC2560-based: PAN1315, PAN1325
- * CC2567-based: PAN1317, PAN1323, PAN1327
+In Dec 2011, TI released the Service Packs for most chipsets in the BTS binary format on their wiki: http://processors.wiki.ti.com/index.php/CC256x_Downloads
 
-= How to use CC256x chipsets with BTstack =
+= How to use CC256x chipset with BTstack (BTS files) =
+  # Get the necessary init script from http://processors.wiki.ti.com/index.php/CC256x_Downloads
+  # Unzip the zip archive, read the license file, and copy the *.bts file into btstack/chipset-cc256x
+  # Run the provided Python script: ./convert_bts_init_scripts.py 
+
+= How to use CC256x chipsets with BTstack (Stellaris SDK)=
   # Get the necessary init scripts
     # Create a free account at myti.com
     # Download [http://www.ti.com/tool/sw-dk-em2-2560b SW-DK-EM2-2560B]
