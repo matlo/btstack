@@ -4,7 +4,6 @@
 Thanks for all the interesting project proposals from all of you. I'm working full time in a start-up company and BTstack is "just" my main hobby project
 
 = Tasks/Projects =
- * BTstack port for EmbeddedSystems
  * BTstack GPS:
    * create BTstackGPSd
    * add option to enforce pairing
@@ -41,6 +40,7 @@ Thanks for all the interesting project proposals from all of you. I'm working fu
 
 = Completed =
  * ~~ Blutrol: Play games with iCade (later: Wiimote, Zeemote, PS3 !SixAxis, and iControlPad..) ~~
+ * ~~ BTstack port for EmbeddedSystems~~
  * ~~ Celeste Version 1.0~~
  * ~~Full RFCOMM support: implemented, released May 1, 2010~~
  * ~~Full OBEX support for iOS~~
