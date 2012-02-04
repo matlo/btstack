@@ -9,9 +9,11 @@ In contrast to a similar package for the MSP430 platform, the Stellaris package 
 
 In Dec 2011, TI released the Service Packs for most chipsets in the BTS binary format on their wiki: http://processors.wiki.ti.com/index.php/CC256x_Downloads
 
-= How to use CC256x chipset with BTstack (BTS files) =
+The benefits over the Stellaris SDK are numerous: it doesn't require registration or a Windows runtime,  the download is much smaller, and, it provides the init scripts for the CC2564, which supports Bluetooth 4.0 Low Energy
+
+= How to use CC256x chipset with BTstack (BTS files, recommended) =
   # Get the necessary init script from http://processors.wiki.ti.com/index.php/CC256x_Downloads
-  # Unzip the zip archive, read the license file, and copy the *.bts file into btstack/chipset-cc256x
+  # Unzip the zip archive, read the license file, and copy the bts file into btstack/chipset-cc256x
   # Run the provided Python script: ./convert_bts_init_scripts.py 
 
 = How to use CC256x chipsets with BTstack (Stellaris SDK)=
