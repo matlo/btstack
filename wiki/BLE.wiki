@@ -33,5 +33,7 @@ ATT sits on top of L2CAP. For a single-mode Bluetooth 4.0 device, most of L2CAP 
 
 The profile of this device defines 3 dynamic Characteristics. A write to the characteristic with the UUID fff1 (handle 0x000b) sets the displayed text on the LCD display, a write to the characteristics fff2 (handle 0x000d) controls an LED on the board. The third Characteristic only shows how to specify a 128-bit UUID.
 
+[http://www.youtube.com/watch?v=xWY5GinDCQc Video of the example]
+
 == Next Steps ==
 Currently, the complete Low Energy configuration of the Bluetooth module is handled by the {{{ble_server}}} example application. Most of this should be moved into {{{hci.c}}}. It isn't clear how much of  those LE setup commands need to be customized in real applications.
