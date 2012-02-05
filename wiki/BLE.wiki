@@ -1,7 +1,7 @@
 #summary Bluetooth 4.0 Low Energy - Bluetooth Smart Devices
 
 = BTstack and Bluetooth 4.0 - Bluetooth Smart Devices =
-BTstack provides early support for Bluetooth Smart devices, both as single mode or dual mode stack (not tested yet). 
+BTstack provides early support for Bluetooth Smart devices, both as single mode or dual mode stack. 
 
 Bluetooth Smart devices implement one or more GATT profiles. These GATT profiles define a set of one or more Services. Each Service in turn defines a set of Characteristics. These profiles have a similar role as the SDP records in classic Bluetooth.
 
