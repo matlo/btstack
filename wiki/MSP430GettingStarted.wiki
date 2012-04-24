@@ -44,7 +44,7 @@ In order to use the CC256x device inside of the PAN13xx modules, an initializati
  * Download the appropriate BTS file from: http://processors.wiki.ti.com/index.php/CC256x_Downloads
  * Copy the included .bts file into chipset-cc256x
  * Run the provided Python script: ./convert_bts_init_scripts.py that's in chipset-cc256x
- * Add bt_control_cc256x.c plus bluetooth_init_cc2560_2.42.c or bluetooth_init_cc2560A_1.7.c to your project. If you have a PAN1315, use cc2560.
+ * Add bt_control_cc256x.c plus bluetooth_init_cc2560_2.44.c (or newer) or bluetooth_init_cc2560A_2.1.c (or newer) to your project. If you have a PAN1315, use cc2560.
  * Use bt_control_cc256x_instance() to get a bt_control_t instance and use it in hci_init() call 
 
 = Compiling the Examples  =
