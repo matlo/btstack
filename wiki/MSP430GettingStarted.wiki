@@ -1,8 +1,8 @@
 #summary How to get started with BTstack and MSP-EXP430F5438 + CC256x
 #labels Featured
 
-= Setup =
-We assume that a PAN1315, PAN1317, or PAN1323 is plugged into the provided port and the "RF3 Adapter board" is used or at least simulated. See http://processors.wiki.ti.com/index.php/PAN1315EMK_User_Guide 
+= Hardware Setup =
+We assume that a PAN1315, PAN1317, or PAN1323 is plugged into the provided port and the "RF3 Adapter board" is used or at least simulated. See http://processors.wiki.ti.com/index.php/PAN1315EMK_User_Guide#RF3_Connector
 
 = General Tools =
 
