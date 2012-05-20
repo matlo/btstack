@@ -2,7 +2,6 @@
 #labels Featured
 
 = Introduction =
-Although in an early stage, the BTstack can already used to create connections to other devices using the L2CAP protocol. This allows for example to receive keypress events from an Bluetooth keyboard or movement data from a !WiiMote.
 
 On this page, we provide a quick walk-through to run example/test.c on an iPhone 3G(S) or iPod touch 2G/3G and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
 
