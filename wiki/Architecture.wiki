@@ -39,8 +39,9 @@ The described run loop approach is compatible with many GUI frameworks, notably 
 Handling flow control for various data streams in a Bluetooth stack is tedious job. So far, BTstack implements:
  * Flow control for ACL and Command packets in HCI
  * Flow control for L2CAP data
+ * Flow control for RFCOMM data
  * Flow control for Socket Server: As the socket server can receive messages from the clients at any time, a command or a data packet might be received while the Bluetooth module is already busy. If the socket server would simply skip reading data this time, it would be called again immediately by the run loop, as the socket connection is still ready. Therefor, the BTdaemon has to _block_ this socket connection by removing its data source from the run loop. As soon as the Bluetooth module is ready again, the data source can be added back to the run loop.
- 
+  
 == Shared state ==
 
 The state shared between all connected clients consists of:
