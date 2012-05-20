@@ -83,7 +83,7 @@ The Bluetooth hardware control API allows the HCI layer to initialize, turn on/o
 
 === HCI Logging ===
 
-*BTdaemon* is able to write HCI dumps in several formats. It supports both the bluez-hcidump format, which can be read by: the hcidump tool, the GNOME Bluetooth-Analyzer, the Wireshark, and in Apple's !PacketLogger format. In addition, it can dump raw HCI packets in hex.
+*BTdaemon* is able to write HCI dumps in several formats. It supports both the bluez-hcidump format, which can be read by: the hcidump tool, the GNOME Bluetooth-Analyzer, the Wireshark, and the Apple's !PacketLogger format. In addition, it can dump raw HCI packets in hex.
 
 === Development/Debugging ===
 
