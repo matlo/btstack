@@ -11,6 +11,9 @@ OS 4.0 added support for A2DP and braille readers over RFCOMM.
 
 OS 5.0 on the new iPhone 4S added support for Bluetooth Low Energy device by the public !CoreBluetooth framework (also available on 10.7.2 with appropriate Bluetooth 4.0 modules, e.g. in the 2011 series of MacBook (Pro) and Mac mini)
 
+OS 6.0 (beta as presented on WWDC 2012) added support for Message Access Profile (MAP) used in some cars. CoreBluetooth gains the ability to work in Peripheral mode (in addition to Central) mode.
+
+
 == Bluetooth Accessories - Made for iPhone ==
 Apple's External Accessory API introduced in 3.0 allows to register for external accessories which can be connected either via the Dock connector or via Bluetooth. It then allows to specify an accessory based on a so-called "protocol" string and provides a socket-like connection to the device. Almost 2 years later, devices using MfI appear on the market, e.g. the UnityRemote by Gear4.com.
 
@@ -41,6 +44,10 @@ From Apple's docs:
 
    For more information about the interfaces of the Core Bluetooth framework,
    see the header files.
+
+In iOS 5.0, CoreBluetooth only supports the Central role in which it can connect to an accessory.
+
+In iOS 6.0 (beta), support for the Peripheral role was added. By this, an iPhone 4S or iPad 3 can act as accessory (e.g. pretend to be a heart rate monitor).
 
 = Hardware Details =
 Both generation of the iPhone (2G and 3G versions) use Bluetooth chipsets from Cambridge Silicon Radio (CSR), one of the leading Bluetooth vendors. CSR provides a wealth of documentation in their [http://csrsupport.com technical support area] (free login required). The first generation iPhone contains a !BlueCore 4, the second generation (current 3G models) contains a !BlueCore 6 chipset. All newer devices, from the iPod touch second generation and the new iPhone 3GS on, contain Broadcom chipsets, a company not famous for providing developer information. 
