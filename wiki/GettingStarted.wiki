@@ -3,14 +3,14 @@
 
 = Introduction =
 
-On this page, we provide a quick walk-through to run example/test.c on an iPhone 3G(S) or iPod touch 2G/3G and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
+On this page, we provide a quick walk-through to run example/test.c on an iPhone/iPod/iPad and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
 
 = Requirements =
   * the autotools
-  * a toolchain for the iPhone. This introduction assumes the use of the XCode iPhone SDK on Mac OS X.
+  * a toolchain for the iPhone. This introduction assumes the use of *Xcode <= 4.2* on OS X. (It should be possible to use higher versions, but they won't work right away). 
   * the ldid code-signing tool, either on your host or on the iPhone (via Cydia). If you install it on the build system, the signing is done automatically. For a Mac PPC, please use the one from Fink as the original sources by Jay Freeman have endianess issues. 
   * a subversion client
-  * a jailbroken iPhone or iPod touch 2G or later.
+  * a jailbroken iPhone/iPod/iPad.
 
 = Steps to compile and run a BTstack example on the iPhone=
   # Install the BTstack package in Cydia
@@ -20,10 +20,10 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{cd btstack}}}
   # run the bootstrap helper
     {{{./bootstrap.sh}}}
-  # configure BTstack for the iPhone if you have SDK 2.0 installed, or...
+  # configure BTstack for the iOS
     {{{./configure --target=iphone}}}
-  # ... if you only have a higher SDK from a newer Xcode installed, e.g. SDK 3.2
-    {{{./configure --target=iphone --with-sdk-version=3.2}}}
+  # ... if that fails, try specifying -with-sdk-version, --with-gcc-version. e.g. for Xcode 4.2
+    {{{./configure --target=iphone --with-sdk-version=5.0 --with-gcc-version=4.2}}}
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
   # build it
     {{{make}}}
