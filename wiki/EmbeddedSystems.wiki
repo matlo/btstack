@@ -27,7 +27,9 @@ On embedded systems, a Bluetooth module can be connected via USB or an UART port
 Regular UART drivers operate on the byte level and a RX callback might be set up. As Bluetooth communication is always in a packet format, it's better to let the low-level IRQ or even DMA driver receive a block of bytes. HCI Event and ACL packets can be received as 3 block reads. This can be quite efficient for large DH5 packets of 1021 bytes.
 
 === UART Hardware Abstraction Layer ===
-The main HCI H4 implementations for embedded system is hci_h4_dma. It provides:
+
+The main HCI H4 implementations for embedded system is hci_h4_transport_dma. It requires a interrupt-driven UART driver that implements the following API:
+
 {{{
 void hal_uart_dma_init(void);
 void hal_uart_dma_set_block_received( void (*block_handler)(void));
