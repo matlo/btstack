@@ -50,10 +50,16 @@ void hal_tick_set_handler(void (*tick_handler)(void));
 int  hal_tick_get_tick_period_in_ms(void);
 }}}
 
-== Memory ==
-To avoid malloc, BTstack uses configurable memory pools that use the values found in config.h
 
-An example config.h for a single SPP service looks like this:
+== Memory Configuration ==
+BTstack has to keep track of services and active connections on the various protocol levels. In addition, the non-persistent database for remote device names and link keys needs memory. The structs for each type of data can be allocated in two different manners:
+ * statically from an individual memory pools, whose maximal number of elements is defined in the config file (config.h).
+ * dynamically using the malloc/free functions, if HAVE MALLOC is defined in config file.
+
+If both HAVE MALLOC and maximal size of a pool are defined in the config file, the statical allocation will take precedence. In the case that both are omitted, an error will be raised.
+To initialize the static pools you need to call btstack memory init() function.
+An example of a memory configuration in config.h file for a single SPP service looks like this:
+
 {{{
 #define EMBEDDED
 
