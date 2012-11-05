@@ -17,9 +17,29 @@ For use without an OS and a Bluetooth module connected via an UART, you need to 
  * hal_uart_dma.h
 
 == Run Loop ==
-On embedded system without a select() function, data sources have to be polled. However, the MCU can be put into sleep mode if it will be woken by an IRQ from the UART.
-Similarly, BTstack expects to get called periodically to keep it's time.
+BTstack uses a run loop to coordinate the handing of incoming data and to schedule work.
 
+The run loop handles events from two different types of sources: data sources and timers.
+Data sources represent communication interfaces like an UART or an USB driver. Timers can be used to handle periodic events and are use by BTstack to implement various Bluetooth-related timeouts. For example, a Bluetooth base- band channel without an active L2CAP channel is disconnected after 20 seconds. Data sources and timers are represented by the two structs data source t and timer source t respectively. Each of these structs have a link list node and a pointer to a callback function. All active timers and data sources are kept in a link list. While the list of data sources is unsorted, the timers are are sorted by timeout for efficient processing.
+
+The complete run loop cycle looks like this: first, the process function of all reg- istered data sources are called in a round robin way. Then, the callback functions of timers that are ready are executed. Finally, it will be checked if another run loop iteration has been requested in a critical section block. If no addition data source became ready, the run loop will enter a sleep mode.
+
+Timers are also single shot: timers will be removed from the timer list before the event handler callback is called. If you need a repeating timer, you can re-register the same timersource in the callback function again. Note that BTstack expects to get called periodically to keep its time (see for more HW abstraction layer).
+
+Incoming data over the UART/USB or timer ticks will generate an interrupt and wake up the micro controller. In order to avoid the situation where a data source becomes ready just before the run loop enters sleep mode, an interrupt-driven data source has to call embedded trigger(). The call to embedded trigger sets an internal flag that is checked in the critical section just before entering sleep mode.
+
+To enable the use of timers, make sure that you defined HAVE TICK in the config file.
+
+{{{
+void run loop set timer handler(timer source t ∗ts, void (∗process)( timer source t ∗ ts));
+￼￼￼￼￼￼
+void run loop set timer(timer source t ∗ts, uint32 t timeout in ms); void run loop add timer(timer source t ∗ts);
+void run ￼ loop ￼ set ￼ data ￼ source ￼ handler ( data ￼ source ￼ t ∗ds , int (∗ process)(data source t ∗ ds));
+void run loop add data source(data source t ∗ds);
+}}}
+
+You’ll need only to start the run loop explicitly in your startup code after the initialization.
+The application can as well register data sourced and timers, e.g. periodical sampling of sensors, or communication over the UART.
 
 == Memory Configuration ==
 
@@ -47,10 +67,7 @@ An example of a memory configuration in config.h file for a single SPP service l
 
 == UART Hardware Abstraction Layer  ==
 
-On embedded systems, a Blue- tooth module can be connected via USB or an UART port. BTstack implements two UART based protocols for carrying HCI commands, events and data between a host and a Bluetooth module: HCI UART Transport Layer (H4) and H4 with eHCILL support, a lightweight low power variant by Texas Instruments.
-
-=== IRQ & DMA UART RX ===
-On embedded systems, a Bluetooth module can be connected via USB or an UART port. We will focus on UART first. 
+On embedded systems, a Bluetooth module can be connected via USB or an UART port. BTstack implements two UART based protocols for carrying HCI commands, events and data between a host and a Bluetooth module: HCI UART Transport Layer (H4) and H4 with eHCILL support, a lightweight low power variant by Texas Instruments.
 
 === HCI UART Transport Layer (H4) ===
 Most embedded UART interfaces oper- ate on the byte level and generate a processor interrupt when a byte was received. In the interrupt handler, common UART drivers then place the received data in a ring buffer and set a flag for further processing or notify the higher-level code, i.e. in our case the Bluetooth stack.
