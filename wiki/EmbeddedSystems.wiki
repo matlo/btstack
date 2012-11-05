@@ -22,13 +22,13 @@ BTstack uses a run loop to coordinate the handing of incoming data and to schedu
 The run loop handles events from two different types of sources: data sources and timers.
 Data sources represent communication interfaces like an UART or an USB driver. Timers can be used to handle periodic events and are use by BTstack to implement various Bluetooth-related timeouts. For example, a Bluetooth base- band channel without an active L2CAP channel is disconnected after 20 seconds. Data sources and timers are represented by the two structs data source t and timer source t respectively. Each of these structs have a link list node and a pointer to a callback function. All active timers and data sources are kept in a link list. While the list of data sources is unsorted, the timers are are sorted by timeout for efficient processing.
 
-The complete run loop cycle looks like this: first, the process function of all reg- istered data sources are called in a round robin way. Then, the callback functions of timers that are ready are executed. Finally, it will be checked if another run loop iteration has been requested in a critical section block. If no addition data source became ready, the run loop will enter a sleep mode.
+The complete run loop cycle looks like this: first, the process function of all registered data sources are called in a round robin way. Then, the callback functions of timers that are ready are executed. Finally, it will be checked if another run loop iteration has been requested in a critical section block. If no addition data source became ready, the run loop will enter a sleep mode.
 
 Timers are also single shot: timers will be removed from the timer list before the event handler callback is called. If you need a repeating timer, you can re-register the same timersource in the callback function again. Note that BTstack expects to get called periodically to keep its time (see for more HW abstraction layer).
 
-Incoming data over the UART/USB or timer ticks will generate an interrupt and wake up the micro controller. In order to avoid the situation where a data source becomes ready just before the run loop enters sleep mode, an interrupt-driven data source has to call embedded trigger(). The call to embedded trigger sets an internal flag that is checked in the critical section just before entering sleep mode.
+Incoming data over the UART/USB or timer ticks will generate an interrupt and wake up the micro controller. In order to avoid the situation where a data source becomes ready just before the run loop enters sleep mode, an interrupt-driven data source has to call_embedded_trigger(). The call to embedded trigger sets an internal flag that is checked in the critical section just before entering sleep mode.
 
-To enable the use of timers, make sure that you defined HAVE TICK in the config file.
+To enable the use of timers, make sure that you defined HAVE_TICK in the config file.
 
 {{{
 void run_loop_set_timer_handler(timer_source_t ∗ts, void (∗process)( timer_source_t ∗ ts));
@@ -45,11 +45,11 @@ The application can as well register data sourced and timers, e.g. periodical sa
 == Memory Configuration ==
 
 BTstack has to keep track of services and active connections on the various protocol levels. In addition, the non-persistent database for remote device names and link keys needs memory. The structs for each type of data can be allocated in two different manners:
- * statically from an individual memory pools, whose maximal number of elements is defined in the config file (config.h).
- * dynamically using the malloc/free functions, if HAVE MALLOC is defined in config file.
+ * statically from an individual memory pools, whose maximal number of elements is defined in config.h
+ * dynamically using the malloc/free functions, if HAVE_MALLOC is defined in config.h
 
 If both HAVE MALLOC and maximal size of a pool are defined in the config file, the statical allocation will take precedence. In the case that both are omitted, an error will be raised.
-To initialize the static pools you need to call btstack memory init() function.
+To initialize the static pools you need to call btstack_memory_init() function.
 An example of a memory configuration in config.h file for a single SPP service looks like this:
 
 {{{
@@ -85,12 +85,11 @@ int hal_uart_dma_set_baud(uint32_t baud) ;
 void hal_uart_dma_send_block(const uint8_t ∗buffer , uint16_t length); void hal uart dma receive block(uint8_t ∗buffer, uint16_t len);
 }}}
 
-The main HCI H4 implementations for embedded system is hci h4 transport dma. This function calls the following sequence: hal uart dma init(), hal uart dma
-set block received() and hal uart dma set block sent(). After this sequence, the HCI layer will start packet processing by calling hal uart dma receive block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only three callbacks per HCI packet.
+The main HCI H4 implementations for embedded system is hci_h4_transport_dma(). This function calls the following sequence: hal_uart_dma_init(), hal_uart_dma_set_block_received() and hal_uart_dma_set_block_sent(). After this sequence, the HCI layer will start packet processing by calling hal_uart_dma_receive_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only three callbacks per HCI packet.
 
 === H4 with eHCILL support ===
 
-With the standard H4 protocol interface it is not possible for either the host nor the baseband controller to enter the sleep mode. Besides the official H5 protocol various chip vendors came up with proprietary solutions to this. The eHCILL support by Texas Instruments allows both the host and the baseband controller to independently enter sleep mode without loosing their synchronization with the HCI H4 Transport Layer. In addition to the IRQ- driven block-wise RX and TX, the eHCILL requires a callback for CTS interrupts.
+With the standard H4 protocol interface it is not possible for either the host nor the baseband controller to enter the sleep mode. Besides the official H5 protocol various chip vendors came up with proprietary solutions to this. The eHCILL support by Texas Instruments allows both the host and the baseband controller to independently enter sleep mode without loosing their synchronization with the HCI H4 Transport Layer. In addition to the IRQ-driven block-wise RX and TX, the eHCILL requires a callback for CTS interrupts.
 
 {{{
 void hal_uart_dma_set_cts_irq_handler(void (∗cts_irq_handler)(void));
