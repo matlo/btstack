@@ -91,7 +91,8 @@ void hal_uart_dma_￼init(void) ;
 void hal_uart_dma_set_block_received(void (∗block_handler)(void));
 void hal_uart_dma_set_block_sent(void (∗block_handler)(void));
 int hal_uart_dma_set_baud(uint32_t baud) ;
-void hal_uart_dma_send_block(const uint8_t ∗buffer , uint16_t length); void hal uart dma receive block(uint8_t ∗buffer, uint16_t len);
+void hal_uart_dma_send_block(const uint8_t ∗buffer , uint16_t length); 
+void hal_uart_dma_receive_block(uint8_t ∗buffer, uint16_t len);
 }}}
 
 The main HCI H4 implementations for embedded system is hci_h4_transport_dma(). This function calls the following sequence: hal_uart_dma_init(), hal_uart_dma_set_block_received() and hal_uart_dma_set_block_sent(). After this sequence, the HCI layer will start packet processing by calling hal_uart_dma_receive_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only three callbacks per HCI packet.
