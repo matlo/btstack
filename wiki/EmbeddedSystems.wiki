@@ -34,7 +34,7 @@ To enable the use of timers, make sure that you defined HAVE TICK in the config 
 void run loop set timer handler(timer source t ∗ts, void (∗process)( timer source t ∗ ts));
 ￼￼￼￼￼￼
 void run loop set timer(timer source t ∗ts, uint32 t timeout in ms); void run loop add timer(timer source t ∗ts);
-void run ￼ loop ￼ set ￼ data ￼ source ￼ handler ( data ￼ source ￼ t ∗ds , int (∗ process)(data source t ∗ ds));
+void run ￼loop set data source ￼ handler ( data ￼ source ￼ t ∗ds , int (∗ process)(data source t ∗ ds));
 void run loop add data source(data source t ∗ds);
 }}}
 
@@ -77,10 +77,10 @@ Bluetooth communication is packet-based and a single packet may contain up to 10
 The BTstack UART HAL API reflects this design approach and the underlying UART driver has to implement the following API:
 
 {{{
-void hal ￼ uart ￼ dma ￼ init (void) ;
+void hal uart dma ￼ init (void) ;
 void hal uart dma set block received(void (∗block handler)(void));
 void hal uart dma set block sent(void (∗block handler)(void));
-int hal ￼ uart ￼ dma ￼ set ￼ baud ( uint32 ￼ t baud) ;
+int hal uart dma set￼ baud ( uint32 ￼ t baud) ;
 void hal uart dma send block(const uint8 t ∗buffer , uint16 t length); void hal uart dma receive block(uint8 t ∗buffer, uint16 t len);
 }}}
 
@@ -93,7 +93,7 @@ With the standard H4 protocol interface it is not possible for either the host n
 
 {{{
 void hal uart dma set cts irq handler(void (∗cts irq handler)(void));
-void hal ￼ ￼ uart ￼ dma ￼ set ￼ sleep ( uint8 ￼ t sleep ) ;
+void hal uart dma set sleep ( uint8 ￼ t sleep ) ;
 }}}
 
 
