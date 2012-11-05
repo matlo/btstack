@@ -31,12 +31,12 @@ Incoming data over the UART/USB or timer ticks will generate an interrupt and wa
 To enable the use of timers, make sure that you defined HAVE TICK in the config file.
 
 {{{
-void run loop set timer handler(timer source t ∗ts, void (∗process)( timer source t ∗ ts));
+void run_loop_set_timer_handler(timer_source_t ∗ts, void (∗process)( timer_source_t ∗ ts));
 ￼￼￼￼￼￼
-void run_loop_set_timer(timer source t ∗ts, uint32 t timeout in ms); 
-void run_loop_add_timer(timer source t ∗ts);
-void run_￼loop_set_data_source_handler(data ￼ source ￼ t ∗ds , int (∗ process)(data source t ∗ ds));
-void run_loop_add_data_source(data source t ∗ds);
+void run_loop_set_timer(timer_source_t ∗ts, uint32_t timeout_in_ms); 
+void run_loop_add_timer(timer_source_t ∗ts);
+void run_￼loop_set_data_source_handler(data_source_t ∗ds , int (∗ process)(data_source_t ∗ ds));
+void run_loop_add_data_source(data_source_t ∗ds);
 }}}
 
 You’ll need only to start the run loop explicitly in your startup code after the initialization.
@@ -82,7 +82,7 @@ void hal_uart_dma_￼init(void) ;
 void hal_uart_dma_set_block_received(void (∗block_handler)(void));
 void hal_uart_dma_set_block_sent(void (∗block_handler)(void));
 int hal_uart_dma_set_baud(uint32_t baud) ;
-void hal_uart_dma_send_block(const uint8_t ∗buffer , uint16_t length); void hal uart dma receive block(uint8 t ∗buffer, uint16 t len);
+void hal_uart_dma_send_block(const uint8_t ∗buffer , uint16_t length); void hal uart dma receive block(uint8_t ∗buffer, uint16_t len);
 }}}
 
 The main HCI H4 implementations for embedded system is hci h4 transport dma. This function calls the following sequence: hal uart dma init(), hal uart dma
@@ -93,7 +93,7 @@ set block received() and hal uart dma set block sent(). After this sequence, the
 With the standard H4 protocol interface it is not possible for either the host nor the baseband controller to enter the sleep mode. Besides the official H5 protocol various chip vendors came up with proprietary solutions to this. The eHCILL support by Texas Instruments allows both the host and the baseband controller to independently enter sleep mode without loosing their synchronization with the HCI H4 Transport Layer. In addition to the IRQ- driven block-wise RX and TX, the eHCILL requires a callback for CTS interrupts.
 
 {{{
-void hal_uart_dma_set_cts_irq handler(void (∗cts_irq_handler)(void));
+void hal_uart_dma_set_cts_irq_handler(void (∗cts_irq_handler)(void));
 void hal_uart_dma_set_sleep(uint8_t sleep );
 }}}
 
