@@ -42,6 +42,15 @@ void run_loop_add_data_source(data_source_t ∗ds);
 You’ll need only to start the run loop explicitly in your startup code after the initialization.
 The application can as well register data sourced and timers, e.g. periodical sampling of sensors, or communication over the UART.
 
+=== Tick Hardware Abstraction Layer ===
+BTstack requires a way to learn about passing time. In an embedded configuration, the following functions have to be provided. The hal_tick_init() and the hal_tick_set_handler() will be called during the initialization of the run loop.
+
+{{{
+void hal_tick_init(void);
+void hal_tick_set_handler(void (*tick_handler)(void));
+int  hal_tick_get_tick_period_in_ms(void);
+}}}
+
 == Memory Configuration ==
 
 BTstack has to keep track of services and active connections on the various protocol levels. In addition, the non-persistent database for remote device names and link keys needs memory. The structs for each type of data can be allocated in two different manners:
