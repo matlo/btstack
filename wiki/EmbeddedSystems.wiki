@@ -20,38 +20,9 @@ For use without an OS and a Bluetooth module connected via an UART, you need to 
 On embedded system without a select() function, data sources have to be polled. However, the MCU can be put into sleep mode if it will be woken by an IRQ from the UART.
 Similarly, BTstack expects to get called periodically to keep it's time.
 
-== HCI  Interface with IRQ & DMA ==
-On embedded systems, a Bluetooth module can be connected via USB or an UART port. We will focus on UART first. 
-
-=== IRQ & DMA UART RX===
-Regular UART drivers operate on the byte level and a RX callback might be set up. As Bluetooth communication is always in a packet format, it's better to let the low-level IRQ or even DMA driver receive a block of bytes. HCI Event and ACL packets can be received as 3 block reads. This can be quite efficient for large DH5 packets of 1021 bytes.
-
-=== UART Hardware Abstraction Layer ===
-
-The main HCI H4 implementations for embedded system is hci_h4_transport_dma. It requires a interrupt-driven UART driver that implements the following API:
-
-{{{
-void hal_uart_dma_init(void);
-void hal_uart_dma_set_block_received( void (*block_handler)(void));
-void hal_uart_dma_set_block_sent( void (*block_handler)(void));
-void hal_uart_dma_set_csr_irq_handler( void (*csr_irq_handler)(void));
-int  hal_uart_dma_set_baud(uint32_t baud);
-void hal_uart_dma_send_block(const uint8_t *buffer, uint16_t length);
-void hal_uart_dma_receive_block(uint8_t *buffer, uint16_t len);
-void hal_uart_dma_set_sleep(uint8_t sleep);
-}}}
-The semantic for this is as follows: after hal_uart_dma_init(), hal_uart_dma_set_block_received() and hal_uart_dma_set_block_sent(), the HCI layer will start packet processing by calling hal_uart_dma_receive_block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only 3 callsbacks per HCI packet.
-
-=== Tick Hardware Abstraction Layer ===
-BTstack requires a way to learn about passing time. In an embedded configuration, the following functions have to be provided.
-{{{
-void hal_tick_init(void);
-void hal_tick_set_handler(void (*tick_handler)(void));
-int  hal_tick_get_tick_period_in_ms(void);
-}}}
-
 
 == Memory Configuration ==
+
 BTstack has to keep track of services and active connections on the various protocol levels. In addition, the non-persistent database for remote device names and link keys needs memory. The structs for each type of data can be allocated in two different manners:
  * statically from an individual memory pools, whose maximal number of elements is defined in the config file (config.h).
  * dynamically using the malloc/free functions, if HAVE MALLOC is defined in config file.
@@ -61,18 +32,8 @@ To initialize the static pools you need to call btstack memory init() function.
 An example of a memory configuration in config.h file for a single SPP service looks like this:
 
 {{{
-#define EMBEDDED
-
-#define HAVE_TICK
-
-// #define ENABLE_LOG_INFO 
-#define ENABLE_LOG_ERROR
-
 #define HCI_ACL_PAYLOAD_SIZE 52
-
-// 
 #define MAX_SPP_CONNECTIONS 1
-
 #define MAX_NO_HCI_CONNECTIONS MAX_SPP_CONNECTIONS
 #define MAX_NO_L2CAP_SERVICES  2
 #define MAX_NO_L2CAP_CHANNELS  (1+MAX_SPP_CONNECTIONS)
@@ -83,6 +44,41 @@ An example of a memory configuration in config.h file for a single SPP service l
 #define MAX_NO_DB_MEM_LINK_KEYS  3
 #define MAX_NO_DB_MEM_SERVICES 1
 }}}
+
+== UART Hardware Abstraction Layer  ==
+
+On embedded systems, a Blue- tooth module can be connected via USB or an UART port. BTstack implements two UART based protocols for carrying HCI commands, events and data between a host and a Bluetooth module: HCI UART Transport Layer (H4) and H4 with eHCILL support, a lightweight low power variant by Texas Instruments.
+
+=== IRQ & DMA UART RX ===
+On embedded systems, a Bluetooth module can be connected via USB or an UART port. We will focus on UART first. 
+
+=== HCI UART Transport Layer (H4) ===
+Most embedded UART interfaces oper- ate on the byte level and generate a processor interrupt when a byte was received. In the interrupt handler, common UART drivers then place the received data in a ring buffer and set a flag for further processing or notify the higher-level code, i.e. in our case the Bluetooth stack.
+
+Bluetooth communication is packet-based and a single packet may contain up to 1021 bytes. Calling a data received handler of the Bluetooth stack for every byte creates an unnecessary overhead. To avoid that, a Bluetooth packet can be read as multiple blocks where the amount of bytes to read is known in advance. Even better would be the use of on-chip DMA modules for these block reads, if available.
+
+The BTstack UART HAL API reflects this design approach and the underlying UART driver has to implement the following API:
+
+{{{
+void hal ￼ uart ￼ dma ￼ init (void) ;
+void hal uart dma set block received(void (∗block handler)(void));
+void hal uart dma set block sent(void (∗block handler)(void));
+int hal ￼ uart ￼ dma ￼ set ￼ baud ( uint32 ￼ t baud) ;
+void hal uart dma send block(const uint8 t ∗buffer , uint16 t length); void hal uart dma receive block(uint8 t ∗buffer, uint16 t len);
+}}}
+
+The main HCI H4 implementations for embedded system is hci h4 transport dma. This function calls the following sequence: hal uart dma init(), hal uart dma
+set block received() and hal uart dma set block sent(). After this sequence, the HCI layer will start packet processing by calling hal uart dma receive block(). The HAL implementation is responsible for reading the requested amount of bytes, stopping incoming data via the RTS line when the the requested amount of data was received and has to call the handler. By this, the HAL implementation can stay generic, while requiring only three callbacks per HCI packet.
+
+=== H4 with eHCILL support ===
+
+With the standard H4 protocol interface it is not possible for either the host nor the baseband controller to enter the sleep mode. Besides the official H5 protocol various chip vendors came up with proprietary solutions to this. The eHCILL support by Texas Instruments allows both the host and the baseband controller to independently enter sleep mode without loosing their synchronization with the HCI H4 Transport Layer. In addition to the IRQ- driven block-wise RX and TX, the eHCILL requires a callback for CTS interrupts.
+
+{{{
+void hal uart dma set cts irq handler(void (∗cts irq handler)(void));
+void hal ￼ ￼ uart ￼ dma ￼ set ￼ sleep ( uint8 ￼ t sleep ) ;
+}}}
+
 
 == Arduino ==
 The Arduino firmware provides interrupt-driven UART drivers with an 128 byte read buffer. It does not support CTS/RTS. Writes are blocking. A better driver is needed but possible.
