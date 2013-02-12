@@ -7,7 +7,7 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
 
 = Requirements =
   * the autotools
-  * a toolchain for the iPhone. This introduction assumes the use of *Xcode <= 4.2* on OS X. (It should be possible to use higher versions, but they won't work right away). 
+  * a toolchain for the iPhone. This introduction assumes the use of *Xcode <= 4.4.1* on OS X. (It's possible to use higher versions, but they won't work right away). 
   * the ldid code-signing tool, either on your host or on the iPhone (via Cydia). If you install it on the build system, the signing is done automatically. For a Mac PPC, please use the one from Fink as the original sources by Jay Freeman have endianess issues. 
   * a subversion client
   * a jailbroken iPhone/iPod/iPad.
@@ -24,6 +24,8 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{./configure --target=iphone}}}
   # ... if that fails, try specifying -with-sdk-version, --with-gcc-version. e.g. for Xcode 4.2
     {{{./configure --target=iphone --with-sdk-version=5.0 --with-gcc-version=4.2}}}
+  # ... or for Xcode 4.4.x, the latest version of Xcode that builds armv6 code for older devices.
+    {{{./configure --target=iphone --with-sdk-version=5.1 --with-gcc-version=4.2 --with-developer-path=/Applications/Xcode-4.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/ }}}
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
   # build it
     {{{make}}}
