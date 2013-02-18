@@ -1,6 +1,9 @@
 #summary Ideas and Notes on a Port of BTstack for use on Embedded Systems.
 
 = Introduction =
+
+NEW! Get the documentation for embedded systems: [http://bluekitchen-gmbh.com/docs/btstack-gettingstarted-1.0.pdf BTstack Manual v1.0].
+
 BTstack was developed and primarily used on OSs with POSIX file I/O (iOS had almost 2 million downloads recently). Smaller embedded systems luck such luxury. When running on a device without any OS some things have to adapt. Examples for such a system might be the Arduino platform, if a bigger MCU like the ATmega 2561 is used, or the [http://btnode.ethz.ch BTnode], or, your favorite ARM-developer board. :)
 
 = Prototypes =
