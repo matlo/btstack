@@ -1,8 +1,9 @@
 #summary Bluetooth 4.0 Low Energy - Bluetooth Smart Devices
 
-<font color="red">*NEW!*</font> Get the documentation for embedded systems: [http://bluekitchen-gmbh.com/docs/btstack-gettingstarted-1.0.pdf BTstack Manual v1.0].
 
 = BTstack and Bluetooth 4.0 - Bluetooth Smart Devices =
+== <font color="red">*NEW!* Get the documentation for embedded systems: [http://bluekitchen-gmbh.com/docs/btstack-gettingstarted-1.0.pdf BTstack Manual v1.0].</font> ==
+
 BTstack provides early support for Bluetooth Smart devices, both as single mode or dual mode stack. 
 
 Bluetooth Smart devices implement one or more GATT profiles. These GATT profiles define a set of one or more Services. Each Service in turn defines a set of Characteristics. These profiles have a similar role as the SDP records in classic Bluetooth.
