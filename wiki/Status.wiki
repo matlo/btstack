@@ -1,6 +1,9 @@
 #summary Overview on the BTstack Development
 #labels Featured
 
+NEW! Get the documentation for embedded systems: [http://bluekitchen-gmbh.com/docs/btstack-gettingstarted-1.0.pdf BTstack Manual v1.0].
+
+
 BTstack reached version 0.5 and allows for incoming and outgoing L2CAP and RFCOMM connections, registration of SDP records and to provide an ATT server. It supports Bluetooth Human Interface Devices via L2CAP (keyboard, !WiiMote, etc.. ), the control of robots, and basic RFCOMM-based devices like standard GPS receivers, the [http://www.zeemote.com/ ZeeMote JS-1 joystick], or a Bluetooth Chipcard reader.
 
 It runs in a single thread in user-space and makes use of the standard POSIX API. It expects a Bluetooth module connected via a serial connection (Bluetooth H4 HCI Transport). Support for Bluetooth USB modules is not working yet.
