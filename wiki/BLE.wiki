@@ -1,6 +1,6 @@
 #summary Bluetooth 4.0 Low Energy - Bluetooth Smart Devices
 
-<font color="red">NEW!</font> Get the documentation for embedded systems: [http://bluekitchen-gmbh.com/docs/btstack-gettingstarted-1.0.pdf BTstack Manual v1.0].
+<font color="red">*NEW!*</font> Get the documentation for embedded systems: [http://bluekitchen-gmbh.com/docs/btstack-gettingstarted-1.0.pdf BTstack Manual v1.0].
 
 = BTstack and Bluetooth 4.0 - Bluetooth Smart Devices =
 BTstack provides early support for Bluetooth Smart devices, both as single mode or dual mode stack. 
