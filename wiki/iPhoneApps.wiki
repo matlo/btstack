@@ -4,8 +4,8 @@
  * [http://getceleste.com Bluetooth file sharing for iOS, at last]
  * [http://ringwald.ch/cydia/blutrol Blutrol] - Control your favorite game with a real game controller
  * [http://ringwald.ch/cydia/gps BTstack GPS - use BT GPS with iPod touch and iPad Wifi]
- * [http://ringwald.ch/keyboard/Welcome.html Bluetooth Keyboard] ([http://ringwald.ch/cydia/keyboard full], [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
- * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse]
+ * [http://ringwald.ch/keyboard/Welcome.html BTstack Keyboard] (obsolete, use iOS support) ([http://ringwald.ch/cydia/keyboard full], [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
+ * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse] (obsolete) Use new [http://ringwald.ch/cydia/mouse/ BTC Mouse & Trackpad]
  * [http://www.weblooks.ch/apps/iphone-apps/webe/WeBe++ Bluetooth HID Mouse and Keyboard]
  * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.wiimoteopengldemo&db= WiiMote OpenGL-ES Demo]
  * [http://apt.thebigboss.org/onepackage.php?bundleid=com.conradkramer.wiimotemusiccontrols&db= Wiimote Music Control]
