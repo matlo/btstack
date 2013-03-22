@@ -6,7 +6,7 @@
  * [http://ringwald.ch/cydia/gps BTstack GPS - use BT GPS with iPod touch and iPad Wifi]
  * [http://ringwald.ch/keyboard/Welcome.html BTstack Keyboard] (obsolete, use iOS support) ([http://ringwald.ch/cydia/keyboard full], [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
  * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse] (obsolete) Use new [http://ringwald.ch/cydia/mouse/ BTC Mouse & Trackpad]
- * [http://www.weblooks.ch/apps/iphone-apps/webe/WeBe++ Bluetooth HID Mouse and Keyboard]
+ * [http://www.weblooks.ch/apps/iphone-apps/webe/ Bluetooth HID Mouse and Keyboard]
  * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.wiimoteopengldemo&db= WiiMote OpenGL-ES Demo]
  * [http://apt.thebigboss.org/onepackage.php?bundleid=com.conradkramer.wiimotemusiccontrols&db= Wiimote Music Control]
  * [http://www.zodttd.com/wp/2009/11/wiimote-demonstration-video-with-mame4iphone/ mame4iphone]
