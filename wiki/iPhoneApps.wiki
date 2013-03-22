@@ -2,13 +2,13 @@
 #labels Featured
 
  * [http://getceleste.com Bluetooth file sharing for iOS, at last]
- * [http://http://ringwald.ch/keyboard/Welcome.html] ([http://ringwald.ch/cydia/keyboard full], [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.keyboarddemo demo])
- * [http://http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.mouse BTstack Mouse]
+ * [http://http://ringwald.ch/keyboard/Welcome.html] ([http://ringwald.ch/cydia/keyboard full], [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.keyboarddemo&db= demo])
+ * [http://http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.mouse&db= BTstack Mouse]
  * [http://ringwald.ch/cydia/gps BTstack GPS - use BT GPS with iPod touch and iPad Wifi]
  * [http://www.weblooks.ch/webe-plus/ WeBe++ Bluetooth HID Mouse and Keyboard]
- * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.wiimoteopengldemo WiiMote OpenGL-ES Demo]
- * [http://apt.thebigboss.org/onepackage.php?bundleid=com.conradkramer.wiimotemusiccontrols Wiimote Music Control]
+ * [http://apt.thebigboss.org/onepackage.php?bundleid=ch.ringwald.wiimoteopengldemo&db= WiiMote OpenGL-ES Demo]
+ * [http://apt.thebigboss.org/onepackage.php?bundleid=com.conradkramer.wiimotemusiccontrols&db= Wiimote Music Control]
  * [http://www.zodttd.com/wp/2009/11/wiimote-demonstration-video-with-mame4iphone/ mame4iphone]
  * [http://www.zodttd.com/wp/2009/12/n64iphone-released/ n64iphone]
  * [http://www.zodttd.com/ snes4iphone]
- * [http://apt.thebigboss.org/onepackage.php?bundleid=tr.gen.saygin.legodrive LegoDrive to control Lego Mindstorm NXT robot]
+ * [http://apt.thebigboss.org/onepackage.php?bundleid=tr.gen.saygin.legodrive LegoDrive&db= to control Lego Mindstorm NXT robot]
