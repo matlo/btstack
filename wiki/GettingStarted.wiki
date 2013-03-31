@@ -6,8 +6,8 @@
 On this page, we provide a quick walk-through to run example/test.c on an iPhone/iPod/iPad and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
 
 = Requirements =
-  * the autotools
-  * a toolchain for the iPhone. This introduction assumes the use of *Xcode <= 4.4.1* on OS X. (It's possible to use higher versions, but they won't work right away). 
+  * a toolchain for the iPhone. Make sure xcode-select --print-path gives valid answer
+  * theos buid system from https://github.com/DHowett/theos
   * the ldid code-signing tool, either on your host or on the iPhone (via Cydia). If you install it on the build system, the signing is done automatically. For a Mac PPC, please use the one from Fink as the original sources by Jay Freeman have endianess issues. 
   * a subversion client
   * a jailbroken iPhone/iPod/iPad.
@@ -18,28 +18,26 @@ On this page, we provide a quick walk-through to run example/test.c on an iPhone
     {{{svn checkout http://btstack.googlecode.com/svn/trunk/ btstack}}}
   # cd into the btstack folder 
     {{{cd btstack}}}
-  # run the bootstrap helper
-    {{{./bootstrap.sh}}}
-  # configure BTstack for the iOS
-    {{{./configure --target=iphone}}}
-  # ... if that fails, try specifying -with-sdk-version, --with-gcc-version. e.g. for Xcode 4.2
-    {{{./configure --target=iphone --with-sdk-version=5.0 --with-gcc-version=4.2}}}
-  # ... or for Xcode 4.4.x, the latest version of Xcode that builds armv6 code for older devices.
-    {{{./configure --target=iphone --with-sdk-version=5.1 --with-gcc-version=4.2 --with-developer-path=/Applications/Xcode-4.4.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/ }}}
-  # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
-  # build it
+  # configure BTstack for iOS target
+    {{{./config-iphone.sh}}}
+  # build libBTstack and BTdaemon
     {{{make}}}
-  # copy the example test to your iPhone. Replace 192.168.3.102 with the IP address of your device
-    {{{scp example/test mobile@192.168.3.102:.}}}
+  # cd into the examples folder
+    {{{cd example}}}
+  # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
+  # build examples
+    {{{make}}}
+  # copy the l2cap-test to your iPhone. Replace 192.168.3.102 with the IP address of your device
+    {{{scp example/l2cap-test mobile@192.168.3.102:.}}}
   # ssh into your device
     {{{ssh mobile@192.168.3.102}}}
   # sign the binaries on the device, if you did not install ldid on your build system
 {{{
- ldid -S test
+ ldid -S l2cap-test
 }}}
   # make sure Bluetooth is turned OFF in the Settings.app
   # run the test
-    {{{./test}}}
+    {{{./l2cap-test}}}
   # check the output in both sessions. If everything works, the app will prompt you to make your !WiiMote discoverable by pressing the buttons 1 and 2 together. Shortly after that you should get continuous accelerometer readings. You can press the Home button to quit the test app.
 
 Important: My WLAN often breaks down when using Bluetooth. When logged in via SSH this looks like the app would not work or hang, when in reality the WLAN is just not working properly. Check the WLAN icon in the status bar. After the introduction of Internet tethering, I highly recommend to connect the iPhone via USB and use this connection for SSH. When using USB Tethering, my machine receives the IP address 192.168.20.3, and the iPhone can be accessed at 192.168.20.1.
