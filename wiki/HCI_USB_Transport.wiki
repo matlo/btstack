@@ -9,7 +9,9 @@ However, it is not ported to Windows yet. For debugging purposes on Windows, a s
 
 = Caveats =
  * Linux: root access rights are required to have libUSB connect to a Bluetooth modue. Running BTdaemon as root is not optimal, but probably ok for most people toying with BTstack.
- * OS X: The OS sizes the BT module when plugged in. To use it with libUSB, a "Vendor Specific" kernel extension has to be created and installed. The kernel extension basically only consists of a plist (XML) file that specifies the used BT dongle. [http://www.opensource.apple.com/source/IOUSBFamily/IOUSBFamily-343.4.3/Examples/VendorSpecific%20Driver/ VendorSpecific Driver example code]. For unknown reasons, this failed for me. Another, rough but reliable approach is to remove /System/Library/IOBluetoothFamily.kext and reboot. Problem solved.
+ * OS X: The OS sizes the BT module when plugged in. 
+   * For OS 10.7+ and higher, please follow the instructions here: http://developer.apple.com/library/ios/#technotes/tn2295/_index.html
+   * For older systems, the best choice is to unload the Bluetooth kernel module /System/Library/IOBluetoothFamily.kext using kextunload 
    
 = Default Endpoints =
  * 0x00: Control Transfer: HCI Commands
@@ -19,11 +21,12 @@ However, it is not ported to Windows yet. For debugging purposes on Windows, a s
 
 = Status =
  * Finding a BT module (either by product & vendor ID or by device class) works on Linux and Mac.
-   * The built-in Bluetooth in my MacBook Pro has  class 0xff instead of 0xe0, so I use the VID/PID 
  * Probing the USB device descriptor for the endpoints of the the four HCI packet types works on Linux and Mac
- * With current libusb from GIT (Jan 2011), BTstack boots up properly and basic operations work on Mac (i386)
+ * Works with current version of libusb and libusbx in both polling as well as fd selects.
+ * ISSUE: It's not possible to send HCI packets larger than 83 bytes and I don't know why (or if it's in libusb or in BTstack code). Receiving larger packets isnt' a problem.
 
 = TODO =
  * More tests
+ * Fix issue of sending packets larger than 83 bytes
  * more documentation
  * libusb is supported on win32 - have someone try that out 
