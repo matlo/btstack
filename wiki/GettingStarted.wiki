@@ -3,11 +3,12 @@
 
 = Introduction =
 
-On this page, we provide a quick walk-through to run example/test.c on an iPhone/iPod/iPad and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
+On this page, we provide a quick walk-through to run example/l2cap-test.c on an iPhone/iPod/iPad and connect to a !WiiMote, while displaying acceleration and button reports. See below for iPhone simulator usage.
 
 = Requirements =
-  * a toolchain for the iPhone. Make sure xcode-select --print-path gives valid answer
-  * theos buid system from https://github.com/DHowett/theos . Please set THEOS to the path of your theos installation/checkout
+  * Xcode 4.4.1 installed at /Applications/Xcode-4.4.1.app
+  * Xcode 5. Make sure xcode-select --print-path points to it 
+  * rpetrich's fork of the theos buid system from https://github.com/rpetrich/theos.git . Please set THEOS to the path of your theos installation/checkout
   * the ldid code-signing tool, either on your host or on the iPhone (via Cydia). If you install it on the build system, the signing is done automatically. 
   * a subversion client
   * a jailbroken iPhone/iPod/iPad.
