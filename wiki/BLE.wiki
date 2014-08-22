@@ -55,6 +55,9 @@ Adding NOTIFY and/or INDICATE automatically create an addition Client Configurat
 
 See {{{profile.gatt}}} in the example folder and the GATT compiler {{{compile-gatt.py}}}.
 
+== Mapping of Characteristics to Handles ==
+BTstack only provides an ATT Server, while the GATT Server logic is mainly provided by the GATT compiler. While GATT identifies Characteristics by UUIDs, ATT uses Handles (16 bit values). The GATT compiler creates a list of defines in the generated *.h file, so you don't need to hard-code the attribute handles.
+
 == ATT Protocol ==
 ATT sits on top of L2CAP. For a single-mode Bluetooth 4.0 device, most of L2CAP functionality is not used. To save on ROM space, a limited version of L2CAP is provided as l2cap_le.c in the ble folder.
 
