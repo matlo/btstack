@@ -18,15 +18,42 @@ GATT profiles are defined by a simple textual comma separated value (.csv) repre
 The current format is: 
 {{{
 PRIMARY_SERVICE, {SERVICE_UUID}
-CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, [READ | WRITE | DYNAMIC], {VALUE}
-CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, [READ | WRITE | DYNAMIC], {VALUE}
+CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, {PROPERTIES}, {VALUE}
+CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, {PROPERTIES}, {VALUE}
 ...
 PRIMARY_SERVICE, {SERVICE_UUID}
-CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, [READ | WRITE | DYNAMIC], {VALUE}
+CHARACTERISTIC, {ATTRIBUTE_TYPE_UUID}, {PROPERTIES}, {VALUE}
 ...
 }}}
 
-Reads/writes to a Characteristic that is defined with the DYNAMIC flag, are forwarded to the application via callback. Other Characteristics cannot be written and return the specified constant value. See {{{profile.gatt}}} in the example folder and the GATT compiler {{{compile-gatt.py}}}.
+
+Properties can be a list of READ | WRITE | WRITE_WITHOUT_RESPONSE | NOTIFY | INDICATE | DYNAMIC
+
+Value can either be a string ("this is a string"), or, a sequence of hex bytes (e.g. 01 02 03)
+
+UUIDs are either 16 bit (1800) or 128 bit (00001234-0000-1000-8000-00805F9B34FB)
+
+Example for a [https://developer.bluetooth.org/gatt/services/Pages/ServiceViewer.aspx?u=org.bluetooth.service.device_information.xml Device Information Service]
+
+{{{
+PRIMARY_SERVICE, 180A
+CHARACTERISTIC, 2A29, READ, "Manufacturer Name String"
+CHARACTERISTIC, 2A24, READ, "Model Number"
+CHARACTERISTIC, 2A25, READ, "Serial Number"
+
+// more strings
+
+// PnP ID, see https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.pnp_id.xml
+// Vendor ID Source = 1, Vendor ID = 0x1234, Product ID = 0x5678, Product Version = 0x0001
+CHARACTERISTIC, 2A50, READ, 02 34 12 78 56 01 00
+
+}}}
+
+Reads/writes to a Characteristic that is defined with the DYNAMIC flag, are forwarded to the application via callback. Otherwise, the Characteristics cannot be written and return the specified constant value. 
+
+Adding NOTIFY and/or INDICATE automatically create an addition Client Configuration Characteristic.
+
+See {{{profile.gatt}}} in the example folder and the GATT compiler {{{compile-gatt.py}}}.
 
 == ATT Protocol ==
 ATT sits on top of L2CAP. For a single-mode Bluetooth 4.0 device, most of L2CAP functionality is not used. To save on ROM space, a limited version of L2CAP is provided as l2cap_le.c in the ble folder.
