@@ -23,8 +23,8 @@ On this page, we provide a quick walk-through to run example/l2cap-test.c on an 
     {{{./config-iphone.sh}}}
   # build libBTstack and BTdaemon
     {{{make}}}
-  # cd into the examples folder
-    {{{cd example}}}
+  # cd into the example/deamon folder
+    {{{cd example/daemon}}}
   # in example/test.c, find the line with the hard-coded value for the MAC address of the !WiiMote and enter yours. Mine has the address 00:19:1d:90:44:68
   # build examples
     {{{make}}}
