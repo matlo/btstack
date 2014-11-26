@@ -245,6 +245,7 @@ static int bnep_send_connection_response(bnep_channel_t *channel, uint16_t respo
     return err;
 }
 
+#if 0
 /* Send BNEP filter net type set message */
 static int bnep_send_filter_net_type_set(bnep_channel_t *channel, ...)
 {  
@@ -256,6 +257,7 @@ static int bnep_send_filter_net_type_set(bnep_channel_t *channel, ...)
     
     return -1;
 }
+#endif
 
 /* Send BNEP filter net type response message */
 static int bnep_send_filter_net_type_response(bnep_channel_t *channel, uint16_t response_code)
@@ -287,6 +289,7 @@ static int bnep_send_filter_net_type_response(bnep_channel_t *channel, uint16_t 
     return err;
 }
 
+#if 0
 /* Send BNEP filter multicast address set message */
 static int bnep_send_filter_multi_addr_set(bnep_channel_t *channel, ...)
 {    
@@ -298,6 +301,7 @@ static int bnep_send_filter_multi_addr_set(bnep_channel_t *channel, ...)
     
     return -1;
 }
+#endif
 
 /* Send BNEP filter multicast address response message */
 static int bnep_send_filter_multi_addr_response(bnep_channel_t *channel, uint16_t response_code)
@@ -1097,7 +1101,7 @@ static int bnep_l2cap_packet_handler(uint16_t l2cap_cid, uint8_t *packet, uint16
     uint16_t        pos = 0;
     bd_addr_t       addr_source;
     bd_addr_t       addr_dest;
-    uint16_t        network_protocol_type;
+    uint16_t        network_protocol_type = 0;
     bnep_channel_t *channel = NULL;
     
     /* Get the bnep channel for this package */
