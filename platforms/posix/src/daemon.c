@@ -1656,6 +1656,9 @@ static void handle_gatt_client_event(le_event_t * le_event){
 int main (int argc,  char * const * argv){
     
     static int tcp_flag = 0;
+#ifdef __MINGW32__
+    tcp_flag = 1;
+#endif
     
     while (1) {
         static struct option long_options[] = {

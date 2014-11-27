@@ -65,7 +65,12 @@ static int btstack_packet_handler(connection_t *connection, uint16_t packet_type
 /** local globals :) */
 static void (*client_packet_handler)(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size) = dummy_handler;
 
+
+#ifndef __MINGW32__
 static const char * daemon_tcp_address = NULL;
+#else
+static const char * daemon_tcp_address = "127.0.0.1";
+#endif
 static uint16_t     daemon_tcp_port    = BTSTACK_PORT;
 
 // optional: if called before bt_open, TCP socket is used instead of local unix socket
