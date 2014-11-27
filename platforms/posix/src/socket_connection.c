@@ -83,6 +83,10 @@ struct sockaddr_un {
 #define S_IRWXO 0
 #endif
 
+#ifdef __MINGW32__
+#define MSG_NOSIGNAL 0
+#endif
+
 #ifdef USE_LAUNCHD
 #include "../platforms/ios/3rdparty/launch.h"
 #endif
@@ -116,6 +120,23 @@ struct connection {
     uint16_t bytes_to_read;
     uint8_t  buffer[6+HCI_ACL_BUFFER_SIZE]; // packet_header(6) + max packet: 3-DH5 = header(6) + payload (1021)
 };
+
+#ifdef __MINGW32__
+void _init(void) __attribute__((constructor (101)));
+void _init(void) {
+  WSADATA wsadata;
+
+  if (WSAStartup(MAKEWORD(1,1), &wsadata) == SOCKET_ERROR) {
+    log_error("WSAStartup failed ...(%s)", strerror(errno));
+    exit(-1);
+  }
+}
+
+void _clean(void) __attribute__((destructor (101)));
+void _clean(void) {
+  WSACleanup();
+}
+#endif
 
 /** list of socket connections */
 static linked_list_t connections = NULL;
@@ -202,7 +223,11 @@ void static socket_connection_emit_nr_connections(void){
 int socket_connection_hci_process(struct data_source *ds) {
     connection_t *conn = (connection_t *) ds;
     
+#ifndef __MINGW32__
     int bytes_read = read(ds->fd, &conn->buffer[conn->bytes_read], conn->bytes_to_read);
+#else
+    int bytes_read = recv(ds->fd, (char*)&conn->buffer[conn->bytes_read], conn->bytes_to_read, 0);
+#endif
     if (bytes_read <= 0){
         // connection broken (no particular channel, no date yet)
         socket_connection_emit_connection_closed(conn);
@@ -517,14 +542,14 @@ void socket_connection_send_packet(connection_t *conn, uint16_t type, uint16_t c
     bt_store_16(header, 0, type);
     bt_store_16(header, 2, channel);
     bt_store_16(header, 4, size);
-#if defined(HAVE_SO_NOSIGPIPE) || defined (_WIN32)
+#if defined(HAVE_SO_NOSIGPIPE) || defined(__CYGWIN__)
     // BSD Variants like Darwin and iOS
     write(conn->ds.fd, header, 6);
     write(conn->ds.fd, packet, size);
 #else
-    // Linux
-    send(conn->ds.fd, header,    6, MSG_NOSIGNAL);
-    send(conn->ds.fd, packet, size, MSG_NOSIGNAL);
+    // Linux and MinGW
+    send(conn->ds.fd, (const void*)header,    6, MSG_NOSIGNAL);
+    send(conn->ds.fd, (const void*)packet, size, MSG_NOSIGNAL);
 #endif
 }
 
