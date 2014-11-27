@@ -547,7 +547,7 @@ void socket_connection_send_packet(connection_t *conn, uint16_t type, uint16_t c
     write(conn->ds.fd, header, 6);
     write(conn->ds.fd, packet, size);
 #else
-    // Linux and MinGW
+    // Linux, MinGW and Cygwin
     send(conn->ds.fd, (const void*)header,    6, MSG_NOSIGNAL);
     send(conn->ds.fd, (const void*)packet, size, MSG_NOSIGNAL);
 #endif
