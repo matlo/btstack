@@ -1,6 +1,6 @@
 BTSTACK_ROOT=../..
 CC = @CC@
-LDFLAGS  = @LDFLAGS@ -lBTstack -L../../src
+LDFLAGS  = -lBTstack -L../../src @LDFLAGS@
 CFLAGS = @CFLAGS@ -I$(BTSTACK_ROOT) -I$(BTSTACK_ROOT)/include
 prefix = @prefix@
 
