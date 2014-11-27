@@ -12,7 +12,7 @@ LIBUSB_LDFLAGS = @LIBUSB_LDFLAGS@
 
 remote_device_db_sources = @REMOTE_DEVICE_DB_SOURCES@
 run_loop_sources = @RUN_LOOP_SOURCES@
-usb_sources = @USB_SOURCES@
+transport_sources = @TRANSPORT_SOURCES@
 
 libBTstack_SOURCES =                        \
     btstack.c                               \
@@ -26,7 +26,7 @@ libBTstack_SOURCES =                        \
 			  
 BTdaemon_SOURCES =                          \
     daemon.c                                \
-    hci_transport_h4.c                      \
+    $(transport_sources)                          \
     $(libBTstack_SOURCES)                   \
     $(BTSTACK_ROOT)/src/btstack_memory.c    \
     $(BTSTACK_ROOT)/src/hci.c               \
@@ -47,7 +47,6 @@ BTdaemon_SOURCES =                          \
     $(BTSTACK_ROOT)/ble/att_server.c        \
     $(BTSTACK_ROOT)/ble/sm.c                \
     $(BTSTACK_ROOT)/ble/central_device_db_memory.c \
-    $(usb_sources)                          \
     $(remote_device_db_sources)             \
 
 # use $(CC) for Objective-C files

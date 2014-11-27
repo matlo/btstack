@@ -133,11 +133,12 @@ echo "#ifndef __BTSTACK_CONFIG"                 >> btstack-config.h
 echo "#define __BTSTACK_CONFIG"                 >> btstack-config.h
 echo                                            >> btstack-config.h
 if test "x$HCI_TRANSPORT" = xUSB; then
-    USB_SOURCES=hci_transport_h2_libusb.c
+    TRANSPORT_SOURCES=hci_transport_h2_libusb.c
     echo "#define HAVE_TRANSPORT_USB" >> btstack-config.h
     echo "#define USB_PRODUCT_ID $USB_PRODUCT_ID" >> btstack-config.h
     echo "#define USB_VENDOR_ID $USB_VENDOR_ID" >> btstack-config.h
 else
+    TRANSPORT_SOURCES=hci_transport_h4.c
     echo "#define HAVE_TRANSPORT_H4" >> btstack-config.h
     echo "#define UART_DEVICE \"$UART_DEVICE\"" >> btstack-config.h
     echo "#define UART_SPEED $UART_SPEED" >> btstack-config.h
@@ -175,7 +176,7 @@ echo "#endif" >> btstack-config.h
 
 AC_SUBST(HAVE_LIBUSB)
 AC_SUBST(REMOTE_DEVICE_DB_SOURCES)
-AC_SUBST(USB_SOURCES)
+AC_SUBST(TRANSPORT_SOURCES)
 AC_SUBST(RUN_LOOP_SOURCES)
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
