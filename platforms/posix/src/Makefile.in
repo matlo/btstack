@@ -64,7 +64,7 @@ $(BTSTACK_ROOT)/src/libBTstack.a: $(libBTstack_SOURCES:.c=.o) $(libBTstack_SOURC
 		ranlib $@
 
 $(BTSTACK_ROOT)/src/BTdaemon: $(BTdaemon_SOURCES)
-		$(CC) $(CFLAGS) -DHAVE_HCI_DUMP -o $@ $(BTdaemon_SOURCES) $(LDFLAGS) $(LIBUSB_CFLAGS) $(LIBUSB_LDFLAGS)
+		$(CC) $(CFLAGS) $(LIBUSB_CFLAGS) -o $@ $(BTdaemon_SOURCES) $(LDFLAGS) $(LIBUSB_LDFLAGS)
 
 clean:
 	rm -rf $(BTSTACK_ROOT)/src/libBTstack* $(BTSTACK_ROOT)/src/BTdaemon *.o $(BTSTACK_ROOT)/src/*.o
