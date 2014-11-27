@@ -436,7 +436,7 @@ static int usb_open(void *transport_config){
     log_info("libusb open %d, handle %p", r, handle);
 
     // Detach OS driver (not possible for OS X and WIN32)
-#if !defined(__APPLE__) && !defined(_WIN32)
+#if !defined(__APPLE__) && !defined(_WIN32) && !defined(__CYGWIN__)
     r = libusb_kernel_driver_active(handle, 0);
     if (r < 0) {
         log_error("libusb_kernel_driver_active error %d", r);

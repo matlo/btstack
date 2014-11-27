@@ -542,7 +542,7 @@ void socket_connection_send_packet(connection_t *conn, uint16_t type, uint16_t c
     bt_store_16(header, 0, type);
     bt_store_16(header, 2, channel);
     bt_store_16(header, 4, size);
-#if defined(HAVE_SO_NOSIGPIPE) || defined(__CYGWIN__)
+#if defined(HAVE_SO_NOSIGPIPE)
     // BSD Variants like Darwin and iOS
     write(conn->ds.fd, header, 6);
     write(conn->ds.fd, packet, size);
