@@ -165,6 +165,11 @@ static void posix_execute(void) {
             }
             timeout = &next_tv;
         }
+
+        if(highest_fd == -1 && timeout == NULL) {
+            log_error("No data source and no timer defined!\n");
+            break;
+        }
                 
         // wait for ready FDs
         select( highest_fd+1 , &descriptors, NULL, NULL, timeout);
