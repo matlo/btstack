@@ -69,6 +69,7 @@ void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint
 			// just dump data for now
 			printf("source cid %x -- ", channel);
 			printf_hexdump( packet, size );
+			fflush(stdout);
 			break;
 			
 		case HCI_EVENT_PACKET:
