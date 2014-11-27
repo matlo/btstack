@@ -135,7 +135,7 @@ static void posix_execute(void) {
     while (1) {
         // collect FDs
         FD_ZERO(&descriptors);
-        int highest_fd = 0;
+        int highest_fd = -1;
         linked_list_iterator_init(&it, &data_sources);
         while (linked_list_iterator_has_next(&it)){
             data_source_t *ds = (data_source_t*) linked_list_iterator_next(&it);
