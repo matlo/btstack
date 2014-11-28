@@ -608,7 +608,7 @@ static int usb_close(void *transport_config){
             libusb_release_interface(handle, 0);
 
         case LIB_USB_KERNEL_DETACHED:
-#if !defined(__APPLE__) && !defined(_WIN32)
+#if !defined(__APPLE__) && !defined(_WIN32) && !defined(__CYGWIN__)
             libusb_attach_kernel_driver (handle, 0);
 #endif
         case LIB_USB_DEVICE_OPENDED:
